@@ -1,0 +1,11 @@
+/* typo */
+
+@font-face {
+  font-family: 'Beleren';
+  src: url( '#{$pathToFonts}/beleren.eot' );
+  src: url( '#{$pathToFonts}/beleren.woff' ) format( 'woff' ),
+  url( '#{$pathToFonts}/beleren.ttf' ) format( 'truetype' ),
+  url( '#{$pathToFonts}/beleren.svg' ) format( 'svg' );
+  font-weight: normal;
+  font-style: normal;
+}

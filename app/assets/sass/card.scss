@@ -1,0 +1,229 @@
+.card {
+  background: $blackBorder;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+
+  display: inline-block;
+
+  background: url(../images/card-front.jpg);
+  background-size: contain;
+
+  span i {
+    font-size: 0.75em;
+    /*line-height: 1.0;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    */
+  }
+}
+.card--tapped {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+  transform: rotate(90deg);
+}
+.card--back {
+  background: url(../images/card-back.jpg);
+  background-size: contain;
+}
+
+.card--stacked {
+  position: absolute;
+}
+
+/* mtg cards */
+.mtg-card-stack {
+  display: inline-block;
+
+  margin-right: 5px;
+}
+
+.mtg-card {
+  background: url('#{$path-images}/card.jpeg');
+  background-size: cover;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  cursor: pointer;
+
+  position: relative;
+  /* transition tapped */
+}
+
+.mtg-card-wb {
+  background: url('#{$path-images}/card-wb.jpeg');
+  background-size: cover;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  cursor: pointer;
+
+  position: relative;
+  /* transition tapped */
+}
+.mtg-card-modern {
+  background: url('#{$path-images}/card-modern.jpeg');
+  background-size: cover;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  cursor: pointer;
+
+  position: relative;
+  /* transition tapped */
+}
+.mtg-card-land {
+  background: url('#{$path-images}/card-land.jpg');
+  background-size: cover;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  cursor: pointer;
+
+  position: relative;
+  /* transition tapped */
+}
+
+.mtg-library {
+  background: url('#{$path-images}/card-back.jpeg');
+  background-size: cover;
+
+  height: $xsCardHeight;
+  width: $xsCardWidth;
+
+  border-radius: $xsCardBorderRadius;
+
+  cursor: pointer;
+
+  position: relative;
+}
+
+/* smaller parts of the card */
+.mtg-card__name,
+.mtg-card__p-and-t,
+.mtg-card__loyalty,
+.mtg-card__cost {
+  position: absolute;
+
+  font-size: 10px;
+}
+.mtg-card__name,
+.mtg-card__p-and-t,
+.mtg-card__loyalty {
+  font-family: 'Beleren', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  line-height: 1.15;
+}
+.mtg-card__name {
+  top: 2px;
+  left: 2px;
+}
+.mtg-card__cost {
+  text-align: center;
+  width: 100%;
+  height: 20%;
+
+  margin:auto;
+
+  top: 0;
+  bottom: 0;
+  left:0;
+  right:0;
+}
+.mtg-card__p-and-t,
+.mtg-card__loyalty{
+  bottom: 2px;
+  right: 2px;
+
+  border: 1px solid #fff;
+
+  background: rgba(0, 0, 0, 0.450);
+
+  padding: 1px;
+}
+
+/* variant of cards */
+.mtg-card--back {
+  background: url('#{$path-images}/card-back.jpeg');
+  background-size: cover;
+}
+
+.mtg-card--tapped {
+  transform: rotate(90deg);
+  margin: 0 ($xsCardHeight - $xsCardWidth)/2; /* width > 64 = 90 - 64 = 26 / 2 = 13 left and right */
+  bottom: -($xsCardHeight - $xsCardWidth)/2; /* bottom -13px to bottomize the card */
+}
+
+.mtg-card--stacked {
+  margin-left: -($xsCardWidth - 20); /* show 20px 64 - 20 = 44 */
+  float: left;
+}
+
+.mtg-card--stacked:first-child {
+  margin-left: 0;
+}
+
+.mtg-card--stacked:after {
+  clear: both;
+}
+
+/* cards pile */
+.mtg-pile {
+  box-shadow:
+          1px 1px   0 rgba(255, 255, 255, 0.450),
+
+          2px 2px   0 rgba(0,   0,   0,   1.0),
+          3px 3px   0 rgba(255, 255, 255, 0.450),
+
+          4px 4px   0 rgba(0,   0,   0,   1.0),
+          5px 5px   0 rgba(255, 255, 255, 0.450),
+
+          6px 6px   0 rgba(0,   0,   0,   1.0),
+          7px 7px   0 rgba(255, 255, 255, 0.450),
+
+          8px 8px   0 rgba(0,   0,   0,   1.0),
+          9px 9px   0 rgba(255, 255, 255, 0.450);
+
+  margin-right: 9px;
+}
+
+.mtg-pile--half {
+  box-shadow:
+          1px 1px   0 rgba(255, 255, 255, 0.450),
+
+          2px 2px   0 rgba(0,   0,   0,   1.0),
+          3px 3px   0 rgba(255, 255, 255, 0.450),
+
+          4px 4px   0 rgba(0,   0,   0,   1.0),
+          5px 5px   0 rgba(255, 255, 255, 0.450);
+
+  margin-right: 5px;
+}
+
+.mtg-pile--third {
+  box-shadow:
+          1px 1px   0 rgba(255, 255, 255, 0.450),
+
+          2px 2px   0 rgba(0,   0,   0,   1.0),
+          3px 3px   0 rgba(255, 255, 255, 0.450);
+
+  margin-right: 3px;
+}

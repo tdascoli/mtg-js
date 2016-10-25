@@ -1,0 +1,154 @@
+//* game area */
+.avatar {
+  background: url(../images/avatar/juri.png);
+  background-size: contain;
+}
+
+.game-area {
+  background-color: $ga-bg-color-playground;
+  height: calc(100% - #{$game-action-height});
+
+  > div {
+    height: calc(50% + (#{$game-player-hand}/2));
+    border-bottom: 2px solid $ga-border-color-playground;
+  }
+
+  > div:first-child {
+    height: calc(50% - (#{$game-player-hand}/2));
+  }
+
+  .statusbar {
+    height: $game-action-height;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    > div {
+      height: 100%;
+    }
+
+    .avatar {
+      flex-basis: $game-action-height;
+    }
+
+    .toolbar {
+      flex-basis: auto;
+      flex-grow: 1;
+    }
+  }
+
+  .player-hand {
+    height: $game-player-hand;
+    background-color: $ga-bg-color-player-bar;
+    border-top: 1px solid $ga-border-color-bar;
+    padding-bottom: 2px;
+  }
+
+  .playground {
+    height: calc(100% - #{$game-action-height});
+  }
+
+  .my-game-area .playground {
+    height: calc(100% - (#{$game-action-height} + #{$game-player-hand}));
+  }
+}
+
+.op-life,
+.my-life {
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+}
+.op-life {
+  position: relative;
+  top: -10px;
+}
+.my-life {
+  position: relative;
+  bottom: -30px;
+}
+
+.my-game-area .avatar {
+  border-top: 1px solid $ga-border-color-bar;
+}
+
+.op-game-area .playground {
+  border-top: 1px solid $ga-border-color-bar;
+}
+
+.phase-bar {
+  line-height: $phase-bar-height;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    li {
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      background-color: $ga-bg-color-phase;
+      list-style: none;
+      border-right: 1px solid $ga-bg-color-bar;
+      text-transform: uppercase;
+    }
+
+    li.current {
+      background-color: $ga-bg-color-phase-current;
+    }
+
+    li.disabled {
+      background-color: $ga-bg-color-phase-disabled;
+    }
+
+    li:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.info-bar {
+  background-color: $ga-bg-color-bar;
+  height: ($game-action-height - $phase-bar-height);
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    li {
+      height: ($game-action-height - $phase-bar-height);
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      list-style: none;
+      text-transform: uppercase;
+      border-top: 1px solid $ga-border-color-bar;
+      padding-top: 10px;
+    }
+
+    li.current {
+      background-color: $ga-bg-color-player-bar;
+      border-right: 1px solid $ga-border-color-bar;
+      border-left: 1px solid $ga-border-color-bar;
+      border-bottom: 1px solid $ga-border-color-bar;
+      border-top-color: $ga-bg-color-player-bar;
+    }
+  }
+}
+
+.game-action {
+  height: $game-action-height;
+}

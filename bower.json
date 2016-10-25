@@ -1,0 +1,36 @@
+{
+  "name": "mtg-app",
+  "version": "0.0.1",
+  "ignore": [
+    ".idea",
+    "app/bower_components",
+    "node_modules",
+    "src",
+    "test",
+    ".bowerrc",
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    ".csslintrc",
+    ".htmlhintrc",
+    "mtg-app.iml",
+    "bower.json",
+    "Gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "jquery": "latest",
+    "lodash": "latest",
+    "mana": "latest",
+    "keyrune": "latest",
+    "bootstrap": "latest",
+    "bootstrap-drawer": "latest",
+    "detect-mobile-browser": "0.0.1",
+    "moment": "latest",
+    "flexboxgrid":"latest"
+  },
+  "resolutions": {
+    "jquery": "3.1.1"
+  }
+}

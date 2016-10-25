@@ -1,0 +1,29 @@
+{
+  "name": "detect-mobile-browser",
+  "version": "0.0.1",
+  "authors": [
+    "vrebierr <vrebierr@student.42.fr>"
+  ],
+  "main": [
+    "detectmobilebrowser.js"
+  ],
+  "dependencies": {
+    "jquery": "1.11.*"
+  },
+  "keywords": [
+    "detect",
+    "mobile",
+    "browser",
+    "jquery"
+  ],
+  "homepage": "https://github.com/vrebierr/detect-mobile-browser",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "1361c574727fdeed0c4bd8af1e6b5cb2dba7e477"
+  },
+  "_source": "https://github.com/vrebierr/detect-mobile-browser.git",
+  "_target": "0.0.1",
+  "_originalSource": "detect-mobile-browser"
+}

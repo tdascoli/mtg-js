@@ -1,0 +1,538 @@
+/* vars.cards */
+/* vars.background */
+/* vars.colors */
+/* typo */
+@font-face {
+  font-family: 'Beleren';
+  src: url("../fonts/beleren.eot");
+  src: url("../fonts/beleren.woff") format("woff"), url("../fonts/beleren.ttf") format("truetype"), url("../fonts/beleren.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+/* -----------------------------------------------------------------------------
+
+  HAMBURGER ICONS COMPONENT
+  @todo color!
+----------------------------------------------------------------------------- */
+/**
+ * Toggle Switch Globals
+ *
+ * All switches should take on the class `c-hamburger` as well as their
+ * variant that will give them unique properties. This class is an overview
+ * class that acts as a reset for all versions of the icon.
+ */
+.c-hamburger {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  font-size: 0;
+  text-indent: -9999px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s; }
+
+.c-hamburger:focus {
+  outline: none; }
+
+.c-hamburger span {
+  display: block;
+  position: absolute;
+  top: 22px;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: white; }
+
+.c-hamburger span::before,
+.c-hamburger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  content: ""; }
+
+.c-hamburger span::before {
+  top: -10px; }
+
+.c-hamburger span::after {
+  bottom: -10px; }
+
+/**
+ * Style 1
+ *
+ * Rotating hamburger icon (rot), that simply rotates 90 degrees when activated.
+ * Nothing too fancy, simple transition.
+ */
+.c-hamburger--rot {
+  background-color: rgba(40, 170, 220, 0.7); }
+
+.c-hamburger--rot span {
+  transition: transform 0.3s; }
+
+/* active state, i.e. menu open */
+.drawer.open .c-hamburger--rot,
+.c-hamburger--rot.is-active {
+  background-color: #28aadc; }
+
+.drawer.open .c-hamburger--rot span,
+.c-hamburger--rot.is-active span {
+  transform: rotate(90deg); }
+
+/**
+ * Style 2
+ * 
+ * Hamburger to "x" (htx). Takes on a hamburger shape, bars slide
+ * down to center and transform into an "x".
+ */
+.c-hamburger--htx {
+  background-color: rgba(40, 170, 220, 0.7); }
+
+.c-hamburger--htx span {
+  transition: background 0s 0.3s; }
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+  transition-duration: 0.3s, 0.3s;
+  transition-delay: 0.3s, 0s; }
+
+.c-hamburger--htx span::before {
+  transition-property: top, transform; }
+
+.c-hamburger--htx span::after {
+  transition-property: bottom, transform; }
+
+/* active state, i.e. menu open */
+.drawer.open .c-hamburger--htx,
+.c-hamburger--htx.is-active {
+  background-color: #28aadc; }
+
+.drawer.open .c-hamburger--htx span,
+.c-hamburger--htx.is-active span {
+  background: none; }
+
+.drawer.open .c-hamburger--htx span::before,
+.c-hamburger--htx.is-active span::before {
+  top: 0;
+  transform: rotate(45deg); }
+
+.drawer.open .c-hamburger--htx span::after,
+.c-hamburger--htx.is-active span::after {
+  bottom: 0;
+  transform: rotate(-45deg); }
+
+.drawer.open .c-hamburger--htx span::before,
+.drawer.open .c-hamburger--htx span::after,
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+  transition-delay: 0s, 0.3s; }
+
+/**
+ * Style 3
+ *
+ * Hamburger to left-arrow (htla). Hamburger menu transforms to a left-pointing
+ * arrow. Usually indicates an off canvas menu sliding in from left that
+ * will be close on re-click of the icon.
+ */
+.c-hamburger--htla {
+  background-color: rgba(40, 170, 220, 0.7); }
+
+.c-hamburger--htla span {
+  transition: transform 0.3s; }
+
+.c-hamburger--htla span::before {
+  transform-origin: top right;
+  transition: transform 0.3s, width 0.3s, top 0.3s; }
+
+.c-hamburger--htla span::after {
+  transform-origin: bottom right;
+  transition: transform 0.3s, width 0.3s, bottom 0.3s; }
+
+/* active state, i.e. menu open */
+.drawer.open .c-hamburger--htla,
+.c-hamburger--htla.is-active {
+  background-color: #28aadc; }
+
+.drawer.open .c-hamburger--htla span,
+.c-hamburger--htla.is-active span {
+  transform: rotate(180deg); }
+
+.drawer.open .c-hamburger--htla span::before,
+.drawer.open .c-hamburger--htla span::after,
+.c-hamburger--htla.is-active span::before,
+.c-hamburger--htla.is-active span::after {
+  width: 50%; }
+
+.drawer.open .c-hamburger--htla span::before,
+.c-hamburger--htla.is-active span::before {
+  top: 0;
+  transform: translateX(20px) translateY(2px) rotate(45deg); }
+
+.drawer.open .c-hamburger--htla span::after,
+.c-hamburger--htla.is-active span::after {
+  bottom: 0;
+  transform: translateX(20px) translateY(-2px) rotate(-45deg); }
+
+/**
+ * Style 4
+ *
+ * Hamburger to right-arrow (htra). Hamburger menu transforms to a
+ * right-pointing arrow. Usually indicates an off canvas menu sliding in from 
+ * right that will be close on re-click of the icon.
+ */
+.c-hamburger--htra {
+  background-color: rgba(40, 170, 220, 0.7); }
+
+.c-hamburger--htra span {
+  transition: transform 0.3s; }
+
+.c-hamburger--htra span::before {
+  transform-origin: top left;
+  transition: transform 0.3s, width 0.3s, top 0.3s; }
+
+.c-hamburger--htra span::after {
+  transform-origin: bottom left;
+  transition: transform 0.3s, width 0.3s, bottom 0.3s; }
+
+/* active state, i.e. menu open */
+.drawer.open .c-hamburger--htra,
+.c-hamburger--htra.is-active {
+  background-color: #28aadc; }
+
+.drawer.open .c-hamburger--htra span,
+.c-hamburger--htra.is-active span {
+  transform: rotate(180deg); }
+
+.drawer.open .c-hamburger--htra span::before,
+.drawer.open .c-hamburger--htra span::after,
+.c-hamburger--htra.is-active span::before,
+.c-hamburger--htra.is-active span::after {
+  width: 50%; }
+
+.drawer.open .c-hamburger--htra span::before,
+.c-hamburger--htra.is-active span::before {
+  top: 0;
+  transform: translateX(-4px) translateY(2px) rotate(-45deg); }
+
+.drawer.open .c-hamburger--htra span::after,
+.c-hamburger--htra.is-active span::after {
+  bottom: 0;
+  transform: translateX(-4px) translateY(-2px) rotate(45deg); }
+
+/* main */
+.container-full {
+  padding-left: 0;
+  padding-right: 0;
+  height: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Beleren", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+/* drawer/hamburger */
+.drawer-controls {
+  width: 48px;
+  padding-top: 75px;
+  padding-left: 0; }
+
+.drawer-right .drawer-controls {
+  margin-left: -48px; }
+
+/* additionals controls */
+.navigation-control {
+  background-color: rgba(40, 170, 220, 0.7);
+  color: white;
+  height: 48px;
+  width: 48px;
+  display: block;
+  margin-top: 10px;
+  position: absolute; }
+  .navigation-control .material-icons {
+    padding: 8px;
+    font-size: 32px; }
+  .navigation-control .badge {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    background: #ff3b30;
+    visibility: hidden; }
+
+.badge.show-badge {
+  visibility: visible; }
+
+.avatar {
+  background: url(../images/avatar/juri.png);
+  background-size: contain; }
+
+.game-area {
+  background-color: silver;
+  height: calc(100% - 65px); }
+  .game-area > div {
+    height: calc(50% + (90px/2));
+    border-bottom: 2px solid darkgrey; }
+  .game-area > div:first-child {
+    height: calc(50% - (90px/2)); }
+  .game-area .statusbar {
+    height: 65px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; }
+    .game-area .statusbar > div {
+      height: 100%; }
+    .game-area .statusbar .avatar {
+      flex-basis: 65px; }
+    .game-area .statusbar .toolbar {
+      flex-basis: auto;
+      flex-grow: 1; }
+  .game-area .player-hand {
+    height: 90px;
+    background-color: lightsteelblue;
+    border-top: 1px solid white;
+    padding-bottom: 2px; }
+  .game-area .playground {
+    height: calc(100% - 65px); }
+  .game-area .my-game-area .playground {
+    height: calc(100% - (65px + 90px)); }
+
+.op-life,
+.my-life {
+  color: white;
+  font-weight: 700;
+  font-size: 24px; }
+
+.op-life {
+  position: relative;
+  top: -10px; }
+
+.my-life {
+  position: relative;
+  bottom: -30px; }
+
+.my-game-area .avatar {
+  border-top: 1px solid white; }
+
+.op-game-area .playground {
+  border-top: 1px solid white; }
+
+.phase-bar {
+  line-height: 25px; }
+  .phase-bar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+    .phase-bar ul li {
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      background-color: green;
+      list-style: none;
+      border-right: 1px solid darkgrey;
+      text-transform: uppercase; }
+    .phase-bar ul li.current {
+      background-color: lightgreen; }
+    .phase-bar ul li.disabled {
+      background-color: red; }
+    .phase-bar ul li:last-child {
+      border-right: none; }
+
+.info-bar {
+  background-color: darkgrey;
+  height: 40px; }
+  .info-bar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between; }
+    .info-bar ul li {
+      height: 40px;
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      list-style: none;
+      text-transform: uppercase;
+      border-top: 1px solid white;
+      padding-top: 10px; }
+    .info-bar ul li.current {
+      background-color: lightsteelblue;
+      border-right: 1px solid white;
+      border-left: 1px solid white;
+      border-bottom: 1px solid white;
+      border-top-color: lightsteelblue; }
+
+.game-action {
+  height: 65px; }
+
+.card {
+  background: #000;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  background: url(../images/card-front.jpg);
+  background-size: contain; }
+  .card span i {
+    font-size: 0.75em;
+    /*line-height: 1.0;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    */ }
+
+.card--tapped {
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(90deg); }
+
+.card--back {
+  background: url(../images/card-back.jpg);
+  background-size: contain; }
+
+.card--stacked {
+  position: absolute; }
+
+/* mtg cards */
+.mtg-card-stack {
+  display: inline-block;
+  margin-right: 5px; }
+
+.mtg-card {
+  background: url("../images/card.jpeg");
+  background-size: cover;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  cursor: pointer;
+  position: relative;
+  /* transition tapped */ }
+
+.mtg-card-wb {
+  background: url("../images/card-wb.jpeg");
+  background-size: cover;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  cursor: pointer;
+  position: relative;
+  /* transition tapped */ }
+
+.mtg-card-modern {
+  background: url("../images/card-modern.jpeg");
+  background-size: cover;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  cursor: pointer;
+  position: relative;
+  /* transition tapped */ }
+
+.mtg-card-land {
+  background: url("../images/card-land.jpg");
+  background-size: cover;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  cursor: pointer;
+  position: relative;
+  /* transition tapped */ }
+
+.mtg-library {
+  background: url("../images/card-back.jpeg");
+  background-size: cover;
+  height: 90px;
+  width: 64px;
+  border-radius: 2.5px;
+  cursor: pointer;
+  position: relative; }
+
+/* smaller parts of the card */
+.mtg-card__name,
+.mtg-card__p-and-t,
+.mtg-card__loyalty,
+.mtg-card__cost {
+  position: absolute;
+  font-size: 10px; }
+
+.mtg-card__name,
+.mtg-card__p-and-t,
+.mtg-card__loyalty {
+  font-family: 'Beleren', -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  line-height: 1.15; }
+
+.mtg-card__name {
+  top: 2px;
+  left: 2px; }
+
+.mtg-card__cost {
+  text-align: center;
+  width: 100%;
+  height: 20%;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
+.mtg-card__p-and-t,
+.mtg-card__loyalty {
+  bottom: 2px;
+  right: 2px;
+  border: 1px solid #fff;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 1px; }
+
+/* variant of cards */
+.mtg-card--back {
+  background: url("../images/card-back.jpeg");
+  background-size: cover; }
+
+.mtg-card--tapped {
+  transform: rotate(90deg);
+  margin: 0 13px;
+  /* width > 64 = 90 - 64 = 26 / 2 = 13 left and right */
+  bottom: -13px;
+  /* bottom -13px to bottomize the card */ }
+
+.mtg-card--stacked {
+  margin-left: -44px;
+  /* show 20px 64 - 20 = 44 */
+  float: left; }
+
+.mtg-card--stacked:first-child {
+  margin-left: 0; }
+
+.mtg-card--stacked:after {
+  clear: both; }
+
+/* cards pile */
+.mtg-pile {
+  box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45), 4px 4px 0 black, 5px 5px 0 rgba(255, 255, 255, 0.45), 6px 6px 0 black, 7px 7px 0 rgba(255, 255, 255, 0.45), 8px 8px 0 black, 9px 9px 0 rgba(255, 255, 255, 0.45);
+  margin-right: 9px; }
+
+.mtg-pile--half {
+  box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45), 4px 4px 0 black, 5px 5px 0 rgba(255, 255, 255, 0.45);
+  margin-right: 5px; }
+
+.mtg-pile--third {
+  box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45);
+  margin-right: 3px; }
+
+/*# sourceMappingURL=mtg-app.css.map */

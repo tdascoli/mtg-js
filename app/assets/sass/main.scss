@@ -1,0 +1,48 @@
+/* main */
+
+.container-full {
+  padding-left: 0;
+  padding-right: 0;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Beleren', $font-family--primary;
+}
+
+/* drawer/hamburger */
+.drawer-controls {
+  width: $hamburger-button-width;
+  padding-top: $game-action-height+10;
+  padding-left: 0;
+}
+.drawer-right .drawer-controls {
+  margin-left: -($hamburger-button-width);
+}
+
+/* additionals controls */
+.navigation-control {
+  background-color: $hamburger-rgba;
+  color: white;
+  height: $hamburger-button-height;
+  width: $hamburger-button-width;
+  display: block;
+  margin-top: $hamburger-drawer-padding;
+  position: absolute;
+
+  .material-icons {
+    padding: $hamburger-button-pad;
+    font-size: $hamburger-md-size;
+  }
+
+  .badge {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    background: #ff3b30;
+    visibility: hidden;
+  }
+}
+.badge.show-badge {
+  visibility: visible;
+}
