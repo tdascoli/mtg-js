@@ -296,7 +296,8 @@ h1, h2, h3, h4, h5, h6 {
     height: 90px;
     background-color: lightsteelblue;
     border-top: 1px solid white;
-    padding-bottom: 2px; }
+    padding-bottom: 2px;
+    overflow-y: hidden; }
   .game-area .playground {
     height: calc(100% - 65px); }
   .game-area .my-game-area .playground {
@@ -376,6 +377,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .game-action {
   height: 65px; }
+
+/* mtg */
+.mtg-hand {
+  width: 1000px; }
 
 .card {
   background: #000;
@@ -515,6 +520,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: -44px;
   /* show 20px 64 - 20 = 44 */
   float: left; }
+
+.mtg-card--hand {
+  float: left;
+  margin-right: 5px; }
 
 .mtg-card--stacked:first-child {
   margin-left: 0; }

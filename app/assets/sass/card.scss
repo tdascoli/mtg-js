@@ -177,6 +177,12 @@
   float: left;
 }
 
+.mtg-card--hand {
+  float: left;
+
+  margin-right: 5px;
+}
+
 .mtg-card--stacked:first-child {
   margin-left: 0;
 }

@@ -43,6 +43,8 @@
     background-color: $ga-bg-color-player-bar;
     border-top: 1px solid $ga-border-color-bar;
     padding-bottom: 2px;
+
+    overflow-y: hidden;
   }
 
   .playground {
@@ -151,4 +153,10 @@
 
 .game-action {
   height: $game-action-height;
+}
+
+
+/* mtg */
+.mtg-hand {
+  width: 1000px;
 }

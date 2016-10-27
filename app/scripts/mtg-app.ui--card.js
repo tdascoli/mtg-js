@@ -1,7 +1,9 @@
 $( document ).ready(function() {
-    var cardStacked=10;
-    
-    $('.card--stacked').each(function(i,object){
-        $(object).css('transform','translate('+(cardStacked*i)+'px,0)');
+
+    $('.playground .mtg-card').click(function(){
+        if (!$(this).hasClass('mtg-card--no-tap')) {
+            $(this).toggleClass('mtg-card--tapped');
+        }
     });
+
 });
