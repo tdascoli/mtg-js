@@ -9,3 +9,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Magic Cards Normal';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Magic Cards Normal'), url('#{$pathToFonts}/MagicCardsNormal.woff') format('woff');
+}

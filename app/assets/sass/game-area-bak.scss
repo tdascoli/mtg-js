@@ -7,59 +7,53 @@
 .game-area {
   background-color: $ga-bg-color-playground;
   height: calc(100% - #{$game-action-height});
-}
-
-.game-area__statusbar {
-  height: $game-action-height;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
 
   > div {
-    height: 100%;
+    height: calc(50% + (#{$game-player-hand}/2));
+    border-bottom: 2px solid $ga-border-color-playground;
   }
 
-  .avatar {
-    flex-basis: $game-action-height;
+  > div:first-child {
+    height: calc(50% - (#{$game-player-hand}/2));
   }
 
-  .toolbar {
-    flex-basis: auto;
-    flex-grow: 1;
+  .statusbar {
+    height: $game-action-height;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    > div {
+      height: 100%;
+    }
+
+    .avatar {
+      flex-basis: $game-action-height;
+    }
+
+    .toolbar {
+      flex-basis: auto;
+      flex-grow: 1;
+    }
   }
-}
 
-.game-area__playground {
-  height: calc(100% - (#{$game-action-height}*2));
-}
+  .player-hand {
+    height: $game-player-hand;
+    background-color: $ga-bg-color-player-bar;
+    border-top: 1px solid $ga-border-color-bar;
+    padding-bottom: 2px;
 
-.playground__opponent,
-.playground__player {
-  height: (100% / 5 * 2);
+    overflow-y: hidden;
+  }
 
-  overflow-y: hidden;
-}
+  .playground {
+    height: calc(100% - #{$game-action-height});
+  }
 
-.playground__player {
-  border-top: 2px solid $ga-border-color-playground;
-
-  //width: 1000px;
-}
-
-.playground__hand {
-  height: (100% / 5 * 1);
-  background-color: $ga-bg-color-player-bar;
-  border-top: 1px solid $ga-border-color-bar;
-
-  overflow-y: hidden;
-}
-
-.playground--creatures,
-.playground--permanents,
-.playground--lands {
-  height: 50%;
-  float: left;
+  .my-game-area .playground {
+    height: calc(100% - (#{$game-action-height} + #{$game-player-hand}));
+  }
 }
 
 .op-life,
@@ -75,6 +69,14 @@
 .my-life {
   position: relative;
   bottom: -30px;
+}
+
+.my-game-area .avatar {
+  border-top: 1px solid $ga-border-color-bar;
+}
+
+.op-game-area .playground {
+  border-top: 1px solid $ga-border-color-bar;
 }
 
 .phase-bar {
@@ -135,11 +137,16 @@
       text-align: center;
       list-style: none;
       text-transform: uppercase;
+      border-top: 1px solid $ga-border-color-bar;
       padding-top: 10px;
     }
 
     li.current {
       background-color: $ga-bg-color-player-bar;
+      border-right: 1px solid $ga-border-color-bar;
+      border-left: 1px solid $ga-border-color-bar;
+      border-bottom: 1px solid $ga-border-color-bar;
+      border-top-color: $ga-bg-color-player-bar;
     }
   }
 }

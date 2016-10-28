@@ -17,7 +17,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- firebase -->
+    <!-- firebase --
     <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -30,6 +30,7 @@
         };
         firebase.initializeApp(config);
     </script>
+    <!-- end firebase -->
 
     <!-- tools -->
     <script src="scripts/mtg-app.ui--card.js"></script>
@@ -86,273 +87,222 @@
 
     <div class="game-area">
 
-        <div class="op-game-area">
+        <div class="game-area__statusbar">
 
-            <div class="statusbar">
-
-                <div class="avatar">
-                    <span class="op-life">20</span>
-                </div>
-
-                <div class="toolbar">
-                    <div class="phase-bar">
-                        <ul>
-                            <li class="disabled">up</li>
-                            <li>dr</li>
-                            <li class="current">m1</li>
-                            <li class="disabled">bc</li>
-                            <li class="disabled">da</li>
-                            <li>db</li>
-                            <li class="disabled">fs</li>
-                            <li class="disabled">cd</li>
-                            <li class="disabled">ec</li>
-                            <li>m2</li>
-                            <li class="disabled">et</li>
-                            <li class="disabled">cl</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-bar">
-                        20
-
-                    </div>
-                </div>
+            <div class="avatar">
+                <span class="op-life">20</span>
             </div>
 
-            <div class="playground">
+            <div class="toolbar">
+                <div class="phase-bar">
+                    <ul>
+                        <li class="disabled">up</li>
+                        <li>dr</li>
+                        <li class="current">m1</li>
+                        <li class="disabled">bc</li>
+                        <li class="disabled">da</li>
+                        <li>db</li>
+                        <li class="disabled">fs</li>
+                        <li class="disabled">cd</li>
+                        <li class="disabled">ec</li>
+                        <li>m2</li>
+                        <li class="disabled">et</li>
+                        <li class="disabled">cl</li>
+                    </ul>
+                </div>
+
+                <div class="info-bar">
+                    <ul>
+                        <li>h 7</li>
+                        <li>g 0</li>
+                        <li>e 0</li>
+                        <li>l 53</li>
+                        <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.5em;"></i> 0</li>
+                        <li>...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-area__playground">
+
+            <div class="playground__opponent">
                 op playground
             </div>
 
-        </div>
+            <div class="playground__player">
+                <div class="playground--creatures">
 
-        <div class="my-game-area">
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card">
+                            <img src="assets/images/card-wb.jpeg" />
+                            <span class="mtg-card__name">Serra Angel</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">4/4</span>
+                        </div>
+                    </div>
 
-            <div class="playground">
-                <div class="mtg-card-stack">
-                    <div class="mtg-card">
-                        <span class="mtg-card__name">Name</span>
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card mtg-card--stacked">
+                            <img src="assets/images/card.jpeg" />
+                        </div>
+                        <div class="mtg-card mtg-card--stacked">
+                            <img src="assets/images/card.jpeg" />
+                        </div>
+                    </div>
 
-                        <span class="mtg-card__p-and-t">P/T</span>
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card mtg-card--tapped">
+                            <img src="assets/images/card.jpeg" />
+                            <span class="mtg-card__name">Juzám Djinn</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">5/5</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card-wb">
-                        <span class="mtg-card__name">Serra Angel</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-w ms-cost ms-shadow"></i>
-                        <i class="ms ms-w ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">4/4</span>
+                <div class="playground--permanents">
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card mtg-card--no-tap mtg-card--back">
+                            <img src="assets/images/card-back.jpeg" />
+                        </div>
                     </div>
                 </div>
+                <div class="playground--lands">
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card mtg-card--stacked">
+                            <img src="assets/images/card-land.jpg" />
 
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card--stacked"></div>
-                    <div class="mtg-card mtg-card--stacked"></div>
-                </div>
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+                        <div class="mtg-card mtg-card--stacked">
+                            <img src="assets/images/card-land.jpg" />
 
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+                        <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                            <img src="assets/images/card-land.jpg" />
 
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card--tapped">
-                        <span class="mtg-card__name">Juzám Djinn</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-b ms-cost ms-shadow"></i>
-                        <i class="ms ms-b ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">5/5</span>
+                            <span class="mtg-card__name">Island</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card-modern">
-                        <span class="mtg-card__name">Howlpack Wolf</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-r ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">3/3</span>
-                    </div>
-                </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card-land mtg-card--stacked">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                    <div class="mtg-card mtg-card-land mtg-card--stacked">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                    <div class="mtg-card mtg-card-land mtg-card--tapped mtg-card--stacked">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card mtg-card--no-tap mtg-card--back"></div>
-                </div>
-
             </div>
 
-            <div class="player-hand">
+            <div class="playground__hand">
 
-                <div class="mtg-hand mtg-card-stack">
-                    <div class="mtg-card mtg-card--hand">
-                        <span class="mtg-card__name">Name</span>
+                    <div class="mtg-hand mtg-card-stack">
+                        <div class="mtg-card mtg-card--hand">
+                            <img src="assets/images/card.jpeg" />
 
-                        <span class="mtg-card__p-and-t">P/T</span>
+                            <span class="mtg-card__name">Name</span>
+
+                            <span class="mtg-card__p-and-t">P/T</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand">
+                            <img src="assets/images/card-wb.jpeg" />
+
+                            <span class="mtg-card__name">Serra Angel</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">4/4</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand">
+                            <img src="assets/images/card.jpeg" />
+
+                            <span class="mtg-card__name">Juzám Djinn</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">5/5</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand">
+                            <img src="assets/images/card-modern.jpeg" />
+
+                            <span class="mtg-card__name">Howlpack Wolf</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-r ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">3/3</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                            <img src="assets/images/card-land.jpg" />
+
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                            <img src="assets/images/card-land.jpg" />
+
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                            <img src="assets/images/card-land.jpg" />
+
+                            <span class="mtg-card__name">Island</span>
+                        </div>
                     </div>
 
-                    <div class="mtg-card-wb mtg-card--hand">
-                        <span class="mtg-card__name">Serra Angel</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-w ms-cost ms-shadow"></i>
-                        <i class="ms ms-w ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">4/4</span>
-                    </div>
-
-                    <div class="mtg-card mtg-card--hand">
-                        <span class="mtg-card__name">Juzám Djinn</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-b ms-cost ms-shadow"></i>
-                        <i class="ms ms-b ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">5/5</span>
-                    </div>
-
-                    <div class="mtg-card-modern mtg-card--hand">
-                        <span class="mtg-card__name">Howlpack Wolf</span>
-                        <span class="mtg-card__cost">
-                        <i class="ms ms-2 ms-cost ms-shadow"></i>
-                        <i class="ms ms-r ms-cost ms-shadow"></i>
-                    </span>
-                        <span class="mtg-card__p-and-t">3/3</span>
-                    </div>
-
-                    <div class="mtg-card-land mtg-card--hand">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-
-                    <div class="mtg-card-land mtg-card--hand">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-
-                    <div class="mtg-card-land mtg-card--hand">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <!--
-
-            <div class="player-hand">
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card">
-                        <span class="mtg-card__name">Name</span>
-
-                        <span class="mtg-card__p-and-t">P/T</span>
-                    </div>
-                </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card-wb">
-                        <span class="mtg-card__name">Serra Angel</span>
-                <span class="mtg-card__cost">
-                    <i class="ms ms-2 ms-cost ms-shadow"></i>
-                    <i class="ms ms-w ms-cost ms-shadow"></i>
-                    <i class="ms ms-w ms-cost ms-shadow"></i>
-                </span>
-                        <span class="mtg-card__p-and-t">4/4</span>
-                    </div>
-                </div>
-
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card">
-                        <span class="mtg-card__name">Juzám Djinn</span>
-                <span class="mtg-card__cost">
-                    <i class="ms ms-2 ms-cost ms-shadow"></i>
-                    <i class="ms ms-b ms-cost ms-shadow"></i>
-                    <i class="ms ms-b ms-cost ms-shadow"></i>
-                </span>
-                        <span class="mtg-card__p-and-t">5/5</span>
-                    </div>
-                </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card-modern">
-                        <span class="mtg-card__name">Howlpack Wolf</span>
-                <span class="mtg-card__cost">
-                    <i class="ms ms-2 ms-cost ms-shadow"></i>
-                    <i class="ms ms-r ms-cost ms-shadow"></i>
-                </span>
-                        <span class="mtg-card__p-and-t">3/3</span>
-                    </div>
-                </div>
-
-                <div class="mtg-card-stack">
-                    <div class="mtg-card-land">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                </div>
-                <div class="mtg-card-stack">
-                    <div class="mtg-card-land">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                </div>
-                <div class="mtg-card-stack">
-                    <div class="mtg-card-land">
-                        <span class="mtg-card__name">Island</span>
-                    </div>
-                </div>
-
-            </div>
-            -->
-
-            <div class="statusbar">
-
-                <div class="avatar">
-                    <span class="my-life">20</span>
-                </div>
-
-                <div class="toolbar">
-                    <div class="info-bar">
-                        <ul>
-                            <li class="current">h 7</li>
-                            <li>g 0</li>
-                            <li>e 0</li>
-                            <li>l 53</li>
-                            <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.5em;"></i> 0</li>
-                            <li>...</li>
-                        </ul>
-                    </div>
-
-                    <div class="phase-bar">
-                        <ul>
-                            <li class="disabled">up</li>
-                            <li>dr</li>
-                            <li class="current">m1</li>
-                            <li class="disabled">bc</li>
-                            <li class="disabled">da</li>
-                            <li>db</li>
-                            <li class="disabled">fs</li>
-                            <li class="disabled">cd</li>
-                            <li class="disabled">ec</li>
-                            <li>m2</li>
-                            <li class="disabled">et</li>
-                            <li class="disabled">cl</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 
         </div>
+
+
+        <div class="game-area__statusbar">
+
+            <div class="avatar">
+                <span class="my-life">20</span>
+            </div>
+
+            <div class="toolbar">
+                <div class="info-bar">
+                    <ul>
+                        <li class="current">h 7</li>
+                        <li>g 0</li>
+                        <li>e 0</li>
+                        <li>l 53</li>
+                        <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.5em;"></i> 0</li>
+                        <li>...</li>
+                    </ul>
+                </div>
+
+                <div class="phase-bar">
+                    <ul>
+                        <li class="disabled">up</li>
+                        <li>dr</li>
+                        <li class="current">m1</li>
+                        <li class="disabled">bc</li>
+                        <li class="disabled">da</li>
+                        <li>db</li>
+                        <li class="disabled">fs</li>
+                        <li class="disabled">cd</li>
+                        <li class="disabled">ec</li>
+                        <li>m2</li>
+                        <li class="disabled">et</li>
+                        <li class="disabled">cl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="game-action">

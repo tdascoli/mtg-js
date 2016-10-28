@@ -8,6 +8,11 @@
   src: url("../fonts/beleren.woff") format("woff"), url("../fonts/beleren.ttf") format("truetype"), url("../fonts/beleren.svg") format("svg");
   font-weight: normal;
   font-style: normal; }
+@font-face {
+  font-family: 'Magic Cards Normal';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Magic Cards Normal"), url("../fonts/MagicCardsNormal.woff") format("woff"); }
 /* -----------------------------------------------------------------------------
 
   HAMBURGER ICONS COMPONENT
@@ -229,6 +234,9 @@
   transform: translateX(-4px) translateY(-2px) rotate(45deg); }
 
 /* main */
+html, body {
+  height: 100%; }
+
 .container-full {
   padding-left: 0;
   padding-right: 0;
@@ -275,33 +283,42 @@ h1, h2, h3, h4, h5, h6 {
 .game-area {
   background-color: silver;
   height: calc(100% - 65px); }
-  .game-area > div {
-    height: calc(50% + (90px/2));
-    border-bottom: 2px solid darkgrey; }
-  .game-area > div:first-child {
-    height: calc(50% - (90px/2)); }
-  .game-area .statusbar {
-    height: 65px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; }
-    .game-area .statusbar > div {
-      height: 100%; }
-    .game-area .statusbar .avatar {
-      flex-basis: 65px; }
-    .game-area .statusbar .toolbar {
-      flex-basis: auto;
-      flex-grow: 1; }
-  .game-area .player-hand {
-    height: 90px;
-    background-color: lightsteelblue;
-    border-top: 1px solid white;
-    padding-bottom: 2px;
-    overflow-y: hidden; }
-  .game-area .playground {
-    height: calc(100% - 65px); }
-  .game-area .my-game-area .playground {
-    height: calc(100% - (65px + 90px)); }
+
+.game-area__statusbar {
+  height: 65px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; }
+  .game-area__statusbar > div {
+    height: 100%; }
+  .game-area__statusbar .avatar {
+    flex-basis: 65px; }
+  .game-area__statusbar .toolbar {
+    flex-basis: auto;
+    flex-grow: 1; }
+
+.game-area__playground {
+  height: calc(100% - (65px*2)); }
+
+.playground__opponent,
+.playground__player {
+  height: 40%;
+  overflow-y: hidden; }
+
+.playground__player {
+  border-top: 2px solid darkgrey; }
+
+.playground__hand {
+  height: 20%;
+  background-color: lightsteelblue;
+  border-top: 1px solid white;
+  overflow-y: hidden; }
+
+.playground--creatures,
+.playground--permanents,
+.playground--lands {
+  height: 50%;
+  float: left; }
 
 .op-life,
 .my-life {
@@ -316,12 +333,6 @@ h1, h2, h3, h4, h5, h6 {
 .my-life {
   position: relative;
   bottom: -30px; }
-
-.my-game-area .avatar {
-  border-top: 1px solid white; }
-
-.op-game-area .playground {
-  border-top: 1px solid white; }
 
 .phase-bar {
   line-height: 25px; }
@@ -366,14 +377,9 @@ h1, h2, h3, h4, h5, h6 {
       text-align: center;
       list-style: none;
       text-transform: uppercase;
-      border-top: 1px solid white;
       padding-top: 10px; }
     .info-bar ul li.current {
-      background-color: lightsteelblue;
-      border-right: 1px solid white;
-      border-left: 1px solid white;
-      border-bottom: 1px solid white;
-      border-top-color: lightsteelblue; }
+      background-color: lightsteelblue; }
 
 .game-action {
   height: 65px; }
@@ -382,80 +388,20 @@ h1, h2, h3, h4, h5, h6 {
 .mtg-hand {
   width: 1000px; }
 
-.card {
-  background: #000;
-  height: 90px;
-  width: 64px;
-  border-radius: 2.5px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  display: inline-block;
-  background: url(../images/card-front.jpg);
-  background-size: contain; }
-  .card span i {
-    font-size: 0.75em;
-    /*line-height: 1.0;
-    color: white;
-    text-shadow: 1px 1px 1px black;
-    */ }
-
-.card--tapped {
-  -ms-transform: rotate(90deg);
-  /* IE 9 */
-  -webkit-transform: rotate(90deg);
-  /* Chrome, Safari, Opera */
-  transform: rotate(90deg); }
-
-.card--back {
-  background: url(../images/card-back.jpg);
-  background-size: contain; }
-
-.card--stacked {
-  position: absolute; }
-
-/* mtg cards */
 .mtg-card-stack {
-  display: inline-block;
+  float: left;
+  height: 100%;
   margin-right: 5px; }
 
 .mtg-card {
-  background: url("../images/card.jpeg");
-  background-size: cover;
-  height: 90px;
-  width: 64px;
-  border-radius: 2.5px;
+  height: 100%;
   cursor: pointer;
   position: relative;
   /* transition tapped */ }
-
-.mtg-card-wb {
-  background: url("../images/card-wb.jpeg");
-  background-size: cover;
-  height: 90px;
-  width: 64px;
-  border-radius: 2.5px;
-  cursor: pointer;
-  position: relative;
-  /* transition tapped */ }
-
-.mtg-card-modern {
-  background: url("../images/card-modern.jpeg");
-  background-size: cover;
-  height: 90px;
-  width: 64px;
-  border-radius: 2.5px;
-  cursor: pointer;
-  position: relative;
-  /* transition tapped */ }
-
-.mtg-card-land {
-  background: url("../images/card-land.jpg");
-  background-size: cover;
-  height: 90px;
-  width: 64px;
-  border-radius: 2.5px;
-  cursor: pointer;
-  position: relative;
-  /* transition tapped */ }
+  .mtg-card > img {
+    border-radius: 2.5px;
+    height: 100%;
+    width: auto; }
 
 .mtg-library {
   background: url("../images/card-back.jpeg");
@@ -510,15 +456,12 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover; }
 
 .mtg-card--tapped {
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1) translate3d(0, 0, 0);
   margin: 0 13px;
-  /* width > 64 = 90 - 64 = 26 / 2 = 13 left and right */
-  bottom: -13px;
-  /* bottom -13px to bottomize the card */ }
+  /* width > 64 = 90 - 64 = 26 / 2 = 13 left and right */ }
 
 .mtg-card--stacked {
-  margin-left: -44px;
-  /* show 20px 64 - 20 = 44 */
+  margin-left: -30px;
   float: left; }
 
 .mtg-card--hand {

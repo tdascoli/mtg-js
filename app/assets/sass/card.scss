@@ -1,103 +1,23 @@
-.card {
-  background: $blackBorder;
-
-  height: $xsCardHeight;
-  width: $xsCardWidth;
-
-  border-radius: $xsCardBorderRadius;
-
-  box-shadow: 0 1px 1px rgba(0,0,0,0.15);
-
-  display: inline-block;
-
-  background: url(../images/card-front.jpg);
-  background-size: contain;
-
-  span i {
-    font-size: 0.75em;
-    /*line-height: 1.0;
-    color: white;
-    text-shadow: 1px 1px 1px black;
-    */
-  }
-}
-.card--tapped {
-  -ms-transform: rotate(90deg); /* IE 9 */
-  -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-  transform: rotate(90deg);
-}
-.card--back {
-  background: url(../images/card-back.jpg);
-  background-size: contain;
-}
-
-.card--stacked {
-  position: absolute;
-}
-
-/* mtg cards */
 .mtg-card-stack {
-  display: inline-block;
+  float: left;
+  height: 100%;
 
   margin-right: 5px;
 }
 
 .mtg-card {
-  background: url('#{$path-images}/card.jpeg');
-  background-size: cover;
-
-  height: $xsCardHeight;
-  width: $xsCardWidth;
-
-  border-radius: $xsCardBorderRadius;
+  height: 100%;
 
   cursor: pointer;
 
   position: relative;
   /* transition tapped */
-}
 
-.mtg-card-wb {
-  background: url('#{$path-images}/card-wb.jpeg');
-  background-size: cover;
-
-  height: $xsCardHeight;
-  width: $xsCardWidth;
-
-  border-radius: $xsCardBorderRadius;
-
-  cursor: pointer;
-
-  position: relative;
-  /* transition tapped */
-}
-.mtg-card-modern {
-  background: url('#{$path-images}/card-modern.jpeg');
-  background-size: cover;
-
-  height: $xsCardHeight;
-  width: $xsCardWidth;
-
-  border-radius: $xsCardBorderRadius;
-
-  cursor: pointer;
-
-  position: relative;
-  /* transition tapped */
-}
-.mtg-card-land {
-  background: url('#{$path-images}/card-land.jpg');
-  background-size: cover;
-
-  height: $xsCardHeight;
-  width: $xsCardWidth;
-
-  border-radius: $xsCardBorderRadius;
-
-  cursor: pointer;
-
-  position: relative;
-  /* transition tapped */
+  > img {
+      border-radius: $xsCardBorderRadius;
+      height: 100%;
+      width: auto;
+  }
 }
 
 .mtg-library {
@@ -167,13 +87,14 @@
 }
 
 .mtg-card--tapped {
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1) translate3d(0,0,0);
+
   margin: 0 ($xsCardHeight - $xsCardWidth)/2; /* width > 64 = 90 - 64 = 26 / 2 = 13 left and right */
-  bottom: -($xsCardHeight - $xsCardWidth)/2; /* bottom -13px to bottomize the card */
+  //bottom: -($xsCardHeight - $xsCardWidth)/2; /* bottom -13px to bottomize the card */
 }
 
 .mtg-card--stacked {
-  margin-left: -($xsCardWidth - 20); /* show 20px 64 - 20 = 44 */
+  margin-left: -30px;
   float: left;
 }
 
