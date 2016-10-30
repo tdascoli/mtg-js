@@ -1,3 +1,10 @@
+// todo responsivness text, margins, etc.
+.mtg-card-container {
+  height: 100%;
+
+  width: 1000px;
+}
+
 .mtg-card-stack {
   float: left;
   height: 100%;
@@ -41,8 +48,13 @@
 .mtg-card__cost {
   position: absolute;
 
-  font-size: 10px;
+  font-size: 1.15em;
+
+  @media #{$media-phone} {
+    font-size: 0.75em;
+  }
 }
+
 .mtg-card__name,
 .mtg-card__p-and-t,
 .mtg-card__loyalty {
@@ -68,6 +80,12 @@
   left:0;
   right:0;
 }
+.playground__opponent,
+.playground__player {
+  .mtg-card__cost {
+    display: none;
+  }
+}
 .mtg-card__p-and-t,
 .mtg-card__loyalty{
   bottom: 2px;
@@ -82,8 +100,7 @@
 
 /* variant of cards */
 .mtg-card--back {
-  background: url('#{$path-images}/card-back.jpeg');
-  background-size: cover;
+
 }
 
 .mtg-card--tapped {

@@ -36,30 +36,53 @@
 
 .playground__opponent,
 .playground__player {
-  height: (100% / 5 * 2);
+
+  height: (100% / 7 * 3);
+  @media #{$media-phone} {
+    height: (100% / 5 * 2);
+  }
 
   overflow-y: hidden;
 }
 
 .playground__player {
   border-top: 2px solid $ga-border-color-playground;
-
-  //width: 1000px;
 }
 
 .playground__hand {
-  height: (100% / 5 * 1);
+  height: (100% / 7);
+  @media #{$media-phone} {
+    height: (100% / 5);
+  }
   background-color: $ga-bg-color-player-bar;
   border-top: 1px solid $ga-border-color-bar;
+
+  padding: 1px 0;
 
   overflow-y: hidden;
 }
 
 .playground--creatures,
-.playground--permanents,
-.playground--lands {
-  height: 50%;
-  float: left;
+.playground--permanents {
+  height: 33%;
+  @media #{$media-phone} {
+    height: 50%;
+  }
+  overflow-y: hidden;
+}
+.playground__opponent .playground--permanents,
+.playground__player .playground--creatures {
+  padding-bottom: 2px;
+}
+.playground__opponent .playground--creatures ,
+.playground__player .playground--permanents {
+  padding-top: 2px;
+}
+
+.playground-container {
+  height: 100%;
+  display: inline-block;
+  // todo when no creatures, display block --> jquery!
 }
 
 .op-life,
@@ -67,13 +90,13 @@
   color: white;
   font-weight: 700;
   font-size: 24px;
+
+  position: relative;
 }
 .op-life {
-  position: relative;
   top: -10px;
 }
 .my-life {
-  position: relative;
   bottom: -30px;
 }
 
@@ -146,10 +169,4 @@
 
 .game-action {
   height: $game-action-height;
-}
-
-
-/* mtg */
-.mtg-hand {
-  width: 1000px;
 }

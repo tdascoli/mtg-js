@@ -8,6 +8,7 @@
 
     <!-- js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/bootstrap-drawer/dist/js/drawer.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -127,99 +128,191 @@
         <div class="game-area__playground">
 
             <div class="playground__opponent">
-                op playground
+                <div class="playground--permanents">
+
+                    <div class="mtg-card-container">
+                        <div class="playground-container">
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--no-tap mtg-card--back">
+                                    <img src="assets/images/card-back.jpeg" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="playground-container">
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                            </div>
+
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                            </div>
+
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                            </div>
+
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                            </div>
+
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                                <div class="mtg-card mtg-card--tapped mtg-card--stacked">
+                                    <img src="assets/images/card-land.jpg" />
+
+                                    <span class="mtg-card__name">Island</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="playground--creatures">
+                    <div class="mtg-card-container">
+
+                        <div class="playground-container">
+                        <div class="mtg-card-stack">
+                            <div class="mtg-card">
+                                <img src="assets/images/card-wb.jpeg" />
+                                <span class="mtg-card__name">Serra Angel</span>
+                                <span class="mtg-card__cost">
+                                    <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                    <i class="ms ms-w ms-cost ms-shadow"></i>
+                                    <i class="ms ms-w ms-cost ms-shadow"></i>
+                                </span>
+                                <span class="mtg-card__p-and-t">4/4</span>
+                            </div>
+                        </div>
+
+                        <div class="mtg-card-stack">
+                            <div class="mtg-card mtg-card--stacked">
+                                <img src="assets/images/card.jpeg" />
+                            </div>
+                            <div class="mtg-card mtg-card--stacked">
+                                <img src="assets/images/card.jpeg" />
+                            </div>
+                        </div>
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--tapped">
+                                    <img src="assets/images/card.jpeg" />
+                                    <span class="mtg-card__name">Juzám Djinn</span>
+                                <span class="mtg-card__cost">
+                                    <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                    <i class="ms ms-b ms-cost ms-shadow"></i>
+                                    <i class="ms ms-b ms-cost ms-shadow"></i>
+                                </span>
+                                    <span class="mtg-card__p-and-t">5/5</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="playground__player">
                 <div class="playground--creatures">
+                    <div class="mtg-card-container">
+                        <div class="playground-container">
 
-                    <div class="mtg-card-stack">
-                        <div class="mtg-card">
-                            <img src="assets/images/card-wb.jpeg" />
-                            <span class="mtg-card__name">Serra Angel</span>
-                            <span class="mtg-card__cost">
-                                <i class="ms ms-2 ms-cost ms-shadow"></i>
-                                <i class="ms ms-w ms-cost ms-shadow"></i>
-                                <i class="ms ms-w ms-cost ms-shadow"></i>
-                            </span>
-                            <span class="mtg-card__p-and-t">4/4</span>
-                        </div>
-                    </div>
+                            <div class="mtg-card-stack">
+                                <div class="mtg-card mtg-card--battlefield" data-card-types="creature" data-card-name="Juzám Djinn">
+                                    <img src="assets/images/card.jpeg" />
 
-                    <div class="mtg-card-stack">
-                        <div class="mtg-card mtg-card--stacked">
-                            <img src="assets/images/card.jpeg" />
-                        </div>
-                        <div class="mtg-card mtg-card--stacked">
-                            <img src="assets/images/card.jpeg" />
-                        </div>
-                    </div>
-
-                    <div class="mtg-card-stack">
-                        <div class="mtg-card mtg-card--tapped">
-                            <img src="assets/images/card.jpeg" />
-                            <span class="mtg-card__name">Juzám Djinn</span>
+                                    <span class="mtg-card__name">Juzám Djinn</span>
                             <span class="mtg-card__cost">
                                 <i class="ms ms-2 ms-cost ms-shadow"></i>
                                 <i class="ms ms-b ms-cost ms-shadow"></i>
                                 <i class="ms ms-b ms-cost ms-shadow"></i>
                             </span>
-                            <span class="mtg-card__p-and-t">5/5</span>
+                                    <span class="mtg-card__p-and-t">5/5</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="playground--permanents">
-                    <div class="mtg-card-stack">
-                        <div class="mtg-card mtg-card--no-tap mtg-card--back">
-                            <img src="assets/images/card-back.jpeg" />
-                        </div>
-                    </div>
-                </div>
-                <div class="playground--lands">
-                    <div class="mtg-card-stack">
-                        <div class="mtg-card mtg-card--stacked">
-                            <img src="assets/images/card-land.jpg" />
 
-                            <span class="mtg-card__name">Island</span>
-                        </div>
-                        <div class="mtg-card mtg-card--stacked">
-                            <img src="assets/images/card-land.jpg" />
+                    <div class="mtg-card-container">
+                        <div class="playground--land playground-container"></div>
 
-                            <span class="mtg-card__name">Island</span>
-                        </div>
-                        <div class="mtg-card mtg-card--tapped mtg-card--stacked">
-                            <img src="assets/images/card-land.jpg" />
-
-                            <span class="mtg-card__name">Island</span>
-                        </div>
+                        <div class="playground--other playground-container"></div>
                     </div>
                 </div>
             </div>
 
             <div class="playground__hand">
+                <div class="mtg-card-container">
 
-                    <div class="mtg-hand mtg-card-stack">
-                        <div class="mtg-card mtg-card--hand">
-                            <img src="assets/images/card.jpeg" />
-
-                            <span class="mtg-card__name">Name</span>
-
-                            <span class="mtg-card__p-and-t">P/T</span>
-                        </div>
-
-                        <div class="mtg-card mtg-card--hand">
-                            <img src="assets/images/card-wb.jpeg" />
-
-                            <span class="mtg-card__name">Serra Angel</span>
-                            <span class="mtg-card__cost">
-                                <i class="ms ms-2 ms-cost ms-shadow"></i>
-                                <i class="ms ms-w ms-cost ms-shadow"></i>
-                                <i class="ms ms-w ms-cost ms-shadow"></i>
-                            </span>
-                            <span class="mtg-card__p-and-t">4/4</span>
-                        </div>
-
-                        <div class="mtg-card mtg-card--hand">
+                    <div class="mtg-card-stack">
+                        <div class="mtg-card mtg-card--hand" data-card-types="creature" data-card-name="Juzám Djinn">
                             <img src="assets/images/card.jpeg" />
 
                             <span class="mtg-card__name">Juzám Djinn</span>
@@ -231,7 +324,31 @@
                             <span class="mtg-card__p-and-t">5/5</span>
                         </div>
 
-                        <div class="mtg-card mtg-card--hand">
+                        <div class="mtg-card mtg-card--hand" data-card-types="creature" data-card-name="Serra Angel">
+                            <img src="assets/images/card-wb.jpeg" />
+
+                            <span class="mtg-card__name">Serra Angel</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">4/4</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand" data-card-types="creature" data-card-name="Juzám Djinn">
+                            <img src="assets/images/card.jpeg" />
+
+                            <span class="mtg-card__name">Juzám Djinn</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                                <i class="ms ms-b ms-cost ms-shadow"></i>
+                            </span>
+                            <span class="mtg-card__p-and-t">5/5</span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand" data-card-types="creature" data-card-name="Howlpack Wolf">
                             <img src="assets/images/card-modern.jpeg" />
 
                             <span class="mtg-card__name">Howlpack Wolf</span>
@@ -242,25 +359,48 @@
                             <span class="mtg-card__p-and-t">3/3</span>
                         </div>
 
-                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                        <div class="mtg-card mtg-card--hand" data-card-types="artifact" data-card-name="Mox Sapphire">
+                            <img src="assets/images/card-other.jpg" />
+
+                            <span class="mtg-card__name">Mox Sapphire</span>
+                            <span class="mtg-card__cost">
+                                <i class="ms ms-0 ms-cost ms-shadow"></i>
+                            </span>
+                        </div>
+
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
                             <img src="assets/images/card-land.jpg" />
 
                             <span class="mtg-card__name">Island</span>
                         </div>
 
-                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
                             <img src="assets/images/card-land.jpg" />
 
                             <span class="mtg-card__name">Island</span>
                         </div>
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
+                            <img src="assets/images/card-land.jpg" />
 
-                        <div class="mtg-card mtg-card-land mtg-card--hand">
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
+                            <img src="assets/images/card-land.jpg" />
+
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
+                            <img src="assets/images/card-land.jpg" />
+
+                            <span class="mtg-card__name">Island</span>
+                        </div>
+                        <div class="mtg-card mtg-card--hand" data-card-types="land" data-card-name="Island">
                             <img src="assets/images/card-land.jpg" />
 
                             <span class="mtg-card__name">Island</span>
                         </div>
                     </div>
-
+                </div>
             </div>
 
         </div>
@@ -286,18 +426,18 @@
 
                 <div class="phase-bar">
                     <ul>
-                        <li class="disabled">up</li>
-                        <li>dr</li>
-                        <li class="current">m1</li>
-                        <li class="disabled">bc</li>
-                        <li class="disabled">da</li>
-                        <li>db</li>
-                        <li class="disabled">fs</li>
-                        <li class="disabled">cd</li>
-                        <li class="disabled">ec</li>
-                        <li>m2</li>
-                        <li class="disabled">et</li>
-                        <li class="disabled">cl</li>
+                        <li data-phase="up" class="disabled">up</li>
+                        <li data-phase="dr">dr</li>
+                        <li data-phase="m1" class="current">m1</li>
+                        <li data-phase="bc" class="disabled">bc</li>
+                        <li data-phase="da" class="disabled">da</li>
+                        <li data-phase="db">db</li>
+                        <li data-phase="fs" class="disabled">fs</li>
+                        <li data-phase="cd" class="disabled">cd</li>
+                        <li data-phase="ec" class="disabled">ec</li>
+                        <li data-phase="m2">m2</li>
+                        <li data-phase="et" class="disabled">et</li>
+                        <li data-phase="cl" class="disabled">cl</li>
                     </ul>
                 </div>
             </div>
@@ -307,8 +447,7 @@
 
     <div class="game-action">
         <br/>
-        <button class="btn">OK</button>
-        actions
+        <button class="btn btn-primary">OK</button>
         <button class="btn">Cancel</button>
     </div>
 
