@@ -1,0 +1,87 @@
+//* variables */
+
+//* vars.responsive */
+$media-phone: "only screen and (max-width : 767px)";
+$media-tablet: "only screen and (min-width: 768px) and (max-width: 992px)";
+
+//* vars.typo */
+$font-family--primary: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+$pathToFonts: '../fonts';
+$path-images: '../images';
+
+//* vars.hamburger */
+$hamburger-rgba: rgba(40,170,220, 0.7);
+$hamburger-active-rgba: rgba(40,170,220, 1.0);
+$hamburger-button-width: 48px;                    // The width of the button area
+$hamburger-button-height: 48px;                   // The height of the button area
+$hamburger-bar-thickness: 4px;                    // The thickness of the button bars
+$hamburger-button-pad: 8px;                      // The left/right padding between button area and bars.
+$hamburger-button-bar-space: 6px;                // The spacing between button bars
+$hamburger-button-transistion-duration: 0.3s;     // The transition duration
+$hamburger-drawer-padding: 10px;
+$hamburger-md-size: $hamburger-button-height - (2* $hamburger-button-pad);
+
+//* vars.game-area */
+$game-action-height: 65px;
+$game-player-hand: 90px;
+$phase-bar-height: 25px;
+
+//* vars.game-area--colors */
+$ga-border-color-playground: darkgrey;
+$ga-border-color-bar: white;
+$ga-bg-color-playground: silver;
+$ga-bg-color-bar: darkgrey;
+$ga-bg-color-player-bar: lightsteelblue;
+$ga-bg-color-phase-disabled: red;
+$ga-bg-color-phase-current: lightgreen;
+$ga-bg-color-phase: green;
+
+
+/* vars.cards */
+$whiteBorder: #fff;
+$blackBorder: #000;
+
+$originalCardHeight: 1040px;
+$originalCardWidth: 745px;
+
+$mdCardHeight: $originalCardHeight/2.5;
+$mdCardWidth: $originalCardWidth/2.5;
+
+$smCardHeight: $originalCardHeight/5;
+$smCardWidth: $originalCardWidth/5;
+
+$xsCardHeight: $game-player-hand;
+$xsCardWidth: round(($xsCardHeight / $originalCardHeight) * $originalCardWidth);
+
+$originalCardBorderRadius: 30px;
+$mdCardBorderRadius: $originalCardBorderRadius/2.5;
+$smCardBorderRadius: $originalCardBorderRadius/5;
+$xsCardBorderRadius: $originalCardBorderRadius/12;
+
+$originalCardBorderPadding: 20px;
+$mdCardBorderPadding: $originalCardBorderPadding/2.5;
+$smCardBorderPadding: $originalCardBorderPadding/5;
+
+/* vars.background */
+
+$originalCardBackgroundBorderTop: 25px;
+$originalCardBackgroundBorderBottom: 100px;
+$originalCardBackgroundBorder: 0 0 $originalCardBackgroundBorderBottom $originalCardBackgroundBorderBottom;
+
+$mdCardBackgroundBorderTop: $originalCardBackgroundBorderTop/2.5;
+$mdCardBackgroundBorderBottom: $originalCardBackgroundBorderBottom/2.5;
+$mdCardBackgroundBorder: 0 0 $mdCardBackgroundBorderBottom $mdCardBackgroundBorderBottom;
+
+$smCardBackgroundBorderTop: $originalCardBackgroundBorderTop/5;
+$smCardBackgroundBorderBottom: $originalCardBackgroundBorderBottom/5;
+$smCardBackgroundBorder: 0 0 $smCardBackgroundBorderBottom $smCardBackgroundBorderBottom;
+
+/* vars.colors */
+
+$colorNeutral:  #69a;
+$colorC: #BEB9B2;
+$colorW: #F0F2C0;
+$colorU: #B5CDE3;
+$colorB: #ACA29A;
+$colorR: #DB8664;
+$colorG: #93B483;

@@ -1,0 +1,179 @@
+//* game area */
+.avatar {
+  background: url(../images/avatar/juri.png);
+  background-size: contain;
+}
+
+.game-area {
+  background-color: $ga-bg-color-playground;
+  height: calc(100% - #{$game-action-height});
+}
+
+.game-area__statusbar {
+  height: $game-action-height;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  > div {
+    height: 100%;
+  }
+
+  .avatar {
+    flex-basis: $game-action-height;
+  }
+
+  .toolbar {
+    flex-basis: auto;
+    flex-grow: 1;
+  }
+}
+
+.game-area__playground {
+  height: calc(100% - (#{$game-action-height}*2));
+}
+
+.playground__opponent,
+.playground__player {
+
+  height: (100% / 7 * 3);
+  @media #{$media-phone} {
+    height: (100% / 5 * 2);
+  }
+
+  overflow-y: hidden;
+}
+
+.playground__player {
+  border-top: 2px solid $ga-border-color-playground;
+}
+
+.playground__hand,
+.playground__graveyard,
+.playground__exile{
+  height: (100% / 7);
+  @media #{$media-phone} {
+    height: (100% / 5);
+  }
+  background-color: $ga-bg-color-player-bar;
+  border-top: 1px solid $ga-border-color-bar;
+
+  padding: 1px 0;
+
+  overflow-y: hidden;
+}
+
+.playground--hide{
+     display: none;
+}
+
+
+.playground--creatures,
+.playground--permanents {
+  height: 33%;
+  @media #{$media-phone} {
+    height: 50%;
+  }
+  overflow-y: hidden;
+}
+.playground__opponent .playground--permanents,
+.playground__player .playground--creatures {
+  padding-bottom: 2px;
+}
+.playground__opponent .playground--creatures ,
+.playground__player .playground--permanents {
+  padding-top: 2px;
+}
+
+.playground-container {
+  height: 100%;
+  display: inline-block;
+  // todo when no creatures, display block --> jquery!
+}
+
+.op-life,
+.my-life {
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+
+  position: relative;
+}
+.op-life {
+  top: -10px;
+}
+.my-life {
+  bottom: -30px;
+}
+
+.phase-bar {
+  line-height: $phase-bar-height;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    li {
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      background-color: $ga-bg-color-phase;
+      list-style: none;
+      border-right: 1px solid $ga-bg-color-bar;
+      text-transform: uppercase;
+    }
+
+    li.current {
+      background-color: $ga-bg-color-phase-current;
+    }
+
+    li.disabled {
+      background-color: $ga-bg-color-phase-disabled;
+    }
+
+    li:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.info-bar {
+  background-color: $ga-bg-color-bar;
+  height: ($game-action-height - $phase-bar-height);
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    li {
+      height: ($game-action-height - $phase-bar-height);
+      flex-grow: 1;
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      list-style: none;
+      text-transform: uppercase;
+      padding-top: 10px;
+    }
+
+    li.current {
+      background-color: $ga-bg-color-player-bar;
+    }
+  }
+}
+
+.game-action {
+  height: $game-action-height;
+}

@@ -1,0 +1,280 @@
+/* -----------------------------------------------------------------------------
+
+  HAMBURGER ICONS COMPONENT
+  @todo color!
+----------------------------------------------------------------------------- */
+
+/**
+ * Toggle Switch Globals
+ *
+ * All switches should take on the class `c-hamburger` as well as their
+ * variant that will give them unique properties. This class is an overview
+ * class that acts as a reset for all versions of the icon.
+ */
+
+.c-hamburger {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: $hamburger-button-width;
+  height: $hamburger-button-height;
+  font-size: 0;
+  text-indent: -9999px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+  cursor: pointer;
+  transition: background $hamburger-button-transistion-duration;
+}
+
+.c-hamburger:focus {
+  outline: none;
+}
+
+.c-hamburger span {
+  display: block;
+  position: absolute;
+  top: ($hamburger-button-height / 2) - ($hamburger-bar-thickness / 2);
+  left: $hamburger-button-pad;
+  right: $hamburger-button-pad;
+  height: $hamburger-bar-thickness;
+  background: rgb(255,255,255);
+}
+
+.c-hamburger span::before,
+.c-hamburger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: $hamburger-bar-thickness;
+  background-color: #fff;
+  content: "";
+}
+
+.c-hamburger span::before {
+  top: -$hamburger-bar-thickness - $hamburger-button-bar-space;
+}
+
+.c-hamburger span::after {
+  bottom: -$hamburger-bar-thickness - $hamburger-button-bar-space;
+}
+
+/**
+ * Style 1
+ *
+ * Rotating hamburger icon (rot), that simply rotates 90 degrees when activated.
+ * Nothing too fancy, simple transition.
+ */
+
+.c-hamburger--rot {
+  background-color: $hamburger-rgba;
+}
+
+.c-hamburger--rot span {
+  transition: transform $hamburger-button-transistion-duration;
+}
+
+/* active state, i.e. menu open */
+
+.drawer.open .c-hamburger--rot,
+.c-hamburger--rot.is-active {
+  //background-color: darken(rgb(40,170,220), 20%);
+  background-color: $hamburger-active-rgba;
+}
+
+.drawer.open .c-hamburger--rot span,
+.c-hamburger--rot.is-active span {
+  transform: rotate(90deg);
+}
+
+/**
+ * Style 2
+ * 
+ * Hamburger to "x" (htx). Takes on a hamburger shape, bars slide
+ * down to center and transform into an "x".
+ */
+
+.c-hamburger--htx {
+  background-color: $hamburger-rgba;
+}
+
+.c-hamburger--htx span {
+  transition: background 0s $hamburger-button-transistion-duration;
+}
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+  transition-duration: $hamburger-button-transistion-duration, $hamburger-button-transistion-duration;
+  transition-delay: $hamburger-button-transistion-duration, 0s;
+}
+
+.c-hamburger--htx span::before {
+  transition-property: top, transform;
+}
+
+.c-hamburger--htx span::after {
+  transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+.drawer.open .c-hamburger--htx,
+.c-hamburger--htx.is-active {
+  //background-color: darken(rgb(255,50,100), 20%);
+  background-color: $hamburger-active-rgba;
+}
+
+.drawer.open .c-hamburger--htx span,
+.c-hamburger--htx.is-active span {
+  background: none;
+}
+
+.drawer.open .c-hamburger--htx span::before,
+.c-hamburger--htx.is-active span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.drawer.open .c-hamburger--htx span::after,
+.c-hamburger--htx.is-active span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.drawer.open .c-hamburger--htx span::before,
+.drawer.open .c-hamburger--htx span::after,
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+  transition-delay: 0s, $hamburger-button-transistion-duration;
+}
+
+/**
+ * Style 3
+ *
+ * Hamburger to left-arrow (htla). Hamburger menu transforms to a left-pointing
+ * arrow. Usually indicates an off canvas menu sliding in from left that
+ * will be close on re-click of the icon.
+ */
+
+.c-hamburger--htla {
+  background-color: $hamburger-rgba;
+}
+
+.c-hamburger--htla span {
+  transition: transform $hamburger-button-transistion-duration;
+}
+
+.c-hamburger--htla span::before,
+.c-hamburger--htla span::after {
+
+}
+
+.c-hamburger--htla span::before {
+  transform-origin: top right;
+  transition: transform $hamburger-button-transistion-duration, width $hamburger-button-transistion-duration, top $hamburger-button-transistion-duration;
+}
+
+.c-hamburger--htla span::after {
+  transform-origin: bottom right;
+  transition: transform $hamburger-button-transistion-duration, width $hamburger-button-transistion-duration, bottom $hamburger-button-transistion-duration;
+}
+
+/* active state, i.e. menu open */
+
+.drawer.open .c-hamburger--htla,
+.c-hamburger--htla.is-active {
+  //background-color: darken(rgb(50,220,100), 20%);
+  background-color: $hamburger-active-rgba;
+}
+
+.drawer.open .c-hamburger--htla span,
+.c-hamburger--htla.is-active span {
+  transform: rotate(180deg);
+}
+
+.drawer.open .c-hamburger--htla span::before,
+.drawer.open .c-hamburger--htla span::after,
+.c-hamburger--htla.is-active span::before,
+.c-hamburger--htla.is-active span::after {
+  width: 50%;
+}
+
+.drawer.open .c-hamburger--htla span::before,
+.c-hamburger--htla.is-active span::before {
+  top: 0;
+  transform: translateX($hamburger-button-width/2 - $hamburger-button-pad + $hamburger-bar-thickness) translateY($hamburger-bar-thickness/2) rotate(45deg);
+}
+
+.drawer.open .c-hamburger--htla span::after,
+.c-hamburger--htla.is-active span::after {
+  bottom: 0;
+  transform: translateX($hamburger-button-width/2 - $hamburger-button-pad + $hamburger-bar-thickness) translateY(-$hamburger-bar-thickness/2) rotate(-45deg);
+}
+
+/**
+ * Style 4
+ *
+ * Hamburger to right-arrow (htra). Hamburger menu transforms to a
+ * right-pointing arrow. Usually indicates an off canvas menu sliding in from 
+ * right that will be close on re-click of the icon.
+ */
+
+.c-hamburger--htra {
+  background-color: $hamburger-rgba;
+}
+
+.c-hamburger--htra span {
+  transition: transform $hamburger-button-transistion-duration;
+}
+
+.c-hamburger--htra span::before,
+.c-hamburger--htra span::after {
+
+}
+
+.c-hamburger--htra span::before {
+  transform-origin: top left;
+  transition: transform $hamburger-button-transistion-duration, width $hamburger-button-transistion-duration, top $hamburger-button-transistion-duration;
+}
+
+.c-hamburger--htra span::after {
+  transform-origin: bottom left;
+  transition: transform $hamburger-button-transistion-duration, width $hamburger-button-transistion-duration, bottom $hamburger-button-transistion-duration;
+}
+
+/* active state, i.e. menu open */
+
+.drawer.open .c-hamburger--htra,
+.c-hamburger--htra.is-active {
+  //background-color: darken(rgb(255,150,80), 20%);
+  background-color: $hamburger-active-rgba;
+}
+
+.drawer.open .c-hamburger--htra span,
+.c-hamburger--htra.is-active span {
+  transform: rotate(180deg);
+}
+
+.drawer.open .c-hamburger--htra span::before,
+.drawer.open .c-hamburger--htra span::after,
+.c-hamburger--htra.is-active span::before,
+.c-hamburger--htra.is-active span::after {
+  width: 50%;
+}
+
+.drawer.open .c-hamburger--htra span::before,
+.c-hamburger--htra.is-active span::before {
+  top: 0;
+  transform: translateX(-$hamburger-bar-thickness) translateY($hamburger-bar-thickness/2) rotate(-45deg);
+}
+
+.drawer.open .c-hamburger--htra span::after,
+.c-hamburger--htra.is-active span::after {
+  bottom: 0;
+  transform: translateX(-$hamburger-bar-thickness) translateY(-$hamburger-bar-thickness/2) rotate(45deg);
+}

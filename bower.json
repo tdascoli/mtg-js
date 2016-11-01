@@ -1,35 +1,63 @@
 {
-  "name": "mtg-app",
-  "version": "0.0.1",
-  "ignore": [
-    ".idea",
-    "app/bower_components",
-    "node_modules",
-    "src",
-    "test",
-    ".bowerrc",
-    ".gitignore",
-    ".jshintignore",
-    ".jshintrc",
-    ".csslintrc",
-    ".htmlhintrc",
-    "mtg-app.iml",
-    "bower.json",
-    "Gruntfile.js",
-    "package.json",
-    "README.md"
-  ],
+  "name": "mtg-js",
+  "version": "0.0.0",
   "dependencies": {
-    "jquery": "latest",
-    "lodash": "latest",
-    "mana": "latest",
-    "keyrune": "latest",
-    "bootstrap": "latest",
-    "bootstrap-drawer": "latest",
-    "detect-mobile-browser": "0.0.1",
-    "moment": "latest"
+    "angular": "^1.3.0",
+    "firebase": "latest",
+    "angularfire": "latest",
+    "bootstrap": "^3.2.0",
+    "bootstrap-drawer":"latest",
+    "angular-animate": "^1.3.0",
+    "angular-aria": "^1.3.0",
+    "angular-cookies": "^1.3.0",
+    "angular-messages": "^1.3.0",
+    "angular-resource": "^1.3.0",
+    "angular-route": "^1.3.0",
+    "angular-sanitize": "^1.3.0",
+    "angular-touch": "^1.3.0",
+    "detect-mobile-browser":"latest",
+    "mana":"latest",
+    "keyrune":"latest",
+    "moment":"latest"
   },
-  "resolutions": {
-    "jquery": "1.9.1 - 3"
-  }
+  "devDependencies": {
+    "mockfirebase": "0.11.0",
+    "angular-mocks": "^1.3.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    "bootstrap-drawer": {
+      "main": [
+        "dist/css/bootstrap-drawer.min.css",
+        "dist/js/drawer.min.js"
+      ]
+    },
+    "detect-mobile-browser": {
+      "main": [
+        "detect-mobile-browser.js"
+      ]
+    },
+    "mana": {
+      "main": [
+        "css/mana.min.css"
+      ]
+    },
+    "keyrune": {
+      "main": [
+        "css/keyrune.min.css"
+      ]
+    },
+    "moment": {
+      "main": [
+        "min/moment-with-locales.min.js"
+      ]
+    }
+  },
+  "appPath": "app",
+  "moduleName": "mtgJsApp"
 }

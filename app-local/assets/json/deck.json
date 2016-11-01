@@ -1,0 +1,14 @@
+{
+  "name":"DECK-NAME",
+  "author":"AUTHOR-NAME",
+  "deck": {
+    "main": [{
+      "multiverseid":"multiverseid",
+      "amount":4
+    }],
+    "sideboard": [{
+        "multiverseid":"multiverseid",
+        "amount":4
+    }]
+  }
+}

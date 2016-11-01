@@ -1,1 +1,1 @@
-sass --watch app/assets/sass/mtg-app.scss:app/assets/styles/mtg-app.css
+sass --watch app/sass/mtg-app.scss:app/assets/styles/mtg-app.css
