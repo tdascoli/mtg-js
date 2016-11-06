@@ -17,7 +17,11 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous"/>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="layout/mtg-js.css">
+    <link rel="stylesheet" href="layout/mtg-app.css">
 
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -27,7 +31,6 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
 
     <div id="navigation" class="drawer drawer-right dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="navigation">
       <div class="drawer-controls">
@@ -86,14 +89,20 @@
             <!-- //angularfire -->
             <li role="presentation"><a ng-href="#/chat">chat</a></li>
             <li role="presentation">
-              <a ng-hide-auth="" href="#/login">log in</a>
-              <a ng-show-auth="" href="#/account">account</a>
+              <a ng-show-auth href="#/account">account</a>
             </li>
             <!-- //mtg-js -->
             <li role="presentation" ng-show-auth>
               <a href="#/game">game</a>
             </li>
 
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a ng-hide-auth href="#/login">Log In</a>
+              <a ng-show-auth ng-click="logout()">Log Out</a>
+            </li>
           </ul>
         </div>
       </div>

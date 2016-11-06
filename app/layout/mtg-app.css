@@ -245,6 +245,14 @@ html, body {
 .navbar-brand {
   font-family: "Magic Cards Normal", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
+/* navbar */
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .drawer-controls {
+    display: none; } }
+@media only screen and (max-width: 767px) {
+  .mobile-hide {
+    display: none; } }
 /* drawer/hamburger */
 .drawer-controls {
   width: 48px;
@@ -278,10 +286,17 @@ html, body {
 
 .avatar {
   background: url(../images/avatar/juri.png);
-  background-size: contain; }
+  background-size: contain;
+  height: 65px;
+  width: 65px; }
+
+.avatar--opponent {
+  background: url(../images/avatar/batman-512.png);
+  background-size: contain;
+  height: 65px;
+  width: 65px; }
 
 .game-area {
-  background-color: silver;
   height: calc(100% - 65px); }
 
 .game-area__statusbar {
@@ -318,7 +333,7 @@ html, body {
   height: 14.28571%;
   background-color: lightsteelblue;
   border-top: 1px solid white;
-  padding: 1px 0;
+  padding: 2px 0;
   overflow-y: hidden; }
   @media only screen and (max-width: 767px) {
     .playground__hand,
@@ -339,12 +354,12 @@ html, body {
       height: 50%; } }
 
 .playground__opponent .playground--permanents,
-.playground__player .playground--creatures {
-  padding-bottom: 2px; }
+.playground__opponent .playground--creatures {
+  padding-top: 4px; }
 
-.playground__opponent .playground--creatures,
-.playground__player .playground--permanents {
-  padding-top: 2px; }
+.playground__player .playground--permanents,
+.playground__player .playground--creatures {
+  padding-bottom: 4px; }
 
 .playground-container {
   height: 100%;
@@ -413,6 +428,9 @@ html, body {
 .game-action {
   height: 65px; }
 
+/*
+  always three rows?! see mtg-app!!
+*/
 .mtg-card-container {
   height: 100%;
   width: 1000px; }

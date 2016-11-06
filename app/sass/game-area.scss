@@ -2,10 +2,19 @@
 .avatar {
   background: url(../images/avatar/juri.png);
   background-size: contain;
+  height: 65px;
+  width: 65px;
+}
+
+.avatar--opponent {
+  background: url(../images/avatar/batman-512.png);
+  background-size: contain;
+  height: 65px;
+  width: 65px;
 }
 
 .game-area {
-  background-color: $ga-bg-color-playground;
+  //background-color: $ga-bg-color-playground;
   height: calc(100% - #{$game-action-height});
 }
 
@@ -178,3 +187,4 @@
 .game-action {
   height: $game-action-height;
 }
+
