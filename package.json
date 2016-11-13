@@ -39,6 +39,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install && grunt build"
+    "postinstall": "./node_modules/grunt/bin/grunt build"
   }
 }
