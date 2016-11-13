@@ -26,12 +26,13 @@
 
       <div class="info-bar">
         <ul>
-          <li>h 7</li>
-          <li>g 0</li>
-          <li>e 0</li>
-          <li>l 53</li>
-          <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.5em;"></i> 0</li>
-          <li>...</li>
+          <li class="toggle-playground" data-playground="hand"><i class="icon-hand"></i> 7</li>
+          <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> 1</li>
+          <li><i class="icon-library"></i> 53</li>
+          <li><i class="icon-flashback"></i> 0</li>
+          <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.25em;"></i> 0</li>
+          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> 1</li>
+          <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>
     </div>
@@ -157,6 +158,9 @@
                                     <i class="ms ms-w ms-cost ms-shadow"></i>
                                     <i class="ms ms-w ms-cost ms-shadow"></i>
                                 </span>
+                <span class="mtg-card__block">
+                    <i class="icon-block"></i>
+                </span>
                 <span class="mtg-card__p-and-t">4/4</span>
               </div>
             </div>
@@ -165,12 +169,12 @@
               <div class="mtg-card mtg-card--stacked">
                 <img src="images/card.jpeg" />
               </div>
-              <div class="mtg-card mtg-card--stacked">
+              <div class="mtg-card mtg-card--stacked mtg-card--tapped">
                 <img src="images/card.jpeg" />
               </div>
             </div>
             <div class="mtg-card-stack">
-              <div class="mtg-card mtg-card--tapped">
+              <div class="mtg-card">
                 <img src="images/card.jpeg" />
                 <span class="mtg-card__name">Juzám Djinn</span>
                 <span class="mtg-card__cost">
@@ -178,6 +182,9 @@
                                     <i class="ms ms-b ms-cost ms-shadow"></i>
                                     <i class="ms ms-b ms-cost ms-shadow"></i>
                                 </span>
+                <span class="mtg-card__summoned">
+                    <i class="icon-summoned"></i>
+                </span>
                 <span class="mtg-card__p-and-t">5/5</span>
               </div>
             </div>
@@ -203,6 +210,9 @@
                                 <i class="ms ms-b ms-cost ms-shadow"></i>
                                 <i class="ms ms-b ms-cost ms-shadow"></i>
                             </span>
+                <span class="mtg-card__attack">
+                    <i class="icon-attack"></i>
+                </span>
                 <span class="mtg-card__p-and-t">5/5</span>
               </div>
             </div>
@@ -369,10 +379,11 @@
         <ul>
           <li class="toggle-playground current" data-playground="hand"><i class="icon-hand"></i>  {{hand}}</li>
           <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> 1</li>
-          <li class="toggle-playground" data-playground="exile">e 1</li>
           <li><i class="icon-library"></i> 53</li>
-          <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.5em;"></i> 0</li>
-          <li>...</li>
+          <li><i class="icon-flashback"></i> 0</li>
+          <li><i class="ms ms-x ms-fw ms-cost" style="font-size: 1.25em;"></i> 0</li>
+          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> 1</li>
+          <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>
 

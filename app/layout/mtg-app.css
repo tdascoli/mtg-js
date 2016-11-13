@@ -13,6 +13,12 @@
   font-style: normal;
   font-weight: normal;
   src: local("Magic Cards Normal"), url("../fonts/MagicCardsNormal.woff") format("woff"); }
+@font-face {
+  font-family: 'mtg-js';
+  src: url("../fonts/mtg-js.eot");
+  src: url("../fonts/mtg-js.eot?#iefix") format("embedded-opentype"), url("../fonts/mtg-js.woff") format("woff"), url("../fonts/mtg-js.ttf") format("truetype"), url("../fonts/mtg-js.svg#mtg-js") format("svg");
+  font-weight: normal;
+  font-style: normal; }
 /* -----------------------------------------------------------------------------
 
   HAMBURGER ICONS COMPONENT
@@ -284,6 +290,18 @@ html, body {
 .badge.show-badge {
   visibility: visible; }
 
+.navbar-nav > li > a.navbar-avatar {
+  padding: 14px 10px 10px 10px; }
+
+.navbar-avatar img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  height: 40px; }
+
+.pointer {
+  cursor: pointer; }
+
 .avatar {
   background: url(../images/avatar/juri.png);
   background-size: contain;
@@ -414,14 +432,14 @@ html, body {
     flex-wrap: nowrap;
     justify-content: space-between; }
     .info-bar ul li {
-      height: 40px;
+      line-height: 40px;
       flex-grow: 1;
       color: white;
       font-weight: 700;
       text-align: center;
-      list-style: none;
-      text-transform: uppercase;
-      padding-top: 10px; }
+      list-style: none; }
+      .info-bar ul li i {
+        color: #000; }
     .info-bar ul li.current {
       background-color: lightsteelblue; }
 
@@ -472,6 +490,39 @@ html, body {
     .mtg-card__loyalty,
     .mtg-card__cost {
       font-size: 0.75em; } }
+
+.mtg-card__attack,
+.mtg-card__block,
+.mtg-card__summoned {
+  position: absolute;
+  font-size: 1.15em;
+  height: 2.25em;
+  width: 2.25em;
+  line-height: 2.9em;
+  -moz-border-radius: 50%;
+  /* or 50% */
+  border-radius: 50%;
+  /* or 50% */
+  background-color: blue;
+  text-align: center;
+  bottom: 2px;
+  left: 2px; }
+  @media only screen and (max-width: 767px) {
+    .mtg-card__attack,
+    .mtg-card__block,
+    .mtg-card__summoned {
+      font-size: 0.75em; } }
+  .mtg-card__attack i,
+  .mtg-card__block i,
+  .mtg-card__summoned i {
+    color: #fff;
+    font-size: 1.25em; }
+
+.mtg-card__attack {
+  background-color: red; }
+
+.mtg-card__block {
+  background-color: green; }
 
 .mtg-card__name,
 .mtg-card__p-and-t,
@@ -539,5 +590,50 @@ html, body {
 .mtg-pile--third {
   box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45);
   margin-right: 3px; }
+
+[class^='icon-']:before {
+  display: inline-block;
+  font-family: 'mtg-js';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-attack:before {
+  content: '\0041'; }
+
+.icon-block:before {
+  content: '\0042'; }
+
+.icon-block2:before {
+  content: '\0043'; }
+
+.icon-exile:before {
+  content: '\0045'; }
+
+.icon-full-hand:before {
+  content: '\0046'; }
+
+.icon-graveyard:before {
+  content: '\0047'; }
+
+.icon-hand:before {
+  content: '\0048'; }
+
+.icon-flashback:before {
+  content: '\0049'; }
+
+.icon-library:before {
+  content: '\004c'; }
+
+.icon-pick:before {
+  content: '\0050'; }
+
+.icon-shuffle:before {
+  content: '\0052'; }
+
+.icon-summoned:before {
+  content: '\0053'; }
 
 /*# sourceMappingURL=mtg-app.css.map */

@@ -20,14 +20,13 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="layout/mtg-js.css">
     <link rel="stylesheet" href="layout/mtg-app.css">
 
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="mtgJsApp" class="has-drawer">
+  <body class="has-drawer" ng-app="mtgJsApp">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -81,39 +80,52 @@
       <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#/">mtg</a>
+            <a class="navbar-brand" href="#/home">mtg</a>
           </div>
 
           <ul class="nav navbar-nav">
-            <li role="presentation" class="active"><a href="#/">Home</a></li>
+            <li role="presentation"  ui-sref-active="active"><a ui-sref="home">Home</a></li>
             <!-- //angularfire -->
-            <li role="presentation"><a ng-href="#/chat">chat</a></li>
-            <li role="presentation">
-              <a ng-show-auth href="#/account">account</a>
-            </li>
+            <li role="presentation" ui-sref-active="active"><a ui-sref="chat">chat</a></li>
             <!-- //mtg-js -->
-            <li role="presentation" ng-show-auth>
-              <a href="#/game">game</a>
+            <li role="presentation" ng-show-auth ui-sref-active="active">
+              <a ui-sref="game">game</a>
             </li>
 
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a ng-hide-auth href="#/login">Log In</a>
-              <a ng-show-auth ng-click="logout()">Log Out</a>
+
+            <li class="dropdown" ui-sref-active="active" ng-show-auth>
+              <a class="pointer navbar-avatar dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <img gravatar-src="profile.email" />
+                <span ng-show="profile.name">{{profile.name}}</span>
+                <span ng-hide="profile.name">Profile</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a ui-sref="account">Account</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a ng-click="logout()" class="pointer">Log Out</a></li>
+              </ul>
+            </li>
+
+            <li ng-hide-auth ui-sref-active="active">
+              <a ui-sref="login">Log In</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="container container-full" ng-view></div>
+    <div class="container container-full" ui-view="content"></div>
+
+    <footer class="footer" ui-view="footer">
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -123,27 +135,28 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-md5/angular-md5.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
     <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/angularfire/config.js"></script>
-        <script src="scripts/angularfire/firebase.ref.js"></script>
-        <script src="scripts/controllers/chat.js"></script>
-        <script src="scripts/filters/reverse.js"></script>
-        <script src="scripts/angularfire/auth.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/account.js"></script>
-        <script src="scripts/controllers/game.js"></script>
-        <script src="scripts/directives/ngShowAuth.js"></script>
-        <script src="scripts/directives/ngHideAuth.js"></script>
-        <script src="scripts/routes.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+
+    <script src="scripts/account/account.controller.js"></script>
+
+    <script src="scripts/auth/auth.controller.js"></script>
+    <script src="scripts/auth/auth.service.js"></script>
+    <script src="scripts/auth/auth.directives.js"></script>
+
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/game.js"></script>
+
+    <script src="scripts/angularfire/config.js"></script>
+    <script src="scripts/angularfire/firebase.ref.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

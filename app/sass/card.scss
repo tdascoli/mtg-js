@@ -58,6 +58,45 @@
   }
 }
 
+// todo height/width
+.mtg-card__attack,
+.mtg-card__block,
+.mtg-card__summoned{
+  position: absolute;
+
+  font-size: 1.15em;
+
+  @media #{$media-phone} {
+    font-size: 0.75em;
+  }
+
+  height: 2.25em;
+  width: 2.25em;
+  line-height: 2.9em;
+
+  -moz-border-radius: 50%; /* or 50% */
+  border-radius: 50%; /* or 50% */
+
+  background-color: blue;
+
+  text-align: center;
+
+  bottom:2px;
+  left:2px;
+
+  i {
+    color: #fff;
+    font-size: 1.25em;
+  }
+}
+
+.mtg-card__attack {
+  background-color: red;
+}
+.mtg-card__block {
+  background-color: green;
+}
+
 .mtg-card__name,
 .mtg-card__p-and-t,
 .mtg-card__loyalty {

@@ -16,3 +16,14 @@
   font-weight: normal;
   src: local('Magic Cards Normal'), url('#{$pathToFonts}/MagicCardsNormal.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'mtg-js';
+  src: url('#{$pathToFonts}/mtg-js.eot');
+  src: url('#{$pathToFonts}/mtg-js.eot?#iefix') format('embedded-opentype'),
+  url('#{$pathToFonts}/mtg-js.woff') format('woff'),
+  url('#{$pathToFonts}/mtg-js.ttf') format('truetype'),
+  url('#{$pathToFonts}/mtg-js.svg#mtg-js') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

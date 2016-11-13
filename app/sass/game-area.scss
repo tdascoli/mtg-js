@@ -168,14 +168,16 @@
     justify-content: space-between;
 
     li {
-      height: ($game-action-height - $phase-bar-height);
+      line-height: ($game-action-height - $phase-bar-height);
       flex-grow: 1;
       color: white;
       font-weight: 700;
       text-align: center;
       list-style: none;
-      text-transform: uppercase;
-      padding-top: 10px;
+      
+      i {
+        color: #000;
+      }
     }
 
     li.current {

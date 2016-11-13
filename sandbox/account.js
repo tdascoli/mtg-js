@@ -9,8 +9,11 @@
 angular.module('mtgJsApp')
   .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, $timeout) {
     $scope.user = user;
+
     $scope.logout = function() { Auth.$signOut(); };
+
     $scope.messages = [];
+
     var profile = $firebaseObject(Ref.child('users/'+user.uid));
     profile.$bindTo($scope, 'profile');
 
@@ -58,4 +61,20 @@ angular.module('mtgJsApp')
       }, 10000);
     }
 
+  })
+  .factory('Users', function($firebaseArray, $firebaseObject, FirebaseUrl){
+    var usersRef = new Firebase(FirebaseUrl+'users');
+    var users = $firebaseArray(usersRef);
+
+    var Users = {
+      getProfile: function(uid){
+        return $firebaseObject(usersRef.child(uid));
+      },
+      getDisplayName: function(uid){
+        return users.$getRecord(uid).displayName;
+      },
+      all: users
+    };
+
+    return Users;
   });

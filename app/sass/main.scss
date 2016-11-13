@@ -66,3 +66,16 @@ h1, h2, h3, h4, h5, h6 {
 .badge.show-badge {
   visibility: visible;
 }
+.navbar-nav>li>a.navbar-avatar {
+  padding: 14px 10px 10px 10px;
+}
+.navbar-avatar img {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+
+  height: 40px;
+}
+.pointer {
+  cursor: pointer;
+}

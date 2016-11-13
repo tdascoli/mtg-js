@@ -1,0 +1,11 @@
+<div ng-show="error">
+  <span>{{ error.message }}</span>
+</div>
+
+<div class="input-group">
+  <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+</div>
+<div class="input-group">
+  <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+</div>
+<button type="submit" class="btn btn-success" ng-click="login()">Log In</button>

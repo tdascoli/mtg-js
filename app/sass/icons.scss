@@ -1,0 +1,21 @@
+[class^='icon-']:before{
+  display: inline-block;
+  font-family: 'mtg-js';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-attack:before{content:'\0041';}
+.icon-block:before{content:'\0042';}
+.icon-block2:before{content:'\0043';}
+.icon-exile:before{content:'\0045';}
+.icon-full-hand:before{content:'\0046';}
+.icon-graveyard:before{content:'\0047';}
+.icon-hand:before{content:'\0048';}
+.icon-flashback:before{content:'\0049';}
+.icon-library:before{content:'\004c';}
+.icon-pick:before{content:'\0050';}
+.icon-shuffle:before{content:'\0052';}
+.icon-summoned:before{content:'\0053';}
