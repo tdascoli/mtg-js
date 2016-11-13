@@ -378,8 +378,10 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            //'images/{,*/}*.{webp}',
+            'images/{,*/}*.{png,jpg,jpeg,gif}',
+            'fonts/{,*/}*.*',
+            'layout/{,*/}*.*'
           ]
         }, {
           expand: true,
@@ -389,6 +391,16 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/keyrune/',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/mana/',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]
@@ -411,7 +423,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'compass:dist',
-        'imagemin',
+        //'imagemin',
         'svgmin'
       ]
     },

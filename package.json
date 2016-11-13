@@ -1,6 +1,6 @@
 {
   "name": "mtgjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {},
   "repository": {},
   "devDependencies": {
@@ -28,9 +28,15 @@
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^3.1.0",
     "time-grunt": "^1.0.0",
-    "chalk": "^0.4.0"
+    "chalk": "^0.4.0",
+    "express":"latest"
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "grunt build",
+    "start": "node server.js"
   }
 }

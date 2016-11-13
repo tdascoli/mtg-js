@@ -1,14 +1,5 @@
 //* game area */
-.avatar {
-  background: url(../images/avatar/juri.png);
-  background-size: contain;
-  height: 65px;
-  width: 65px;
-}
-
-.avatar--opponent {
-  background: url(../images/avatar/batman-512.png);
-  background-size: contain;
+.avatar img {
   height: 65px;
   width: 65px;
 }
@@ -108,10 +99,10 @@
   font-weight: 700;
   font-size: 24px;
 
-  position: relative;
+  position: absolute;
 }
 .op-life {
-  top: -10px;
+  top: 0;
 }
 .my-life {
   bottom: -30px;
@@ -174,7 +165,7 @@
       font-weight: 700;
       text-align: center;
       list-style: none;
-      
+
       i {
         color: #000;
       }
