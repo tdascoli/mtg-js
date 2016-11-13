@@ -33,7 +33,8 @@
     "express":"latest"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.0",
+    "npm": "2.1.x"
   },
   "main": "server.js",
   "scripts": {
