@@ -37,6 +37,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "./node_modules/grunt/bin/grunt build"
+    "postinstall": "grunt build"
   }
 }
