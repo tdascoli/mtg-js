@@ -1,0 +1,37 @@
+/* column */
+.golden-ratio--column {
+  display: flex;
+  flex-direction: column;
+}
+
+.golden-ratio--column .column--tall {
+  height: $golden-ratio-tall;
+  width: 100%;
+
+  display: block;
+}
+.golden-ratio--column .column--small {
+  height: $golden-ratio-small;
+  width: 100%;
+
+  display: block;
+}
+
+/* row */
+.golden-ratio--row {
+  display: flex;
+  flex-direction: row;
+}
+
+.golden-ratio--row .row--tall {
+  width: $golden-ratio-tall;
+  height: 100%;
+
+  display: block;
+}
+.golden-ratio--row .row--small {
+  width: $golden-ratio-small;
+  height: 100%;
+
+  display: block;
+}

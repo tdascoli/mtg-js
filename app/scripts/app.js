@@ -35,9 +35,62 @@ var app = angular.module('mtgJsApp', [
           content: {
             controller: 'MainCtrl',
             templateUrl: 'views/main.html'
+          }
+        }
+      })
+      .state('chat', {
+        url: '/chat',
+        views: {
+          content: {
+            controller: 'MainCtrl',
+            templateUrl: 'views/chat.html'
+          }
+        }
+      })
+      .state('channels', {
+        url: '/channels',
+        views: {
+          content: {
+            controller: 'ChannelsCtrl',
+            templateUrl: 'views/channels/channels.html'
+          }
+        },
+        resolve: {
+          channels: function (Channels){
+            return Channels.$loaded();
           },
-          footer: {
-            templateUrl: 'views/footer.html'
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
+          }
+        }
+      })
+      .state('channels.create', {
+        url: '/create',
+        controller: 'ChannelsCtrl',
+        templateUrl: 'views/channels/create.html'
+      })
+      .state('channels.messages', {
+        url: '/{channelId}/messages',
+
+        templateUrl: 'views/channels/messages.html',
+        controller: 'MessagesCtrl',
+
+        resolve: {
+          messages: function($stateParams, Messages){
+            return Messages.forChannel($stateParams.channelId).$loaded();
+          },
+          channelName: function($stateParams, channels){
+            return '#'+channels.$getRecord($stateParams.channelId).name;
           }
         }
       })
@@ -47,9 +100,6 @@ var app = angular.module('mtgJsApp', [
           content: {
             controller: 'AuthCtrl',
             templateUrl: 'views/auth/login.html'
-          },
-          footer: {
-            templateUrl: 'views/footer.html'
           }
         },
         resolve: {
@@ -68,9 +118,6 @@ var app = angular.module('mtgJsApp', [
           content: {
             controller: 'AuthCtrl',
             templateUrl: 'views/auth/register.html'
-          },
-          footer: {
-            templateUrl: 'views/footer.html'
           }
         }
       })
@@ -80,9 +127,6 @@ var app = angular.module('mtgJsApp', [
           content: {
             controller: 'AccountCtrl',
             templateUrl: 'views/account/account.html'
-          },
-          footer: {
-            templateUrl: 'views/footer.html'
           }
         },
         resolve: {
@@ -104,9 +148,6 @@ var app = angular.module('mtgJsApp', [
           content: {
             controller: 'GameCtrl',
             templateUrl: 'views/game.html'
-          },
-          footer: {
-            templateUrl: 'views/footer.html'
           }
         }
       });

@@ -43,34 +43,28 @@
           <span class="badge show-badge">1</span>
         </a>
       </div>
-      <div class="drawer-contents">
-        <div class="drawer-heading">
-          <h2 class="drawer-title">Menu</h2>
+      <div class="drawer-contents golden-ratio--column">
+        <div class="drawer-heading column--small">
+          <img gravatar-src="profile.email" style="height: 80px;" /><br />
+          <h4 class="drawer-title" ng-show="profile.name">{{profile.name}}</h4>
         </div>
-        <div class="drawer-body">
-          <p>
-            This is a properly padded container for content in the
-            drawer that isn't a navigation.
-          </p>
-          <a href="#">A Regular Link</a>
-        </div>
-
-        <ul class="drawer-nav">
-          <li role="presentation" class="active"><a  data-target="#navigation" data-toggle="drawer" href="#/">Home</a></li>
-          <!-- //angularfire -->
-          <li role="presentation"><a data-target="#navigation" data-toggle="drawer" ng-href="#/chat">chat</a></li>
-          <li role="presentation">
-            <a ng-hide-auth data-target="#navigation" data-toggle="drawer" href="#/login">log in</a>
-            <a ng-show-auth data-target="#navigation" data-toggle="drawer" href="#/account">account</a>
-          </li>
-          <!-- //mtg-js -->
-          <li role="presentation" ng-show-auth>
-            <a href="#/game" data-target="#navigation" data-toggle="drawer">game</a>
-          </li>
-
-        </ul>
-        <div class="drawer-footer">
-          <small>&copy; Caroline Amaba</small>
+        <div class="column--tall">
+          <div class="drawer-body">
+            <p>
+              BODY
+            </p>
+          </div>
+          <ul class="drawer-fullnav">
+            <li role="presentation" ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="home">home</a></li>
+            <!-- //angularfire -->
+            <li role="presentation" ui-sref-active="active"><a ui-sref="channels">channels</a></li>
+            <!-- //mtg-js -->
+            <li role="presentation" ng-show-auth ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="game">game</a></li>
+            <li role="presentation" ng-show-auth ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="account">profile</a></li>
+          </ul>
+          <div class="drawer-footer">
+            <p class="text-muted">Made with <span class="glyphicon glyphicon-heart"></span> by tdascoli</p>
+          </div>
         </div>
       </div>
     </div>
@@ -84,13 +78,12 @@
           </div>
 
           <ul class="nav navbar-nav">
-            <li role="presentation"  ui-sref-active="active"><a ui-sref="home">Home</a></li>
+
+            <li role="presentation" ui-sref-active="active"><a ui-sref="home">home</a></li>
             <!-- //angularfire -->
-            <li role="presentation" ui-sref-active="active"><a ui-sref="chat">chat</a></li>
+            <li role="presentation" ui-sref-active="active"><a ui-sref="channels">channels</a></li>
             <!-- //mtg-js -->
-            <li role="presentation" ng-show-auth ui-sref-active="active">
-              <a ui-sref="game">game</a>
-            </li>
+            <li role="presentation" ng-show-auth ui-sref-active="active"><a ui-sref="game">game</a></li>
 
           </ul>
 
@@ -118,8 +111,6 @@
     </div>
 
     <div class="container container-full" ui-view="content"></div>
-
-    <footer class="footer" ui-view="footer">
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -152,8 +143,16 @@
     <script src="scripts/auth/auth.service.js"></script>
     <script src="scripts/auth/auth.directives.js"></script>
 
+    <script src="scripts/channels/channels.controller.js"></script>
+    <script src="scripts/channels/channels.service.js"></script>
+
+    <script src="scripts/channels/messages.controller.js"></script>
+    <script src="scripts/channels/messages.service.js"></script>
+
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/game.js"></script>
+
+    <script src="scripts/filters/reverse.js"></script>
 
     <script src="scripts/angularfire/config.js"></script>
     <script src="scripts/angularfire/firebase.ref.js"></script>

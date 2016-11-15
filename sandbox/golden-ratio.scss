@@ -1,0 +1,102 @@
+//* variables *//
+
+$phi: 1.61803398875;
+$golden-ratio: percentage(0.61803398875);
+$golden-ratio-tall: $golden-ratio;
+$golden-ratio-small: 100 - $golden-ratio;
+
+$blue-bayoux: #5A7682;
+$nero: #212121;
+$lightning-yellow: #EEA731;
+
+$azure: #F9FDFE;
+$kournikova: #FFD246;
+
+
+.golden-ratio-container,
+.golden-ratio-container-height,
+.golden-ratio-container-width {
+  background-color: silver;
+  height: 600px;
+  width: 360px;
+
+  display: flex;
+  flex-direction: column;
+
+  .layer-height--tall {
+    height: 100 - percentage($phi - 1);
+    width: 100%;
+    background-color: $kournikova;
+  }
+
+  .layer-height--small {
+    height: percentage($phi - 1);
+    width: 100%;
+    background-color: $nero;
+  }
+
+  .layer-width--tall {
+    width: 100 - percentage($phi - 1);
+    height: 100%;
+    background-color: $kournikova;
+  }
+
+  .layer-width--small {
+    width: percentage($phi - 1);
+    height: 100%;
+    background-color: $nero;
+  }
+}
+.golden-ratio-container-width {
+  height: 400px;
+  width: 360px;
+
+  flex-direction: row;
+}
+
+
+/* refactoring */
+/* column */
+.golden-ratio--column {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+}
+
+.golden-ratio--column .column--tall {
+  height: $golden-ratio-tall;
+  width: 100%;
+  background-color: $nero;
+}
+.golden-ratio--column .column--small {
+  height: $golden-ratio-small;
+  width: 100%;
+  background-color: $kournikova;
+}
+
+.golden-ratio--container {
+  height: 400px;
+  width: 360px;
+}
+
+/* row */
+.golden-ratio--row {
+  display: flex;
+  flex-direction: row;
+
+  height: 100%;
+  width: 100%;
+}
+
+.golden-ratio--row .row--tall {
+  width: $golden-ratio-tall;
+  height: 100%;
+  background-color: $nero;
+}
+.golden-ratio--row .row--small {
+  width: $golden-ratio-small;
+  height: 100%;
+  background-color: $kournikova;
+}

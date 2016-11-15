@@ -4,6 +4,17 @@
   width: 65px;
 }
 
+.avatar[data-life]:after {
+  content: attr(data-life);
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+  text-shadow: 1px 1px 1px #000;
+
+  position: relative;
+  top: -35px;
+}
+
 .game-area {
   //background-color: $ga-bg-color-playground;
   height: calc(100% - #{$game-action-height});

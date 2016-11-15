@@ -71,7 +71,7 @@ angular.module('mtgJsApp')
         return $firebaseObject(usersRef.child(uid));
       },
       getDisplayName: function(uid){
-        return users.$getRecord(uid).displayName;
+        return users.$getRecord(uid).name;
       },
       all: users
     };

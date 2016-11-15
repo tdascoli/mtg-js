@@ -85,3 +85,9 @@ $colorU: #B5CDE3;
 $colorB: #ACA29A;
 $colorR: #DB8664;
 $colorG: #93B483;
+
+/* vars.golden-ratio */
+$phi: 1.61803398875;
+$golden-ratio: percentage(0.61803398875);
+$golden-ratio-tall: $golden-ratio;
+$golden-ratio-small: 100 - $golden-ratio;
