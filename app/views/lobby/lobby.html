@@ -1,0 +1,23 @@
+<div class="main">
+  <div class="sidebar">
+
+    <div class="slack-name">
+      <h2>Lobby</h2>
+    </div>
+
+    <div class="lobby-list">
+      <div class="lobby" ng-repeat="lobby in lobbies">
+        <a ui-sref="lobby.game({lobbyId: lobby.$id})" ui-sref-active="selected"># {{ lobby.name }}</a>
+      </div>
+
+      <div class="lobby create">
+        <a ui-sref="lobby.create">+ create game</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="message-pane" ui-view></div>
+</div>
+
+

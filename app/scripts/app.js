@@ -19,6 +19,7 @@ var app = angular.module('mtgJsApp', [
     'ngTouch',
     'angular-md5',
     'ui.router',
+    'ui.router.menus',
     'ui.gravatar',
     'firebase',
     'firebase.ref'
@@ -31,6 +32,9 @@ var app = angular.module('mtgJsApp', [
     $stateProvider
       .state('home', {
         url: '/home',
+        menu: {
+          name: 'home'
+        },
         views: {
           content: {
             controller: 'MainCtrl',
@@ -38,17 +42,13 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
-      .state('chat', {
-        url: '/chat',
-        views: {
-          content: {
-            controller: 'MainCtrl',
-            templateUrl: 'views/chat.html'
-          }
-        }
-      })
+      // chat
       .state('channels', {
         url: '/channels',
+        menu: {
+          name: 'channels',
+          onAuth: 'show'
+        },
         views: {
           content: {
             controller: 'ChannelsCtrl',
@@ -81,10 +81,8 @@ var app = angular.module('mtgJsApp', [
       })
       .state('channels.messages', {
         url: '/{channelId}/messages',
-
         templateUrl: 'views/channels/messages.html',
         controller: 'MessagesCtrl',
-
         resolve: {
           messages: function($stateParams, Messages){
             return Messages.forChannel($stateParams.channelId).$loaded();
@@ -94,6 +92,57 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
+      // lobby
+      .state('lobby', {
+        url: '/lobby',
+        menu: {
+          name: 'lobby',
+          onAuth: 'show'
+        },
+        views: {
+          content: {
+            controller: 'LobbyCtrl',
+            templateUrl: 'views/lobby/lobby.html'
+          }
+        },
+        resolve: {
+          lobbies: function (Lobbies){
+            return Lobbies.$loaded();
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
+          }
+        }
+      })
+      .state('lobby.create', {
+        url: '/create',
+        controller: 'LobbyCtrl',
+        templateUrl: 'views/lobby/create.html'
+      })
+      .state('lobby.game', {
+        url: '/{channelId}/game',
+        templateUrl: 'views/lobby/game.html',
+        controller: 'GameCtrl',
+        resolve: {
+          game: function($stateParams, Messages){
+            return Messages.forChannel($stateParams.channelId).$loaded();
+          },
+          lobbyName: function($stateParams, channels){
+            return '#'+channels.$getRecord($stateParams.channelId).name;
+          }
+        }
+      })
+      // account
       .state('login', {
         url: '/login',
         views: {
@@ -123,6 +172,10 @@ var app = angular.module('mtgJsApp', [
       })
       .state('account', {
         url: '/account',
+        menu: {
+          name: 'account',
+          onAuth: 'show'
+        },
         views: {
           content: {
             controller: 'AccountCtrl',
@@ -142,11 +195,15 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
+      // sandbox
       .state('game', {
         url: '/game',
+        menu: {
+          name: 'solitaire game'
+        },
         views: {
           content: {
-            controller: 'GameCtrl',
+            controller: 'Game2Ctrl',
             templateUrl: 'views/game.html'
           }
         }
@@ -154,10 +211,13 @@ var app = angular.module('mtgJsApp', [
   }]);
 
   app.run(function($rootScope, $state, Auth) {
+
+    $rootScope.mobile = $.browser.mobile;
+
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 
     $rootScope.logout=function(){
-      $state.go('login');
+      $state.go('home');
       $rootScope.profile=undefined;
       Auth.$signOut();
     };

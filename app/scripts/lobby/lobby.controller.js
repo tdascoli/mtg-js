@@ -8,9 +8,9 @@
    * Provides rudimentary account management functions.
    */
   angular.module('mtgJsApp')
-    .controller('ChannelsCtrl', function($scope, $state, Auth, Users, profile, channels){
+    .controller('LobbyCtrl', function($scope, $state, Auth, Users, profile, lobbies){
       $scope.profile = profile;
-      $scope.channels = channels;
+      $scope.lobbies = lobbies;
 
       $scope.getDisplayName = Users.getDisplayName;
       $scope.getEmail = Users.getEmail;
@@ -20,13 +20,13 @@
         $state.go('home');
       };
 
-      $scope.newChannel = {
+      $scope.newGame = {
         name: ''
       };
 
-      $scope.createChannel = function(){
-        $scope.channels.$add($scope.newChannel).then(function(ref){
-          $state.go('channels.messages', {channelId: ref.key()});
+      $scope.createGame = function(){
+        $scope.lobbies.$add($scope.newGame).then(function(ref){
+          $state.go('lobby.messages', {lobbyId: ref.key()});
         });
       };
     });

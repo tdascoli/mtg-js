@@ -73,6 +73,9 @@ angular.module('mtgJsApp')
       getDisplayName: function(uid){
         return users.$getRecord(uid).name;
       },
+      getEmail: function(uid){
+        return users.$getRecord(uid).email;
+      },
       all: users
     };
 

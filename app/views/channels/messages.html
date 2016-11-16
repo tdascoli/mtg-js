@@ -3,10 +3,10 @@
 </div>
 
 <div class="message-wrap" ng-repeat="message in messages">
-  <img class="user-pic" ng-src="{{ getGravatar(message.uid) }}" />
+  <img class="user-pic" gravatar-src="getEmail(message.uid)" />
   <div class="message-info">
     <div class="user-name">
-      {{ getDisplayName(message.uid) }}
+      {{ getDisplayName(message.uid) }} / {{ getEmail(message.uid) }}
       <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
     </div>
     <div class="message">

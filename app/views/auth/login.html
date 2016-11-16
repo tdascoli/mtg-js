@@ -1,11 +1,27 @@
-<div ng-show="error">
-  <span>{{ error.message }}</span>
-</div>
+<div class="panel panel-primary login-container">
+  <div class="panel-heading">
+    <h3 class="panel-title">Log In</h3>
+  </div>
+  <div class="panel-body">
+    <div class="alert alert-dismissible alert-warning" ng-show="error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4>Warning!</h4>
+      <p>{{ error.message }}</p>
+    </div>
 
-<div class="input-group">
-  <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
+    <div class="form-group">
+      <label class="control-label" for="email">E-Mail</label>
+      <input class="form-control" id="email" type="email" ng-model="user.email" />
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="password">Password</label>
+      <input class="form-control" id="password" type="password" ng-model="user.password" />
+    </div>
+
+    <button type="submit" class="btn btn-success" ng-click="login()">Log In</button>
+
+    <br />+ register&nbsp;&nbsp;&nbsp;&nbsp;o keep logged in
+
+  </div>
 </div>
-<div class="input-group">
-  <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-</div>
-<button type="submit" class="btn btn-success" ng-click="login()">Log In</button>

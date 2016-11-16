@@ -8,7 +8,7 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('GameCtrl', function ($scope) {
+  .controller('Game2Ctrl', function ($scope) {
 
     $scope.idle=false;
 

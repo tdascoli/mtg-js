@@ -17,8 +17,8 @@ angular.module('mtgJsApp')
       getDisplayName: function(uid){
         return users.$getRecord(uid).name;
       },
-      getGravatar: function(uid){
-        return '//www.gravatar.com/avatar/' + users.$getRecord(uid).emailHash;
+      getEmail: function(uid){
+        return users.$getRecord(uid).email;
       },
       all: users
     };

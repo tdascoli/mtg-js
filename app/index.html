@@ -54,13 +54,11 @@
               BODY
             </p>
           </div>
-          <ul class="drawer-fullnav">
-            <li role="presentation" ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="home">home</a></li>
-            <!-- //angularfire -->
-            <li role="presentation" ui-sref-active="active"><a ui-sref="channels">channels</a></li>
-            <!-- //mtg-js -->
-            <li role="presentation" ng-show-auth ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="game">game</a></li>
-            <li role="presentation" ng-show-auth ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="account">profile</a></li>
+          <ul class="drawer-fullnav" menus="menuItems">
+            <li ng-repeat="menu in menuItems" role="presentation" ui-sref-active="active" ng-show-or-hide-on-auth="{{menu.onAuth}}"><a data-target="#navigation" data-toggle="drawer"  ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
+            <!-- login -->
+            <li role="presentation" ng-hide-auth ui-sref-active="active"><a data-target="#navigation" data-toggle="drawer" ui-sref="login">log in</a></li>
+            <li role="presentation" ng-show-auth><a data-target="#navigation" data-toggle="drawer" ng-click="logout()">log out</a></li>
           </ul>
           <div class="drawer-footer">
             <p class="text-muted">Made with <span class="glyphicon glyphicon-heart"></span> by tdascoli</p>
@@ -77,14 +75,8 @@
             <a class="navbar-brand" href="#/home">mtg</a>
           </div>
 
-          <ul class="nav navbar-nav">
-
-            <li role="presentation" ui-sref-active="active"><a ui-sref="home">home</a></li>
-            <!-- //angularfire -->
-            <li role="presentation" ui-sref-active="active"><a ui-sref="channels">channels</a></li>
-            <!-- //mtg-js -->
-            <li role="presentation" ng-show-auth ui-sref-active="active"><a ui-sref="game">game</a></li>
-
+          <ul class="nav navbar-nav" menus="menuItems">
+            <li ng-repeat="menu in menuItems" role="presentation" ui-sref-active="active" ng-show-or-hide-on-auth="{{menu.onAuth}}"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -110,13 +102,14 @@
       </div>
     </div>
 
-    <div class="container container-full" ui-view="content"></div>
+    <div class="container" class-show-state="game" ui-view="content"></div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-router-menus/dist/angular-ui-router-menus.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -130,6 +123,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-md5/angular-md5.js"></script>
     <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+    <script src="bower_components/detect-mobile-browser/detectmobilebrowser.js"></script>
     <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
@@ -149,10 +143,16 @@
     <script src="scripts/channels/messages.controller.js"></script>
     <script src="scripts/channels/messages.service.js"></script>
 
+
+    <script src="scripts/lobby/lobby.controller.js"></script>
+    <script src="scripts/lobby/lobby.service.js"></script>
+
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/game.js"></script>
 
     <script src="scripts/filters/reverse.js"></script>
+
+    <script src="scripts/directives/common.directives.js"></script>
 
     <script src="scripts/angularfire/config.js"></script>
     <script src="scripts/angularfire/firebase.ref.js"></script>

@@ -303,6 +303,7 @@ html, body {
 .pointer {
   cursor: pointer; }
 
+/* login */
 .avatar img {
   height: 65px;
   width: 65px; }

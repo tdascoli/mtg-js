@@ -4,6 +4,7 @@
   "dependencies": {
     "angular": "^1.3.0",
     "angular-ui-router": "latest",
+    "angular-ui-router-menus":"latest",
     "firebase": "latest",
     "angularfire": "latest",
     "bootstrap": "^3.2.0",
@@ -41,7 +42,7 @@
     },
     "detect-mobile-browser": {
       "main": [
-        "detect-mobile-browser.js"
+        "detectmobilebrowser.js"
       ]
     },
     "mana": {
