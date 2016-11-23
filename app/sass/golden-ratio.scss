@@ -2,6 +2,7 @@
 .golden-ratio--column {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .golden-ratio--column .column--tall {
@@ -21,6 +22,8 @@
 .golden-ratio--row {
   display: flex;
   flex-direction: row;
+  height: 100%;
+
 }
 
 .golden-ratio--row .row--tall {
@@ -34,4 +37,16 @@
   height: 100%;
 
   display: block;
+}
+
+/* mobile */
+@media #{$media-phone} {
+  .golden-ratio--row.no-mobile {
+    display: block;
+  }
+
+  .golden-ratio--row .row--tall,
+  .golden-ratio--row .row--small {
+    width: 100%;
+  }
 }

@@ -465,11 +465,17 @@ html, body {
   height: 100%;
   cursor: pointer;
   position: relative;
-  /* transition tapped */ }
+  /* transition tapped */
+  border-radius: 2.5px; }
   .mtg-card > img {
-    border-radius: 2.5px;
     height: 100%;
     width: auto; }
+
+.mtg-card--sm {
+  height: 148.57143px;
+  width: 106.42857px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.45); }
 
 .mtg-library {
   background: url("../images/card-back.jpeg");
@@ -594,6 +600,24 @@ html, body {
   box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45);
   margin-right: 3px; }
 
+.card-list--item {
+  display: flex; }
+  .card-list--item > img {
+    height: 80px; }
+
+.card-list__card-detail {
+  margin: 0 5px;
+  flex-grow: 2; }
+
+.card-list__cost-set {
+  text-align: right; }
+
+.card-list__set {
+  padding: 2px;
+  color: #000;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.33); }
+
 [class^='icon-']:before {
   display: inline-block;
   font-family: 'mtg-js';
@@ -642,7 +666,8 @@ html, body {
 /* column */
 .golden-ratio--column {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  height: 100%; }
 
 .golden-ratio--column .column--tall {
   height: 61.8034%;
@@ -657,7 +682,8 @@ html, body {
 /* row */
 .golden-ratio--row {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  height: 100%; }
 
 .golden-ratio--row .row--tall {
   width: 61.8034%;
@@ -668,5 +694,14 @@ html, body {
   width: 38.1966%;
   height: 100%;
   display: block; }
+
+/* mobile */
+@media only screen and (max-width: 767px) {
+  .golden-ratio--row.no-mobile {
+    display: block; }
+
+  .golden-ratio--row .row--tall,
+  .golden-ratio--row .row--small {
+    width: 100%; } }
 
 /*# sourceMappingURL=mtg-app.css.map */

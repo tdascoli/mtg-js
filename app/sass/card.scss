@@ -23,11 +23,21 @@
   position: relative;
   /* transition tapped */
 
+  border-radius: $xsCardBorderRadius;
+
   > img {
-      border-radius: $xsCardBorderRadius;
       height: 100%;
       width: auto;
   }
+}
+
+.mtg-card--sm {
+  height: $smCardHeight;
+  width: $smCardWidth;
+
+  border-radius: 3px;
+
+  box-shadow:  1px 1px 1px rgba(0, 0, 0, 0.450);
 }
 
 .mtg-library {
@@ -212,4 +222,33 @@
           3px 3px   0 rgba(255, 255, 255, 0.450);
 
   margin-right: 3px;
+}
+
+.card-list {
+
+}
+
+.card-list--item {
+
+  display: flex;
+
+  > img {
+    height: 80px;
+  }
+}
+
+.card-list__card-detail {
+  margin: 0 5px;
+  flex-grow: 2;
+}
+
+.card-list__cost-set {
+  text-align: right;
+}
+
+.card-list__set {
+  padding: 2px;
+  color: #000;
+  font-weight: 700;
+  background: rgba(0,0,0,0.33);
 }

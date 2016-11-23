@@ -1,0 +1,219 @@
+<h2>deck editor</h2>
+
+
+<div class="golden-ratio--row no-mobile">
+
+  <div class="row--small">
+
+      <div>
+        <div class="btn-group">
+          <a data-target="#" class="btn btn-default"><i class="ms ms-w ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-u ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-b ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-r ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-g ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-c ms-cost"></i></a>
+          <a data-target="#" class="btn btn-default">mc</a>
+        </div>
+        <p></p>
+        <div class="btn-group">
+          <a data-target="#" class="btn btn-default"><i class="ms ms-land ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-artifact ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-creature ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-enchantment ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-planeswalker ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-instant ms-fw"></i></a>
+          <a data-target="#" class="btn btn-default"><i class="ms ms-sorcery ms-fw"></i></a>
+        </div>
+        <p></p>
+        <div class="form-inline">
+
+          <div class="form-group">
+            <label class="sr-only">search</label>
+            <input type="text" class="form-control" placeholder="search" />
+          </div>
+
+          <div class="form-group">
+            <label class="label-control">in:</label>
+            <select class="form-control" id="type2">
+              <option>name</option>
+              <option>type</option>
+              <option>text</option>
+              <option>cost</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+      <hr />
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Cost</th>
+          <th>Color</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="card in cards">
+          <td>{{card.name}}</td>
+          <td><div render-cost="card.cost"></div></td>
+          <td><span render-color="card.colors"></span></td>
+          <td>{{card.types[0]}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+      </ul>
+    <!--
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-target="#cards" data-toggle="tab">Card catalog</a></li>
+      <li><a data-target="#decks" data-toggle="tab">All Decks</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane fade active in" id="cards">
+
+        <div>
+          <div class="btn-group">
+            <a data-target="#" class="btn btn-default"><i class="ms ms-w ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-u ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-b ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-r ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-g ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-c ms-cost"></i></a>
+            <a data-target="#" class="btn btn-default">mc</a>
+          </div>
+          <hr />
+          <div class="btn-group">
+            <a data-target="#" class="btn btn-default"><i class="ms ms-land ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-artifact ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-creature ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-enchantment ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-planeswalker ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-instant ms-fw"></i></a>
+            <a data-target="#" class="btn btn-default"><i class="ms ms-sorcery ms-fw"></i></a>
+          </div>
+          <hr />
+          <div class="form-inline">
+
+            <div class="form-group">
+              <label class="sr-only">search</label>
+              <input type="text" class="form-control" placeholder="search" />
+            </div>
+
+            <div class="form-group">
+              <select class="form-control" id="select">
+                <option>in</option>
+                <option>not in</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <select class="form-control" id="type">
+                <option>name</option>
+                <option>type</option>
+                <option>text</option>
+                <option>cost</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>head</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>content</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="tab-pane fade" id="decks">
+        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <div class="row--tall">
+
+    <div class="golden-ratio--row no-mobile">
+
+      <div class="row--tall">
+
+        <div>
+          <div class="form-group">
+            <label class="sr-only">Title</label>
+            <input type="text" class="form-control" placeholder="Title" />
+          </div>
+
+        </div>
+
+        middle/deck - group by type pile by name
+        <hr />
+
+        <div class="list-group card-list">
+          <a href="#" class="list-group-item card-list--item" ng-repeat="card in card">
+            <img src="images/avatar/juri.png" />
+
+            <div class="card-list__card-detail">
+              <strong>{{card.name}}</strong>
+              <p>{{card.types[0]}}</p>
+            </div>
+
+            <div class="card-list__cost-set">
+              <div render-cost="{{card.cost}}">
+              </div>
+              <span class="card-list__set rarity">
+                LEA
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <!--<div class="mtg-card-stack">
+
+          <div class="mtg-card mtg-card--sm" data-card-types="creature" data-card-name="Serra Angel">
+            <img src="images/card-wb.jpeg" />
+
+            <span class="mtg-card__name">Serra Angel</span>
+            <span class="mtg-card__cost">
+                                <i class="ms ms-2 ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                                <i class="ms ms-w ms-cost ms-shadow"></i>
+                            </span>
+            <span class="mtg-card__p-and-t">4/4</span>
+          </div>
+        </div>
+        -->
+
+      </div>
+
+      <div class="row--small golden-ratio--column mobile-hide">
+
+
+          <div class="column--small">
+            detail text
+          </div>
+
+          <div class="column--tall">
+            card detail
+          </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

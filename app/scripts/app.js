@@ -196,6 +196,19 @@ var app = angular.module('mtgJsApp', [
         }
       })
       // sandbox
+      .state('decks', {
+        url: '/decks',
+        menu: {
+          name: 'deck editor',
+          onAuth: 'show'
+        },
+        views: {
+          content: {
+            controller: 'DeckCtrl',
+            templateUrl: 'views/decks/editor.html'
+          }
+        }
+      })
       .state('game', {
         url: '/game',
         menu: {

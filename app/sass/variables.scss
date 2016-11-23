@@ -47,20 +47,20 @@ $originalCardWidth: 745px;
 $mdCardHeight: $originalCardHeight/2.5;
 $mdCardWidth: $originalCardWidth/2.5;
 
-$smCardHeight: $originalCardHeight/5;
-$smCardWidth: $originalCardWidth/5;
+$smCardHeight: $originalCardHeight/7;
+$smCardWidth: $originalCardWidth/7;
 
 $xsCardHeight: $game-player-hand;
 $xsCardWidth: round(($xsCardHeight / $originalCardHeight) * $originalCardWidth);
 
 $originalCardBorderRadius: 30px;
 $mdCardBorderRadius: $originalCardBorderRadius/2.5;
-$smCardBorderRadius: $originalCardBorderRadius/5;
+$smCardBorderRadius: $originalCardBorderRadius/7;
 $xsCardBorderRadius: $originalCardBorderRadius/12;
 
 $originalCardBorderPadding: 20px;
 $mdCardBorderPadding: $originalCardBorderPadding/2.5;
-$smCardBorderPadding: $originalCardBorderPadding/5;
+$smCardBorderPadding: $originalCardBorderPadding/7;
 
 /* vars.background */
 
@@ -72,8 +72,8 @@ $mdCardBackgroundBorderTop: $originalCardBackgroundBorderTop/2.5;
 $mdCardBackgroundBorderBottom: $originalCardBackgroundBorderBottom/2.5;
 $mdCardBackgroundBorder: 0 0 $mdCardBackgroundBorderBottom $mdCardBackgroundBorderBottom;
 
-$smCardBackgroundBorderTop: $originalCardBackgroundBorderTop/5;
-$smCardBackgroundBorderBottom: $originalCardBackgroundBorderBottom/5;
+$smCardBackgroundBorderTop: $originalCardBackgroundBorderTop/7;
+$smCardBackgroundBorderBottom: $originalCardBackgroundBorderBottom/7;
 $smCardBackgroundBorder: 0 0 $smCardBackgroundBorderBottom $smCardBackgroundBorderBottom;
 
 /* vars.colors */
