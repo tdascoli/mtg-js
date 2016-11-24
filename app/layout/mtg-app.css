@@ -618,6 +618,15 @@ html, body {
   font-weight: 700;
   background: rgba(0, 0, 0, 0.33); }
 
+/* card-detail */
+.card-detail__types {
+  text-transform: capitalize; }
+
+.card-detail__text {
+  white-space: pre-wrap; }
+  .card-detail__text .ms {
+    font-size: 0.75em; }
+
 [class^='icon-']:before {
   display: inline-block;
   font-family: 'mtg-js';

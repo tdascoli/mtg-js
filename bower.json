@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "^1.3.0",
     "angular-ui-router": "latest",
-    "angular-ui-router-menus":"latest",
+    "angular-ui-router-menus": "latest",
     "firebase": "latest",
     "angularfire": "latest",
     "bootstrap": "^3.2.0",
@@ -16,12 +16,13 @@
     "angular-resource": "^1.3.0",
     "angular-sanitize": "^1.3.0",
     "angular-touch": "^1.3.0",
-    "angular-md5":"latest",
-    "angular-gravatar":"latest",
+    "angular-md5": "latest",
+    "angular-gravatar": "latest",
     "detect-mobile-browser": "latest",
     "mana": "latest",
     "keyrune": "latest",
-    "moment": "latest"
+    "moment": "latest",
+    "ng-lodash": "latest"
   },
   "devDependencies": {
     "mockfirebase": "0.11.0",
@@ -64,6 +65,7 @@
   "appPath": "app",
   "moduleName": "mtgJsApp",
   "resolutions": {
-    "jquery": "1.9.1 - 3"
+    "jquery": "1.9.1 - 3",
+    "angular": "1.5.8"
   }
 }

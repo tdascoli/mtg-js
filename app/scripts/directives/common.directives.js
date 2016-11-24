@@ -27,6 +27,7 @@ angular.module('mtgJsApp')
 
     return {
       restrict: 'A',
+      replace: true,
       scope: {
         renderCost: '='
       },
@@ -38,11 +39,50 @@ angular.module('mtgJsApp')
 
             var finalCost = cost.replace('}', '').toLowerCase();
 
+            // phyrexia/split mana
+            if (finalCost.indexOf('/')>=0) {
+              var manas = finalCost.split('/');
+              // phyrexia
+              if (manas[0]==='p' || manas[1]==='p') {
+                finalCost = manas[0] + ' ms-' + manas[1];
+              }
+              else {
+                // split
+                finalCost = manas[0] + manas[1] + ' ms-split';
+              }
+            }
+            else if (finalCost==='hw'){
+              finalCost = 'w';
+            }
+
             costElement.addClass('ms-' + finalCost);
+
+            if (cost==='hw}'){
+              var hwCost = angular.element('<span class="ms-half"></span>');
+              el.wrap(hwCost);
+            }
 
             el.before(costElement);
           }
         });
+      }
+    };
+  }])
+  .directive('renderExpansion', [function () {
+    'use strict';
+
+    return {
+      restrict: 'A',
+      scope: {
+        renderExpansion: '=',
+        renderRarity: '='
+      },
+      link: function(scope, el) {
+        el.addClass('ss-'+scope.renderExpansion.toLowerCase());
+
+        if (scope.renderRarity!==undefined){
+          el.addClass('ss-'+scope.renderRarity);
+        }
       }
     };
   }])
@@ -51,6 +91,7 @@ angular.module('mtgJsApp')
 
     return {
       restrict: 'A',
+      replace: true,
       scope: {
         renderColor: '='
       },

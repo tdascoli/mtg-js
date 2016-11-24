@@ -17,6 +17,7 @@ var app = angular.module('mtgJsApp', [
     'ngResource',
     'ngSanitize',
     'ngTouch',
+    'ngLodash',
     'angular-md5',
     'ui.router',
     'ui.router.menus',
