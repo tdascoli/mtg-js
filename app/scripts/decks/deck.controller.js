@@ -16,7 +16,7 @@ angular.module('mtgJsApp')
     ];
 
     $scope.card=undefined;
-    $scope.deck='';
+    $scope.deck={cards:[]};
     $scope.params = CardsService.params;
 
     $scope.filterCards=function(pagination){
@@ -56,6 +56,14 @@ angular.module('mtgJsApp')
       }
 
       $scope.filterCards(true);
+    };
+
+    $scope.addCard=function(amount){
+      if ($scope.card!==undefined) {
+        for (var i =0; i < amount; i++) {
+          $scope.deck.cards.push($scope.card);
+        }
+      }
     };
 
     $scope.showCard=function(cardId){

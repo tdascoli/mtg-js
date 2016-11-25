@@ -225,7 +225,8 @@
 }
 
 .card-list {
-
+  height: inherit;
+  overflow-y: scroll;
 }
 
 .card-list--item {
