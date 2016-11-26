@@ -8,15 +8,13 @@
  * to be initialized so there is no initial flashing of incorrect state.
  */
 angular.module('mtgJsApp')
-  .directive('classShowState', ['$state', function ($state) {
+  .directive('fullScreenState', ['$state', function ($state) {
     'use strict';
 
     return {
       restrict: 'A',
-      link: function(scope, el, attrs) {
-        var classShowState = attrs.classShowState || 'game';
-
-        if ($state.includes(classShowState)) {
+      link: function(scope, el) {
+        if ($state.includes('game') || $state.includes('decks')) {
           el.addClass('container-full');
         }
       }

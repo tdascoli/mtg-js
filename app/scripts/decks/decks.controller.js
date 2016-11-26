@@ -8,14 +8,13 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $sce, lodash, CardsService, profile, deck, Decks) {
+  .controller('DecksCtrl', function ($scope, $sce, lodash, CardsService, profile, decks) {
 
     $scope.card=undefined;
-    $scope.deck = deck;
+    $scope.deck={cards:[]};
+    $scope.decks = decks;
     $scope.params = CardsService.params;
 
-
-    // factory!!!
     $scope.filterCards=function(pagination){
 
       $scope.idle = true;
@@ -65,10 +64,10 @@ angular.module('mtgJsApp')
 
     $scope.removeCard=function(amount){
       /*if ($scope.card!==undefined) {
-        for (var i =0; i < amount; i++) {
-          $scope.deck.cards.push($scope.card);
-        }
-      }*/
+       for (var i =0; i < amount; i++) {
+       $scope.deck.cards.push($scope.card);
+       }
+       }*/
     };
 
     $scope.showCard=function(cardId){
@@ -149,11 +148,21 @@ angular.module('mtgJsApp')
       }
     };
 
-    // UPDATE
+    // SAVE
     $scope.saveDeck = function (){
-        Decks.$save($scope.deck).then(function (){
-          console.log('update!');
+      if($scope.deck.cards.length > 0 && $scope.deck.name!==undefined){
+        $scope.decks.$add({
+          uid: profile.$id,
+          name: $scope.deck.name,
+          cards: $scope.deck.cards,
+          timestamp: firebase.database.ServerValue.TIMESTAMP
+        }).then(function (){
+          console.log('saved - what about update?');
         });
+      }
+      else {
+        console.log('error saving deck!');
+      }
     };
 
     // INIT

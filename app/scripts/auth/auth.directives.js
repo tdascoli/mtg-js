@@ -56,7 +56,7 @@ angular.module('mtgJsApp')
     return {
       restrict: 'A',
       link: function(scope, el, attrs) {
-        var what = attrs['ngShowOrHideOnAuth'];
+        var what = attrs.ngShowOrHideOnAuth;
 
         function update() {
           $timeout(function () {

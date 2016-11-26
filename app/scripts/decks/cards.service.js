@@ -33,10 +33,12 @@ angular.module('mtgJsApp')
 
       // search param
       if (params.search!==undefined) {
-        if (filter !== '') {
-          filter = filter + '&';
+        if (params.search.param!=='' && params.search.value!=='') {
+          if (filter !== '') {
+            filter = filter + '&';
+          }
+          filter = filter + params.search.param + '=' + params.search.value;
         }
-        filter = filter + params.search.param + '=' + params.search.value;
       }
 
       // pagination

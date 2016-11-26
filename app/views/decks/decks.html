@@ -1,0 +1,14 @@
+<h1>deck editor</h1>
+
+<div class="deck-list">
+  <div class="list-head">Decks</div>
+  <div class="deck" ng-repeat="deck in decks">
+    <a ui-sref="decks.deck({deckId: deck.$id})">{{ deck.name }}</a>
+  </div>
+
+  <div class="deck create">
+    <a ui-sref="decks.create">+ create deck</a>
+  </div>
+</div>
+
+<div ui-view></div>

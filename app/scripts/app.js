@@ -205,11 +205,45 @@ var app = angular.module('mtgJsApp', [
         },
         views: {
           content: {
-            controller: 'DeckCtrl',
-            templateUrl: 'views/decks/editor.html'
+            controller: 'DecksCtrl',
+            templateUrl: 'views/decks/decks.html'
+          }
+        },
+        resolve: {
+          decks: function (Decks){
+            return Decks.$loaded();
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
           }
         }
       })
+      .state('decks.create', {
+        url: '/create',
+        controller: 'DecksCtrl',
+        templateUrl: 'views/decks/editor.html'
+      })
+      .state('decks.deck', {
+        url: '/{deckId}/deck',
+        controller: 'DeckCtrl',
+        templateUrl: 'views/decks/editor.html',
+        resolve: {
+          deck: function($stateParams, Decks){
+            return Decks.$getRecord($stateParams.deckId);
+          }
+        }
+      })
+      // game
       .state('game', {
         url: '/game',
         menu: {

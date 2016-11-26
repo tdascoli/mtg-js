@@ -631,6 +631,9 @@ html, body {
   .card-detail__text .ms {
     font-size: 0.75em; }
 
+.card-detail__image {
+  height: 100%; }
+
 [class^='icon-']:before {
   display: inline-block;
   font-family: 'mtg-js';
