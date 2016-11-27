@@ -644,6 +644,10 @@ html, body {
 .card-detail__image {
   height: 100%; }
 
+.card-modal__image {
+  text-align: center;
+  margin-bottom: 1em; }
+
 [class^='icon-']:before {
   display: inline-block;
   font-family: 'mtg-js';

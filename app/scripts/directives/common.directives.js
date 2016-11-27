@@ -14,7 +14,7 @@ angular.module('mtgJsApp')
     return {
       restrict: 'A',
       link: function(scope, el) {
-        if ($state.includes('game') || $state.includes('decks')) {
+        if ($state.includes('game')) {
           el.addClass('container-full');
         }
       }

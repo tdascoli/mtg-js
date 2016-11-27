@@ -266,13 +266,27 @@ var app = angular.module('mtgJsApp', [
         url: '/decks/{deckId}',
         views: {
           content: {
-            controller: 'DeckCtrl',
+            controller: 'DecksCtrl',
             templateUrl: 'views/decks/editor.html'
           }
         },
         resolve: {
-          deck: function($stateParams, Decks){
-            return Decks.$getRecord($stateParams.deckId);
+          decks: function (Decks){
+            // load only uid decks
+            return Decks.$loaded();
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
           }
         }
       })

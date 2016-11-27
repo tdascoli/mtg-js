@@ -8,11 +8,29 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $rootScope, CardsService, lodash, deck, Decks) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, CardsService, lodash, deck, Decks) {
 
     $scope.card=undefined;
     $scope.deck = deck;
     $scope.params = CardsService.params;
+
+    $scope.showCard = function (cardId) {
+      CardsService.showCard(cardId).success(function (result) {
+        $scope.card=result;
+
+        if ($rootScope.mobile) {
+          var modal = $uibModal.open({
+            animation: true,
+            scope: $scope,
+            templateUrl: 'views/decks/modal-card.html',
+            size: 'lg'
+          });
+        }
+      })
+      .error(function (error) {
+        console.error(error);
+      });
+    };
 
     $scope.renderOracle=function(text){
       return CardsService.renderOracle(text);
@@ -83,7 +101,7 @@ angular.module('mtgJsApp')
       }
     };
 
-    $scope.showCard=function(cardId){
+    $scope.showCard2=function(cardId){
       CardsService.showCard(cardId).success(function (result) {
         $scope.card=result;
       })

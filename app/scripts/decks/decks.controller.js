@@ -8,19 +8,34 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DecksCtrl', function ($scope, $rootScope, CardsService, lodash, profile, decks) {
+  .controller('DecksCtrl', function ($scope, $rootScope, $uibModal, $stateParams, CardsService, lodash, profile, decks) {
 
     $scope.card=undefined;
     $scope.deck={cards:[]};
     $scope.decks = decks;
     $scope.params = CardsService.params;
 
-    $scope.showEditor=function (index) {
-      index=1;
-      if ($rootScope.mobile){
-        index=4;
-      }
-      $scope.active=index;
+    if ($stateParams.deckId!==undefined){
+      $scope.deck = $scope.decks.$getRecord($stateParams.deckId);
+    }
+
+    $scope.showCard = function (cardId) {
+      CardsService.showCard(cardId).success(function (result) {
+        $scope.card=result;
+
+        if ($rootScope.mobile) {
+          $uibModal.open({
+            animation: true,
+            scope: $scope,
+            templateUrl: 'views/decks/modal-card.html',
+            size: 'lg',
+            controller: 'ModalInstanceCtrl'
+          });
+        }
+      })
+      .error(function (error) {
+        console.error(error);
+      });
     };
 
     $scope.renderOracle=function(text){
@@ -93,15 +108,6 @@ angular.module('mtgJsApp')
       }
     };
 
-    $scope.showCard=function(cardId){
-      CardsService.showCard(cardId).success(function (result) {
-        $scope.card=result;
-      })
-        .error(function (error) {
-          console.error(error);
-        });
-    };
-
     $scope.renderOracle=function(text){
       return CardsService.renderOracle(text);
     };
@@ -116,18 +122,26 @@ angular.module('mtgJsApp')
 
     // SAVE
     $scope.saveDeck = function (){
-      if($scope.deck.cards.length > 0 && $scope.deck.name!==undefined){
-        $scope.decks.$add({
-          uid: profile.$id,
-          name: $scope.deck.name,
-          cards: $scope.deck.cards,
-          timestamp: firebase.database.ServerValue.TIMESTAMP
-        }).then(function (){
-          console.log('saved - what about update?');
+
+      if ($stateParams.deckId!==undefined){
+        $scope.decks.$save($scope.deck).then(function (){
+          console.log('update!');
         });
       }
       else {
-        console.log('error saving deck!');
+        if ($scope.deck.cards.length > 0 && $scope.deck.name !== undefined) {
+          $scope.decks.$add({
+            uid: profile.$id,
+            name: $scope.deck.name,
+            cards: $scope.deck.cards,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+          }).then(function () {
+            console.log('saved - what about update?');
+          });
+        }
+        else {
+          console.log('error saving deck!');
+        }
       }
     };
 
@@ -139,4 +153,9 @@ angular.module('mtgJsApp')
       $scope.idle = false;
       console.error(error);
     });
+  })
+  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+    $scope.closeModalCard = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   });
