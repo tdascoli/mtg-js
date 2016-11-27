@@ -206,7 +206,7 @@ var app = angular.module('mtgJsApp', [
         },
         views: {
           content: {
-            controller: 'DecksCtrl',
+            controller: 'DeckCtrl',
             templateUrl: 'views/decks/decks.html'
           }
         },
@@ -229,16 +229,11 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
-      .state('decks.create', {
-        url: '/decks/create',
-        controller: 'DecksCtrl',
-        templateUrl: 'views/decks/editor.html'
-      })
       .state('decks/create', {
         url: '/decks/create',
         views: {
           content: {
-            controller: 'DecksCtrl',
+            controller: 'DeckCtrl',
             templateUrl: 'views/decks/editor.html'
           }
         },
@@ -266,7 +261,7 @@ var app = angular.module('mtgJsApp', [
         url: '/decks/{deckId}',
         views: {
           content: {
-            controller: 'DecksCtrl',
+            controller: 'DeckCtrl',
             templateUrl: 'views/decks/editor.html'
           }
         },

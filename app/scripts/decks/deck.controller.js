@@ -8,22 +8,28 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, CardsService, lodash, deck, Decks) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, CardsService, lodash, profile, decks) {
 
     $scope.card=undefined;
-    $scope.deck = deck;
+    $scope.deck={cards:[]};
+    $scope.decks = decks;
     $scope.params = CardsService.params;
+
+    if ($stateParams.deckId!==undefined){
+      $scope.deck = $scope.decks.$getRecord($stateParams.deckId);
+    }
 
     $scope.showCard = function (cardId) {
       CardsService.showCard(cardId).success(function (result) {
         $scope.card=result;
 
         if ($rootScope.mobile) {
-          var modal = $uibModal.open({
+          $uibModal.open({
             animation: true,
             scope: $scope,
             templateUrl: 'views/decks/modal-card.html',
-            size: 'lg'
+            size: 'lg',
+            controller: 'ModalInstanceCtrl'
           });
         }
       })
@@ -43,7 +49,8 @@ angular.module('mtgJsApp')
     $scope.renderExpansion=function(set,rarity){
       return CardsService.renderExpansion(set,rarity);
     };
-    // factory!!!
+
+
     $scope.filterCards=function(pagination){
 
       $scope.idle = true;
@@ -95,26 +102,47 @@ angular.module('mtgJsApp')
 
     $scope.removeCard=function(amount){
       if ($scope.card!==undefined) {
-        for (var i =0; i < amount; i++) {
-          lodash.remove($scope.deck.cards, $scope.card);
-        }
+       for (var i =0; i < amount; i++) {
+         lodash.remove($scope.deck.cards, $scope.card);
+       }
       }
     };
 
-    $scope.showCard2=function(cardId){
-      CardsService.showCard(cardId).success(function (result) {
-        $scope.card=result;
-      })
-        .error(function (error) {
-          console.error(error);
-        });
+    $scope.renderOracle=function(text){
+      return CardsService.renderOracle(text);
     };
 
-    // UPDATE
+    $scope.renderCost=function(renderCost){
+      return CardsService.renderCost(renderCost);
+    };
+
+    $scope.renderExpansion=function(set,rarity){
+      return CardsService.renderExpansion(set,rarity);
+    };
+
+    // SAVE
     $scope.saveDeck = function (){
-        Decks.$save($scope.deck).then(function (){
+
+      if ($stateParams.deckId!==undefined){
+        $scope.decks.$save($scope.deck).then(function (){
           console.log('update!');
         });
+      }
+      else {
+        if ($scope.deck.cards.length > 0 && $scope.deck.name !== undefined) {
+          $scope.decks.$add({
+            uid: profile.$id,
+            name: $scope.deck.name,
+            cards: $scope.deck.cards,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+          }).then(function () {
+            console.log('saved - what about update?');
+          });
+        }
+        else {
+          console.log('error saving deck!');
+        }
+      }
     };
 
     // INIT
@@ -125,4 +153,9 @@ angular.module('mtgJsApp')
       $scope.idle = false;
       console.error(error);
     });
+  })
+  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+    $scope.closeModalCard = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   });
