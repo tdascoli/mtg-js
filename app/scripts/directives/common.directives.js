@@ -20,6 +20,34 @@ angular.module('mtgJsApp')
       }
     };
   }])
+  .directive('hideOnState', ['$state', function ($state) {
+    'use strict';
+
+    return {
+      restrict: 'A',
+      link: function(scope, el, attrs) {
+        var state = attrs.hideOnState;
+        if ($state.includes(state)) {
+          el.addClass('hide');
+        }
+      }
+    };
+  }])
+  .directive('showOnState', ['$state', function ($state) {
+    'use strict';
+
+    return {
+      restrict: 'A',
+      link: function(scope, el, attrs) {
+        var state = attrs.showOnState;
+        el.addClass('hide');
+
+        if ($state.includes(state)) {
+          el.removeClass('hide');
+        }
+      }
+    };
+  }])
   .directive('renderCost', [function () {
     'use strict';
 

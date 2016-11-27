@@ -10,10 +10,15 @@
 angular.module('mtgJsApp')
   .controller('DecksCtrl', function ($scope, $sce, lodash, CardsService, profile, decks) {
 
+    $scope.active=0;
     $scope.card=undefined;
     $scope.deck={cards:[]};
     $scope.decks = decks;
     $scope.params = CardsService.params;
+
+    $scope.showEditor=function (index) {
+      $scope.active=index;
+    };
 
     $scope.filterCards=function(pagination){
 
@@ -37,9 +42,11 @@ angular.module('mtgJsApp')
     $scope.toggleParam=function(param){
       if (lodash.find($scope.params.filter, param)){
         lodash.remove($scope.params.filter, param);
+        $('#'+param.param+'-'+param.value).removeClass('btn-active');
       }
       else {
         $scope.params.filter.push(param);
+        $('#'+param.param+'-'+param.value).addClass('btn-active');
       }
     };
 
@@ -63,11 +70,11 @@ angular.module('mtgJsApp')
     };
 
     $scope.removeCard=function(amount){
-      /*if ($scope.card!==undefined) {
+      if ($scope.card!==undefined) {
        for (var i =0; i < amount; i++) {
-       $scope.deck.cards.push($scope.card);
+         lodash.remove($scope.deck.cards, $scope.card);
        }
-       }*/
+      }
     };
 
     $scope.showCard=function(cardId){
@@ -80,72 +87,15 @@ angular.module('mtgJsApp')
     };
 
     $scope.renderOracle=function(text){
-      if (text!==undefined) {
-        var regex = /{(.*?)}+/g;
-        var oracle = text;
-        var words = lodash.words(text, regex);
-
-        angular.forEach(words, function (word) {
-          var finalCost = word.replace('{', '').toLowerCase();
-          finalCost = finalCost.replace('}', '').toLowerCase();
-          // ausnahmen
-          if (word==='{T}'){
-            finalCost='tap';
-          }
-          else if (word.search('/')) {
-            var manas = finalCost.split('/');
-            finalCost=manas[0]+' ms-'+manas[1];
-          }
-
-          var wordElement = '<i class="ms ms-cost ms-' + finalCost + '"></i>';
-
-          oracle = oracle.replace(word, wordElement);
-        });
-
-        return $sce.trustAsHtml(oracle);
-      }
+      return CardsService.renderOracle(text);
     };
 
     $scope.renderCost=function(renderCost){
-      var allCost='';
-      if (renderCost!==undefined) {
-        var costs = renderCost.split('{');
-        angular.forEach(costs, function (cost) {
-          if (cost !== '') {
-            var finalCost = cost.replace('}', '').toLowerCase();
-
-            // phyrexia/split mana
-            if (cost.indexOf('/')>=0) {
-              var manas = finalCost.split('/');
-              // phyrexia
-              if (manas[0]==='p' || manas[1]==='p') {
-                finalCost = manas[0] + ' ms-' + manas[1];
-              }
-              else {
-                // split
-                finalCost = manas[0] + manas[1] + ' ms-split';
-              }
-            }
-            else if (finalCost==='hw'){
-              finalCost = 'w';
-            }
-
-            if (cost==='hw}'){
-              allCost += '<span class="ms-half"><i class="ms ms-cost ms-shadow ms-' + finalCost + '"></i></span>';
-            }
-            else {
-              allCost += '<i class="ms ms-cost ms-shadow ms-' + finalCost + '"></i>';
-            }
-          }
-        });
-      }
-      return $sce.trustAsHtml(allCost);
+      return CardsService.renderCost(renderCost);
     };
 
     $scope.renderExpansion=function(set,rarity){
-      if (set!==undefined){
-        return 'ss-'+set.toLowerCase()+' ss-'+rarity;
-      }
+      return CardsService.renderExpansion(set,rarity);
     };
 
     // SAVE

@@ -1,32 +1,38 @@
 <div class="golden-ratio--row no-mobile">
 
-  <div class="row--tall">
+  <div class="row--small">
 
-    <div>
+    <div class="card-list--toolbar">
       <div class="btn-group">
-        <a ng-click="toggleParam({param:'color',value:'white'})" class="btn btn-default"><i class="ms ms-w ms-cost"></i></a>
-        <a ng-click="toggleParam({param:'color',value:'blue'})" class="btn btn-default"><i class="ms ms-u ms-cost"></i></a>
-        <a ng-click="toggleParam({param:'color',value:'black'})" class="btn btn-default"><i class="ms ms-b ms-cost"></i></a>
-        <a ng-click="toggleParam({param:'color',value:'red'})" class="btn btn-default"><i
+        <a id="color-white" ng-click="toggleParam({param:'color',value:'white'})" class="btn btn-default"><i
+          class="ms ms-w ms-cost"></i></a>
+        <a id="color-blue" ng-click="toggleParam({param:'color',value:'blue'})" class="btn btn-default"><i
+          class="ms ms-u ms-cost"></i></a>
+        <a id="color-black" ng-click="toggleParam({param:'color',value:'black'})" class="btn btn-default"><i
+          class="ms ms-b ms-cost"></i></a>
+        <a id="color-red" ng-click="toggleParam({param:'color',value:'red'})" class="btn btn-default"><i
           class="ms ms-r ms-cost"></i></a>
-        <a ng-click="toggleParam({param:'color',value:'green'})" class="btn btn-default"><i class="ms ms-g ms-cost"></i></a>
-        <a ng-click="toggleParam({param:'color',value:'blue'})" class="btn btn-default"><i class="ms ms-c ms-cost"></i></a>
-        <a data-target="#" class="btn btn-default">mc</a>
+        <a id="color-green" ng-click="toggleParam({param:'color',value:'green'})" class="btn btn-default"><i
+          class="ms ms-g ms-cost"></i></a>
+        <a id="color-colorless" ng-click="toggleParam({param:'color',value:'colorless'})" class="btn btn-default"><i
+          class="ms ms-c ms-cost"></i></a>
+        <a id="multicolor-true" ng-click="toggleParam({param:'multicolor',value:'true'})" class="btn btn-default">mc</a>
       </div>
       <p></p>
       <div class="btn-group">
-        <a ng-click="toggleParam({param:'type',value:'land'})" class="btn btn-default"><i class="ms ms-land ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'artifact'})" class="btn btn-default"><i
+        <a id="type-land" ng-click="toggleParam({param:'type',value:'land'})" class="btn btn-default"><i
+          class="ms ms-land ms-fw"></i></a>
+        <a id="type-artifact" ng-click="toggleParam({param:'type',value:'artifact'})" class="btn btn-default"><i
           class="ms ms-artifact ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'creature'})" class="btn btn-default"><i
+        <a id="type-creature" ng-click="toggleParam({param:'type',value:'creature'})" class="btn btn-default"><i
           class="ms ms-creature ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'enchantment'})" class="btn btn-default"><i
+        <a id="type-enchantment" ng-click="toggleParam({param:'type',value:'enchantment'})" class="btn btn-default"><i
           class="ms ms-enchantment ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'planeswalker'})" class="btn btn-default"><i
+        <a id="type-planeswalker" ng-click="toggleParam({param:'type',value:'planeswalker'})" class="btn btn-default"><i
           class="ms ms-planeswalker ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'instant'})" class="btn btn-default"><i
+        <a id="type-instant" ng-click="toggleParam({param:'type',value:'instant'})" class="btn btn-default"><i
           class="ms ms-instant ms-fw"></i></a>
-        <a ng-click="toggleParam({param:'type',value:'sorcery'})" class="btn btn-default"><i
+        <a id="type-sorcery" ng-click="toggleParam({param:'type',value:'sorcery'})" class="btn btn-default"><i
           class="ms ms-sorcery ms-fw"></i></a>
       </div>
       <p></p>
@@ -43,17 +49,16 @@
             <option value="name">name</option>
             <option value="type">type</option>
             <option value="oracle">text</option>
+            <option value="set">set</option>
           </select>
         </div>
 
         <button class="btn btn-default" ng-click="filterCards()">filter</button>
 
       </div>
-    </div>
 
-    <hr/>
+      <hr />
 
-    <div class="card-list--toolbar">
       <button class="btn btn-default" ng-click="pagination('prev')" ng-disabled="params.pagination.page===0">Previous
       </button>
       <button class="btn btn-default" ng-click="pagination('next')" ng-disabled="cards.length<100">Next</button>
@@ -78,11 +83,9 @@
         <tbody>
         <tr ng-repeat="card in cards" ng-click="showCard(card.id)">
           <td>{{card.name}}</td>
-          <td>
-            <div render-cost="card.cost"></div>
-          </td>
+          <td><div render-cost="card.cost"></div></td>
           <td><span render-color="card.colors"></span></td>
-          <td>{{card.types[0]}}</td>
+          <td><span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span> <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span> <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span></td>
           <td>{{card.editions[0].set_id}}</td>
         </tr>
         </tbody>
@@ -91,42 +94,70 @@
 
   </div>
 
-  <div class="row--small">
-    <div>
-      <div class="form-group">
-        <label class="sr-only">Title</label>
-        <input type="text" class="form-control" placeholder="Title" ng-model="deck.name"/>
+  <div class="row--tall">
+
+    <div class="golden-ratio--row no-mobile">
+
+      <div class="row--tall">
+
+        <div>
+          <div class="form-group">
+            <label class="sr-only">Title</label>
+            <input type="text" class="form-control" placeholder="Title" ng-model="deck.name"/>
+          </div>
+
+          <button class="btn btn-default" ng-click="saveDeck()">Save</button>
+        </div>
+
+        <p/>
+
+        <div class="card-list--toolbar">
+          <button class="btn btn-default" ng-click="removeCard(1)" ng-disabled="card===undefined">Remove card</button>
+          <button class="btn btn-default" ng-click="removeCard(4)" ng-disabled="card===undefined">Remove 4 cards
+          </button>
+
+          <span ng-show="idle">loading...</span>
+        </div>
+
+        <hr/>
+
+        <div class="list-group card-list">
+          <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
+             ng-repeat="card in deck.cards track by $index">
+            <img ng-src="{{card.editions[0].image_url}}"/>
+
+            <div class="card-list__card-detail">
+              <strong>{{card.name}}</strong>
+              <p class="card-detail__types">{{card.types[0]}}</p>
+            </div>
+
+            <div class="card-list__cost-set">
+              <div render-cost="card.cost"></div>
+              <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+            </div>
+          </a>
+        </div>
+
       </div>
 
-      <button class="btn btn-default" ng-click="saveDeck()">Save</button>
-    </div>
+      <div class="row--small golden-ratio--column real-mobile-hide">
 
-    <p />
-
-    <div class="card-list--toolbar">
-      <button class="btn btn-default" ng-click="removeCard(1)" ng-disabled="card===undefined">Remove card</button>
-      <button class="btn btn-default" ng-click="removeCard(4)" ng-disabled="card===undefined">Remove 4 cards</button>
-
-      <span ng-show="idle">loading...</span>
-    </div>
-
-    <hr/>
-
-    <div class="list-group card-list">
-      <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
-         ng-repeat="card in deck.cards track by $index">
-        <img ng-src="{{card.editions[0].image_url}}"/>
-
-        <div class="card-list__card-detail">
-          <strong>{{card.name}}</strong>
-          <p class="card-detail__types">{{card.types[0]}}</p>
+        <div class="column--small" ng-show="card!==undefined">
+          <img ng-src="{{card.editions[0].image_url}}" class="card-detail__image" />
         </div>
+        <div class="column--tall" ng-show="card!==undefined">
+          <hr/>
 
-        <div class="card-list__cost-set">
-          <div render-cost="card.cost"></div>
-          <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+          <p>
+            <strong>{{card.name}}</strong> <span class="card-detail__text" ng-bind-html="renderCost(card.cost)"></span>
+          </p>
+          <strong class="card-detail__types">{{card.types[0]}}</strong> <i
+          class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+          <hr/>
+          <p class="card-detail__text" ng-bind-html="renderOracle(card.text)"></p>
         </div>
-      </a>
+      </div>
+
     </div>
 
   </div>

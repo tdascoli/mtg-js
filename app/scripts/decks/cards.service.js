@@ -1,9 +1,10 @@
 'use strict';
 angular.module('mtgJsApp')
-  .factory('CardsService', function($http){
+  .factory('CardsService', function($http, lodash, $sce){
 
     var baseUrl = 'https://api.deckbrew.com/mtg';
     var params = {
+      search: {param:'name',value:''},
       filter: [],
       pagination: {page: 0}
     };
@@ -60,12 +61,85 @@ angular.module('mtgJsApp')
       return $http.get(baseUrl + '/cards?'+filter);
     }
 
+
+    function renderOracle(text){
+      if (text!==undefined) {
+        var regex = /{(.*?)}+/g;
+        var oracle = text;
+        var words = lodash.words(text, regex);
+
+        angular.forEach(words, function (word) {
+          var finalCost = word.replace('{', '').toLowerCase();
+          finalCost = finalCost.replace('}', '').toLowerCase();
+          // ausnahmen
+          if (word==='{T}'){
+            finalCost='tap';
+          }
+          else if (word.search('/')) {
+            var manas = finalCost.split('/');
+            finalCost=manas[0]+' ms-'+manas[1];
+          }
+
+          var wordElement = '<i class="ms ms-cost ms-' + finalCost + '"></i>';
+
+          oracle = oracle.replace(word, wordElement);
+        });
+
+        return $sce.trustAsHtml(oracle);
+      }
+    }
+
+    function renderCost(renderCost){
+      var allCost='';
+      if (renderCost!==undefined) {
+        var costs = renderCost.split('{');
+        angular.forEach(costs, function (cost) {
+          if (cost !== '') {
+            var finalCost = cost.replace('}', '').toLowerCase();
+
+            // phyrexia/split mana
+            if (cost.indexOf('/')>=0) {
+              var manas = finalCost.split('/');
+              // phyrexia
+              if (manas[0]==='p' || manas[1]==='p') {
+                finalCost = manas[0] + ' ms-' + manas[1];
+              }
+              else {
+                // split
+                finalCost = manas[0] + manas[1] + ' ms-split';
+              }
+            }
+            else if (finalCost==='hw'){
+              finalCost = 'w';
+            }
+
+            if (cost==='hw}'){
+              allCost += '<span class="ms-half"><i class="ms ms-cost ms-shadow ms-' + finalCost + '"></i></span>';
+            }
+            else {
+              allCost += '<i class="ms ms-cost ms-shadow ms-' + finalCost + '"></i>';
+            }
+          }
+        });
+      }
+      return $sce.trustAsHtml(allCost);
+    }
+
+    function renderExpansion(set,rarity){
+      if (set!==undefined){
+        return 'ss-'+set.toLowerCase()+' ss-'+rarity;
+      }
+    }
+
     return {
       params: params,
       listSet: listSet,
       allCards: allCards,
       filterCards: filterCards,
-      showCard: showCard
+      showCard: showCard,
+      renderExpansion: renderExpansion,
+      renderCost: renderCost,
+      renderOracle: renderOracle
     };
 
   });

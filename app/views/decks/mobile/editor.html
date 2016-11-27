@@ -1,0 +1,37 @@
+<div>
+  <div class="form-group">
+    <label class="sr-only">Title</label>
+    <input type="text" class="form-control" placeholder="Title" ng-model="deck.name"/>
+  </div>
+
+  <button class="btn btn-default" ng-click="saveDeck()">Save</button>
+</div>
+
+<p/>
+
+<div class="card-list--toolbar">
+  <button class="btn btn-default" ng-click="removeCard(1)" ng-disabled="card===undefined">Remove card</button>
+  <button class="btn btn-default" ng-click="removeCard(4)" ng-disabled="card===undefined">Remove 4 cards
+  </button>
+
+  <span ng-show="idle">loading...</span>
+</div>
+
+<hr/>
+
+<div class="list-group card-list">
+  <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
+     ng-repeat="card in deck.cards track by $index">
+    <img ng-src="{{card.editions[0].image_url}}"/>
+
+    <div class="card-list__card-detail">
+      <strong>{{card.name}}</strong>
+      <p class="card-detail__types">{{card.types[0]}}</p>
+    </div>
+
+    <div class="card-list__cost-set">
+      <div render-cost="card.cost"></div>
+      <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+    </div>
+  </a>
+</div>

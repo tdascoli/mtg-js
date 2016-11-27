@@ -24,10 +24,15 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* hide */
 @media #{$media-phone} {
   .mobile-hide {
     display: none;
   }
+}
+
+.hide {
+  display: none;
 }
 
 /* drawer/hamburger */
@@ -84,4 +89,11 @@ h1, h2, h3, h4, h5, h6 {
 /* login */
 .login-container {
 
+}
+
+/* buttons */
+.btn-active {
+  color: #ffffff;
+  background-color: #ccc;
+  border-color: transparent;
 }

@@ -22,6 +22,7 @@ var app = angular.module('mtgJsApp', [
     'ui.router',
     'ui.router.menus',
     'ui.gravatar',
+    'ui.bootstrap',
     'firebase',
     'firebase.ref'
   ]);
@@ -237,6 +238,24 @@ var app = angular.module('mtgJsApp', [
         url: '/{deckId}/deck',
         controller: 'DeckCtrl',
         templateUrl: 'views/decks/editor.html',
+        resolve: {
+          deck: function($stateParams, Decks){
+            return Decks.$getRecord($stateParams.deckId);
+          }
+        }
+      })
+      .state('decks.mobile-deck', {
+        url: '/{deckId}/mobile-deck',
+        views: {
+          catalog: {
+            controller: 'DeckCtrl',
+            templateUrl: 'views/decks/mobile/catalog.html'
+          },
+          editor: {
+            controller: 'DeckCtrl',
+            templateUrl: 'views/decks/mobile/editor.html'
+          }
+        },
         resolve: {
           deck: function($stateParams, Decks){
             return Decks.$getRecord($stateParams.deckId);
