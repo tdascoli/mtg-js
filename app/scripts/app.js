@@ -230,30 +230,44 @@ var app = angular.module('mtgJsApp', [
         }
       })
       .state('decks.create', {
-        url: '/create',
+        url: '/decks/create',
         controller: 'DecksCtrl',
         templateUrl: 'views/decks/editor.html'
       })
-      .state('decks.deck', {
-        url: '/{deckId}/deck',
-        controller: 'DeckCtrl',
-        templateUrl: 'views/decks/editor.html',
+      .state('decks/create', {
+        url: '/decks/create',
+        views: {
+          content: {
+            controller: 'DecksCtrl',
+            templateUrl: 'views/decks/editor.html'
+          }
+        },
         resolve: {
-          deck: function($stateParams, Decks){
-            return Decks.$getRecord($stateParams.deckId);
+          decks: function (Decks){
+            // load only uid decks
+            return Decks.$loaded();
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
           }
         }
       })
-      .state('decks.mobile-deck', {
-        url: '/{deckId}/mobile-deck',
+      .state('decks/deck', {
+        url: '/decks/{deckId}',
         views: {
-          catalog: {
+          content: {
             controller: 'DeckCtrl',
-            templateUrl: 'views/decks/mobile/catalog.html'
-          },
-          editor: {
-            controller: 'DeckCtrl',
-            templateUrl: 'views/decks/mobile/editor.html'
+            templateUrl: 'views/decks/editor.html'
           }
         },
         resolve: {

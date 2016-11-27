@@ -8,17 +8,33 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DecksCtrl', function ($scope, $sce, lodash, CardsService, profile, decks) {
+  .controller('DecksCtrl', function ($scope, $rootScope, CardsService, lodash, profile, decks) {
 
-    $scope.active=0;
     $scope.card=undefined;
     $scope.deck={cards:[]};
     $scope.decks = decks;
     $scope.params = CardsService.params;
 
     $scope.showEditor=function (index) {
+      index=1;
+      if ($rootScope.mobile){
+        index=4;
+      }
       $scope.active=index;
     };
+
+    $scope.renderOracle=function(text){
+      return CardsService.renderOracle(text);
+    };
+
+    $scope.renderCost=function(renderCost){
+      return CardsService.renderCost(renderCost);
+    };
+
+    $scope.renderExpansion=function(set,rarity){
+      return CardsService.renderExpansion(set,rarity);
+    };
+
 
     $scope.filterCards=function(pagination){
 

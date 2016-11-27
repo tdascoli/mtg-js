@@ -1,37 +1,12 @@
 <h1>deck editor</h1>
 
-<uib-tabset active="active">
+<strong>Decks</strong>
+<div class="deck-list">
+  <div class="deck" ng-repeat="deck in decks">
+    <a ui-sref="decks/deck({deckId: deck.$id})">{{ deck.name }}</a>
+  </div>
 
-  <uib-tab index="0" heading="Decks">
-    <strong>Decks</strong>
-    <div class="deck-list">
-      <div class="deck" ng-repeat="deck in decks">
-        <a ng-click="showEditor(1)" ui-sref="decks.deck({deckId: deck.$id})">{{ deck.name }}</a>
-        <br />
-        <a ng-click="showEditor(4)" ui-sref="decks.mobile-deck({deckId: deck.$id})">{{ deck.name }} (mob)</a>
-      </div>
-
-      <div class="deck create">
-        <a ng-click="showEditor(1)" ui-sref="decks.create">+ create deck</a>
-      </div>
-    </div>
-
-  </uib-tab>
-
-  <uib-tab index="1" heading="Editor" ng-hide="mobile">
-    <ui-view></ui-view>
-  </uib-tab>
-
-  <uib-tab index="2" heading="Card Catalog" ng-show="mobile">
-    <div ui-view="catalog"></div>
-  </uib-tab>
-
-  <uib-tab index="3" heading="Card Detail" ng-show="mobile">
-    card detail
-  </uib-tab>
-
-  <uib-tab index="4" heading="Deck Editor" ng-show="mobile">
-    <div ui-view="editor"></div>
-  </uib-tab>
-
-</uib-tabset>
+  <div class="deck create">
+    <a ui-sref="decks/create">+ create deck</a>
+  </div>
+</div>
