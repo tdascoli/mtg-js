@@ -112,6 +112,19 @@ angular.module('mtgJsApp')
       }
     };
   }])
+  .directive('renderRarity', [function () {
+    'use strict';
+
+    return {
+      restrict: 'A',
+      scope: {
+        renderRarity: '='
+      },
+      link: function(scope, el) {
+        el.addClass(scope.renderRarity.toLowerCase());
+      }
+    };
+  }])
   .directive('renderColor', [function () {
     'use strict';
 

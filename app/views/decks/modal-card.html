@@ -26,8 +26,6 @@
   <button class="btn btn-default" type="button" ng-show="show==='detail'" ng-click="show='card'">Card</button>
   <button class="btn btn-default" type="button" ng-hide="show==='detail'" ng-click="show='detail'">Details</button>
 
-
-
-  <button class="btn btn-default" type="button">Add Card</button>
-  <button class="btn btn-default" type="button">Add 4 Cards</button>
+  <button class="btn btn-default" ng-click="addCard(1)" ng-disabled="card===undefined">Add card</button>
+  <button class="btn btn-default" ng-click="addCard(4)" ng-disabled="card===undefined">Add 4 cards</button>
 </div>

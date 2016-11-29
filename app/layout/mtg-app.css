@@ -1,6 +1,8 @@
 /* vars.cards */
 /* vars.background */
 /* vars.colors */
+/**
+ * Rarity colors */
 /* vars.golden-ratio */
 /* typo */
 @font-face {
@@ -628,9 +630,18 @@ html, body {
 
 .card-list__set {
   padding: 2px;
-  color: #000;
+  color: #fff;
   font-weight: 700;
-  background: rgba(0, 0, 0, 0.33); }
+  background: #1A1718; }
+
+.card-list__set.uncommon {
+  background: #707883; }
+
+.card-list__set.rare {
+  background: #A58E4A; }
+
+.card-list__set.mythic {
+  background: #BF4427; }
 
 /* card-detail */
 .card-detail__types {

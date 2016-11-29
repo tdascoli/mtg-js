@@ -249,9 +249,20 @@
 
 .card-list__set {
   padding: 2px;
-  color: #000;
+  color: #fff;
   font-weight: 700;
-  background: rgba(0,0,0,0.33);
+  background: $color-common;
+}
+.card-list__set.uncommon {
+  background: $color-uncommon;
+}
+
+.card-list__set.rare {
+  background: $color-rare;
+}
+
+.card-list__set.mythic {
+  background: $color-mythic;
 }
 
 /* card-detail */
@@ -275,3 +286,5 @@
   text-align: center;
   margin-bottom: 1em;
 }
+
+
