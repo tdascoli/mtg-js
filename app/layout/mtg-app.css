@@ -316,6 +316,10 @@ html, body {
   background-color: #ccc;
   border-color: transparent; }
 
+/* ui-tab */
+.tab-content {
+  padding-top: 1em; }
+
 .avatar img {
   height: 65px;
   width: 65px; }
@@ -655,6 +659,9 @@ html, body {
 .card-detail__image {
   height: 100%; }
 
+.card-modal {
+  min-height: 310px; }
+
 .card-modal__image {
   text-align: center;
   margin-bottom: 1em; }
@@ -720,6 +727,10 @@ html, body {
   width: 100%;
   display: block; }
 
+.column--small:first-of-type,
+.column--tall:first-of-type {
+  margin-bottom: 1em; }
+
 /* row */
 .golden-ratio--row {
   display: flex;
@@ -736,13 +747,17 @@ html, body {
   height: 100%;
   display: block; }
 
+.row--small:first-of-type,
+.row--tall:first-of-type {
+  margin-right: 1em; }
+
 /* mobile */
 @media only screen and (max-width: 767px) {
   .golden-ratio--row.no-mobile {
     display: block; }
 
-  .golden-ratio--row .row--tall,
-  .golden-ratio--row .row--small {
+  .golden-ratio--row.no-mobile .row--tall,
+  .golden-ratio--row.no-mobile .row--small {
     width: 100%; } }
 
 /*# sourceMappingURL=mtg-app.css.map */

@@ -11,7 +11,7 @@ angular.module('mtgJsApp')
   .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, CardsService, lodash, profile, decks) {
 
     $scope.card=undefined;
-    $scope.deck={cards:[]};
+    $scope.deck={name:'New Deck',cards:[],sideboard:[]};
     $scope.decks = decks;
     $scope.params = CardsService.params;
 

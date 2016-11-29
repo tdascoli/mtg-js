@@ -5,6 +5,7 @@ angular.module('mtgJsApp')
     var baseUrl = 'https://api.deckbrew.com/mtg';
     var params = {
       search: {param:'name',value:''},
+      format: '',
       filter: [],
       pagination: {page: 0}
     };
@@ -40,6 +41,14 @@ angular.module('mtgJsApp')
           }
           filter = filter + params.search.param + '=' + params.search.value;
         }
+      }
+
+      // formats
+      if (params.search.format!==undefined && params.search.format!=='') {
+        if (filter !== '') {
+          filter = filter + '&';
+        }
+        filter = filter + 'format=' + params.search.format;
       }
 
       // pagination

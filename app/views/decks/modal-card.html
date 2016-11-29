@@ -2,30 +2,31 @@
   <button type="button" class="close" ng-click="closeModalCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>{{card.name}}</strong> <span ng-bind-html="renderCost(card.cost)"></span>
 </div>
-<div class="modal-body" id="modal-body">
+<div class="card-modal modal-body" id="modal-body">
 
-  <div class="card-modal__image" ng-hide="show==='detail'">
-    <img ng-src="{{card.editions[0].image_url}}" class="card-detail__image" />
-  </div>
+  <uib-tabset>
+    <uib-tab index="0" heading="Card">
+      <div class="card-modal__image">
+        <img ng-src="{{card.editions[0].image_url}}" class="card-detail__image" />
+      </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Detail">
+        <strong>
+          <span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span>
+          <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span>
+          <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span>
+        </strong>
 
-  <div ng-show="show==='detail'">
-    <strong>
-      <span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span>
-      <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span>
-      <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span>
-    </strong>
+        <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
 
-    <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+        <hr/>
 
-    <hr/>
+        <p class="card-detail__text" ng-bind-html="renderOracle(card.text)"></p>
+    </uib-tab>
+  </uib-tabset>
 
-    <p class="card-detail__text" ng-bind-html="renderOracle(card.text)"></p>
-  </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-default" type="button" ng-show="show==='detail'" ng-click="show='card'">Card</button>
-  <button class="btn btn-default" type="button" ng-hide="show==='detail'" ng-click="show='detail'">Details</button>
-
   <button class="btn btn-default" ng-click="addCard(1)" ng-disabled="card===undefined">Add card</button>
   <button class="btn btn-default" ng-click="addCard(4)" ng-disabled="card===undefined">Add 4 cards</button>
 </div>

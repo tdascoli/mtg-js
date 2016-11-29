@@ -1,4 +1,14 @@
-<h1>Deck: {{deck.name}}</h1>
+<h1 ng-hide="mobile">Deck: {{deck.name}}</h1>
+
+<div class="form-group">
+  <label class="label-control">Deck Name:</label>
+  <div class="input-group">
+    <input type="text" class="form-control" ng-model="deck.name"/>
+    <span class="input-group-btn">
+      <button class="btn btn-default" ng-click="saveDeck()">Save</button>
+    </span>
+  </div>
+</div>
 
 <uib-tabset ng-show="mobile">
   <uib-tab index="0" heading="Card Catalog">
@@ -8,7 +18,7 @@
     <ng-include src="'views/decks/editor-main.html'"></ng-include>
   </uib-tab>
   <uib-tab index="2" heading="Sideboard">
-    <ng-include src="'views/decks/editor-card.html'"></ng-include>
+    <ng-include src="'views/decks/editor-side.html'"></ng-include>
   </uib-tab>
 </uib-tabset>
 
@@ -35,10 +45,10 @@
       <!-- catalog -->
 
       <!-- detail -->
-      <div class="row--small golden-ratio--column real-mobile-hide">
-
-        <ng-include src="'views/decks/editor-card.html'"></ng-include>
-
+      <div class="row--small golden-ratio--column">
+        <div class="mobile-hide">
+          <ng-include src="'views/decks/editor-card.html'"></ng-include>
+        </div>
       </div>
       <!-- /detail -->
     </div>

@@ -18,6 +18,11 @@
   display: block;
 }
 
+.column--small:first-of-type,
+.column--tall:first-of-type {
+  margin-bottom: 1em;
+}
+
 /* row */
 .golden-ratio--row {
   display: flex;
@@ -39,14 +44,19 @@
   display: block;
 }
 
+.row--small:first-of-type,
+.row--tall:first-of-type {
+  margin-right: 1em;
+}
+
 /* mobile */
 @media #{$media-phone} {
   .golden-ratio--row.no-mobile {
     display: block;
   }
 
-  .golden-ratio--row .row--tall,
-  .golden-ratio--row .row--small {
+  .golden-ratio--row.no-mobile .row--tall,
+  .golden-ratio--row.no-mobile .row--small {
     width: 100%;
   }
 }
