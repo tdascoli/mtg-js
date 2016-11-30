@@ -211,8 +211,10 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          decks: function (Decks){
-            return Decks.$loaded();
+          decks: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getUserDecks(auth.uid);
+            });
           },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
@@ -238,9 +240,10 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          decks: function (Decks){
-            // load only uid decks
-            return Decks.$loaded();
+          decks: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getUserDecks(auth.uid);
+            });
           },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
@@ -266,9 +269,10 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          decks: function (Decks){
-            // load only uid decks
-            return Decks.$loaded();
+          decks: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getUserDecks(auth.uid);
+            });
           },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){

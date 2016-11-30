@@ -11,7 +11,7 @@
 
 <div class="list-group card-list">
   <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
-     ng-repeat="card in deck.cards track by $index">
+     ng-repeat="card in deck.main track by $index">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
     <div class="card-list__card-detail">

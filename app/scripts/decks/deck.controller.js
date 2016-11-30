@@ -8,10 +8,10 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, CardsService, lodash, profile, decks) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, lodash, profile, decks) {
 
     $scope.card=undefined;
-    $scope.deck={name:'New Deck',cards:[],sideboard:[]};
+    $scope.deck={name:'New Deck',main:[],sideboard:[]};
     $scope.decks = decks;
     $scope.params = CardsService.params;
 
@@ -95,7 +95,7 @@ angular.module('mtgJsApp')
     $scope.addCard=function(amount){
       if ($scope.card!==undefined) {
         for (var i =0; i < amount; i++) {
-          $scope.deck.cards.push($scope.card);
+          $scope.deck.main.push($scope.card);
         }
       }
     };
@@ -103,7 +103,7 @@ angular.module('mtgJsApp')
     $scope.removeCard=function(amount){
       if ($scope.card!==undefined) {
        for (var i =0; i < amount; i++) {
-         lodash.remove($scope.deck.cards, $scope.card);
+         lodash.remove($scope.deck.main, $scope.card);
        }
       }
     };
@@ -122,21 +122,21 @@ angular.module('mtgJsApp')
 
     // SAVE
     $scope.saveDeck = function (){
-
       if ($stateParams.deckId!==undefined){
         $scope.decks.$save($scope.deck).then(function (){
           console.log('update!');
         });
       }
       else {
-        if ($scope.deck.cards.length > 0 && $scope.deck.name !== undefined) {
+        if ($scope.deck.main.length > 0 && $scope.deck.name !== undefined) {
           $scope.decks.$add({
-            uid: profile.$id,
             name: $scope.deck.name,
-            cards: $scope.deck.cards,
+            main: $scope.deck.main,
+            sideboard: $scope.deck.sideboard,
             timestamp: firebase.database.ServerValue.TIMESTAMP
-          }).then(function () {
-            console.log('saved - what about update?');
+          }).then(function (ref) {
+            console.log('saved!');
+            $state.go('decks/deck',{deckId:ref.key});
           });
         }
         else {
