@@ -277,7 +277,9 @@ html, body {
 
   .navbar-brand {
     padding-bottom: 4px;
-    padding-top: 3px; }
+    padding-top: 3px;
+    min-height: inherit;
+    height: auto; }
 
   .navbar-mobile {
     margin: 0;
@@ -356,6 +358,15 @@ html, body {
   color: #ffffff;
   background-color: #ccc;
   border-color: transparent; }
+
+.btn-group-narrow .btn {
+  padding: 6px 6px; }
+
+.btn-group-narrow .dropdown-menu {
+  min-width: inherit; }
+
+.btn-group-narrow .dropdown-menu > li > a {
+  padding: 3px 16px; }
 
 /* ui-tab */
 .tab-content {
@@ -803,5 +814,7 @@ html, body {
   .golden-ratio--row.no-mobile .row--tall,
   .golden-ratio--row.no-mobile .row--small {
     width: 100%; } }
+.ss-1_5x {
+  font-size: 1.65em; }
 
 /*# sourceMappingURL=mtg-app.css.map */

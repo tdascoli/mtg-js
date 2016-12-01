@@ -101,6 +101,20 @@ angular.module('mtgJsApp')
       }
     };
 
+    $scope.addCardById=function(cardId,setId){
+      CardsService.showCard(cardId).success(function (card) {
+        $scope.card=card;
+        if (angular.isString(setId)) {
+          var editions = new Array(lodash.find(card.editions, { 'set_id': setId }));
+          card.editions = editions;
+        }
+        $scope.deck.main.push(card);
+      })
+      .error(function (error) {
+        console.error(error);
+      });
+    };
+
     $scope.removeCard=function(index){
       $scope.deck.main.splice(index, 1);
     };

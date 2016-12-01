@@ -40,6 +40,8 @@ h1, h2, h3, h4, h5, h6 {
   .navbar-brand {
     padding-bottom: 4px;
     padding-top: 3px;
+    min-height: inherit;
+    height: auto;
   }
 
   .navbar-mobile {
@@ -144,6 +146,15 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
   background-color: #ccc;
   border-color: transparent;
+}
+.btn-group-narrow .btn {
+  padding: 6px 6px;
+}
+.btn-group-narrow .dropdown-menu {
+  min-width: inherit;
+}
+.btn-group-narrow .dropdown-menu>li>a {
+  padding: 3px 16px;
 }
 
 /* ui-tab */

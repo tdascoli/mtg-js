@@ -1,8 +1,17 @@
 <div class="card-list--toolbar" ng-hide="mobile">
   <p />
 
-  <button class="btn btn-default" ng-click="removeCard(1)" ng-disabled="card===undefined">Remove card</button>
-  <button class="btn btn-default" ng-click="removeCard(4)" ng-disabled="card===undefined">Remove 4 cards</button>
+  <div class="btn-group" uib-dropdown ng-disabled="card===undefined">
+    <button id="add-main-card" type="button" class="btn btn-primary" ng-click="addCard(1,0)">Add card</button>
+    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="add-main-card">
+      <li role="menuitem"><a class="pointer" ng-click="addCard(2,0)">Add 2 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(3,0)">Add 3 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(4,0)">Add 4 cards</a></li>
+    </ul>
+  </div>
 
   <span ng-show="idle">loading...</span>
 </div>
@@ -22,6 +31,7 @@
     <div class="card-list__cost-set">
       <div render-cost="card.cost"></div>
       <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+      <span class="card-list__set" render-rarity="card.editions[0].rarity">{{card.editions[0].set_id}}</span>
     </div>
   </a>
 </div>
