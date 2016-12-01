@@ -28,7 +28,10 @@
   display: flex;
   flex-direction: row;
   height: 100%;
+}
 
+.row--flex-height {
+  height: auto;
 }
 
 .golden-ratio--row .row--tall {

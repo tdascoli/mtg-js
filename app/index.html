@@ -68,13 +68,17 @@
     </div>
 
     <!-- Add your site or application content here -->
-    <div class="header mobile-hide">
-      <div class="navbar navbar-inverse" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#/home">mtg</a>
-          </div>
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/home">mtg</a>
+        </div>
 
+        <div class="mobile-show navbar-mobile navbar-mobile-right">
+          <a ui-sref="game"><i class="material-icons">more_horiz</i></a></li>
+        </div>
+
+        <div class="mobile-hide">
           <ul class="nav navbar-nav" menus="menuItems">
             <li ng-repeat="menu in menuItems" role="presentation" ui-sref-active="active" ng-show-or-hide-on-auth="{{menu.onAuth}}"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
           </ul>
@@ -100,7 +104,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
 
     <div class="container" full-screen-state ui-view="content"></div>
 

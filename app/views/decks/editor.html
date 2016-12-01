@@ -1,13 +1,16 @@
 <h1 ng-hide="mobile">Deck: {{deck.name}}</h1>
 
-<div class="form-group">
-  <label class="label-control">Deck Name:</label>
-  <div class="input-group">
-    <input type="text" class="form-control" ng-model="deck.name"/>
-    <span class="input-group-btn">
-      <button class="btn btn-default" ng-click="saveDeck()">Save</button>
-    </span>
+<div class="golden-ratio--row row--flex-height">
+
+  <div class="form-group row--tall">
+    <label class="sr-only">Deck Name:</label>
+    <input type="text" class="form-control" ng-model="deck.name" placeholder="Deck Name" />
   </div>
+
+  <div class="row--small">
+    <button class="btn btn-primary" ng-click="saveDeck()">Save</button>
+  </div>
+
 </div>
 
 <uib-tabset ng-show="mobile">

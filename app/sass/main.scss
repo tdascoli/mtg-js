@@ -1,4 +1,8 @@
 /* main */
+
+/* navbar-fixed-top */
+body { padding-top: 70px; }
+
 html, body {
   height: 100%;
 }
@@ -9,14 +13,51 @@ html, body {
   height: 100%;
 }
 
-.navbar-brand {
-  font-family: 'Magic Cards Normal', $font-family--primary;
-}
 h1, h2, h3, h4, h5, h6 {
   //font-family: 'Beleren', $font-family--primary;
 }
 
 /* navbar */
+.navbar-brand {
+  font-family: 'Magic Cards Normal', $font-family--primary;
+}
+
+@media #{$media-phone} {
+  /* navbar-fixed-top */
+  body { padding-top: ($navbar-mobile-height + $navbar-mobile-margin-bottom); }
+
+  .navbar {
+    height: $navbar-mobile-height;
+    min-height: $navbar-mobile-height;
+    margin-bottom: $navbar-mobile-margin-bottom;
+  }
+
+  .navbar-header {
+    height: $navbar-mobile-height;
+    float: left;
+  }
+
+  .navbar-brand {
+    padding-bottom: 4px;
+    padding-top: 3px;
+  }
+
+  .navbar-mobile {
+    margin: 0;
+    height: $navbar-mobile-height;
+
+    a {
+      display: inline-block;
+      margin: 3px auto;
+      color: #fff;
+      z-index: 1000;
+    }
+  }
+
+  .navbar-mobile-right {
+    float: right;
+  }
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .drawer-controls {
@@ -25,21 +66,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* hide */
+
+.hide,
+.mobile-show {
+  display: none;
+}
+
 @media #{$media-phone} {
   .mobile-hide {
     display: none !important;
   }
-}
-
-.hide {
-  display: none;
+  .mobile-show {
+    display: block;
+  }
 }
 
 /* drawer/hamburger */
 .drawer-controls {
+  margin-top: $navbar-mobile-height;
   width: $hamburger-button-width;
-  padding-top: $game-action-height+10;
+  padding-top: ($game-action-height+10)-$navbar-mobile-height;
   padding-left: 0;
+  height: auto;
 }
 .drawer-right .drawer-controls {
   margin-left: -($hamburger-button-width);
