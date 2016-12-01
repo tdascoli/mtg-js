@@ -87,7 +87,7 @@
 <p />
 
 <div class="list-group card-list">
-  <a  ng-repeat="card in cards" ng-click="showCard(card.id)" class="list-group-item card-list--item">
+  <a  ng-repeat="card in cards" ng-click="showCard(card.id, false)" class="list-group-item card-list--item">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
     <div class="card-list__card-detail">

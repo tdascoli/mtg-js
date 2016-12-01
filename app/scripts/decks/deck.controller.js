@@ -19,9 +19,10 @@ angular.module('mtgJsApp')
       $scope.deck = $scope.decks.$getRecord($stateParams.deckId);
     }
 
-    $scope.showCard = function (cardId) {
+    $scope.showCard = function (cardId, deck) {
       CardsService.showCard(cardId).success(function (result) {
         $scope.card=result;
+        $scope.card.deck=deck;
 
         if ($rootScope.mobile) {
           $uibModal.open({
@@ -100,12 +101,8 @@ angular.module('mtgJsApp')
       }
     };
 
-    $scope.removeCard=function(amount){
-      if ($scope.card!==undefined) {
-       for (var i =0; i < amount; i++) {
-         lodash.remove($scope.deck.main, $scope.card);
-       }
-      }
+    $scope.removeCard=function(index){
+      $scope.deck.main.splice(index, 1);
     };
 
     $scope.renderOracle=function(text){

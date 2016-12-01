@@ -10,7 +10,7 @@
 <p />
 
 <div class="list-group card-list">
-  <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
+  <a ng-click="showCard(card.id,$index)" class="list-group-item card-list--item"
      ng-repeat="card in deck.main track by $index">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
