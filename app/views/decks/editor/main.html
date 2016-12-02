@@ -1,7 +1,7 @@
-<div class="card-list--toolbar" ng-hide="mobile">
+<div class="card-list--toolbar">
   <button type="button" class="btn btn-default" ng-click="showBasiclandModal()">Add Basiclands</button>
 
-  <button class="btn btn-warning" ng-click="removeCard(card.deck)" ng-disabled="card.deck===false || card.deck===undefined">Remove</button>
+  <button class="btn btn-warning" ng-click="removeCard(card.deck)" ng-disabled="card.deck===false || card.deck===undefined" ng-hide="mobile">Remove</button>
   <span ng-show="idle">loading...</span>
 </div>
 
