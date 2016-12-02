@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="closeModalCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Add Basiclands</strong>
+</div>
+<div class="card-modal modal-body" id="modal-body" ng-init="listBasiclands()">
+
+  <div class="form-group">
+    <label for="basicland" class="control-label">Basicland</label>
+    <select class="form-control" id="basicland" ng-model="basicland" ng-init="basicland='0'" ng-change="showBasicland()">
+      <option ng-repeat="land in basiclands track by $index" value="{{$index}}">{{land.name}}</option>
+    </select>
+  </div>
+
+  <div>
+    <div class="card-modal__image">
+      <img ng-src="{{basiclandEdition.image_url}}" class="card-detail__image" />
+    </div>
+    <strong>
+      <span class="card-detail__types" ng-repeat="supertype in basiclandCard.supertypes">{{supertype}}</span>
+      <span class="card-detail__types" ng-repeat="type in basiclandCard.types">{{type}}</span>
+      <span class="card-detail__types" ng-repeat="subtype in basiclandCard.subtypes">{{subtype}}</span>
+    </strong>
+
+    <i class="ss ss-2x {{renderExpansion(basiclandEdition.set_id,basiclandEdition.rarity)}}"></i>
+  </div>
+</div>
+<div class="modal-footer form-inline">
+
+  <div class="form-group">
+    <label for="edition-select" class="control-label">Edition</label>
+    <select class="form-control" ng-model="basiclandEditionIndex" id="edition-select" ng-change="setBasiclandEdition()">
+      <option ng-repeat="edition in basiclandCard.editions track by $index" value="{{$index}}">{{edition.set_id}} - {{edition.set}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="amount" class="label-control">Amount</label>
+    <input type="number" class="form-control form-narrow" id="amount" ng-model="amount" />
+  </div>
+  <button type="button" class="btn btn-primary">Add</button>
+</div>

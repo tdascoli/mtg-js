@@ -11,24 +11,55 @@ angular.module('mtgJsApp')
   .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, lodash, profile, decks) {
 
     $scope.card=undefined;
+    $scope.currentEdition=undefined;
+
     $scope.deck={name:'New Deck',main:[],sideboard:[]};
     $scope.decks = decks;
+
     $scope.params = CardsService.params;
+
+    // INIT
+    CardsService.filterCards(false).success(function (result) {
+      $scope.cards = result;
+    })
+    .error(function (error) {
+      $scope.idle = false;
+      console.error(error);
+    });
 
     if ($stateParams.deckId!==undefined){
       $scope.deck = $scope.decks.$getRecord($stateParams.deckId);
     }
+    // .INIT
 
-    $scope.showCard = function (cardId, deck) {
+    $scope.showCard = function (card, deck) {
+      $scope.card=card;
+      $scope.card.deck=deck;
+      $scope.setCurrentEdition($scope.card.editions[0]);
+
+      if ($rootScope.mobile) {
+        $uibModal.open({
+          animation: true,
+          scope: $scope,
+          templateUrl: 'views/decks/modal/card.html',
+          size: 'lg',
+          controller: 'ModalInstanceCtrl'
+        });
+      }
+    };
+
+    // vereinfachen!
+    $scope.showCardById = function (cardId, deck) {
       CardsService.showCard(cardId).success(function (result) {
         $scope.card=result;
         $scope.card.deck=deck;
+        $scope.setCurrentEdition($scope.card.editions[0]);
 
         if ($rootScope.mobile) {
           $uibModal.open({
             animation: true,
             scope: $scope,
-            templateUrl: 'views/decks/modal-card.html',
+            templateUrl: 'views/decks/modal/card.html',
             size: 'lg',
             controller: 'ModalInstanceCtrl'
           });
@@ -39,18 +70,9 @@ angular.module('mtgJsApp')
       });
     };
 
-    $scope.renderOracle=function(text){
-      return CardsService.renderOracle(text);
+    $scope.setCurrentEdition=function(edition){
+      $scope.currentEdition=edition;
     };
-
-    $scope.renderCost=function(renderCost){
-      return CardsService.renderCost(renderCost);
-    };
-
-    $scope.renderExpansion=function(set,rarity){
-      return CardsService.renderExpansion(set,rarity);
-    };
-
 
     $scope.filterCards=function(pagination){
 
@@ -105,13 +127,24 @@ angular.module('mtgJsApp')
       CardsService.showCard(cardId).success(function (card) {
         $scope.card=card;
         if (angular.isString(setId)) {
-          var editions = new Array(lodash.find(card.editions, { 'set_id': setId }));
+          $scope.setCurrentEdition(lodash.find(card.editions, { 'set_id': setId }));
+          var editions = new Array($scope.currentEdition);
           card.editions = editions;
         }
         $scope.deck.main.push(card);
       })
       .error(function (error) {
         console.error(error);
+      });
+    };
+
+    $scope.addBasiclands=function(){
+      $uibModal.open({
+        animation: true,
+        scope: $scope,
+        templateUrl: 'views/decks/modal/basiclands.html',
+        size: 'lg',
+        controller: 'ModalInstanceCtrl'
       });
     };
 
@@ -155,17 +188,34 @@ angular.module('mtgJsApp')
         }
       }
     };
-
-    // INIT
-    CardsService.filterCards(false).success(function (result) {
-      $scope.cards = result;
-    })
-    .error(function (error) {
-      $scope.idle = false;
-      console.error(error);
-    });
   })
-  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance) {
+  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, CardsService) {
+    // basic lands
+    $scope.basiclandEditionIndex=0;
+    $scope.basiclandEdition=undefined;
+    $scope.basiclandCard=undefined;
+    $scope.basiclands=undefined;
+
+    $scope.basicland='0';
+    $scope.amount=0;
+
+    $scope.listBasiclands=function(){
+      CardsService.listBasiclands().success(function (result) {
+        $scope.basiclands=result;
+        $scope.showBasicland(0);
+      })
+      .error(function (error) {
+        console.error(error);
+      });
+    };
+    $scope.showBasicland=function(){
+      $scope.basiclandCard=$scope.basiclands[$scope.basicland];
+      $scope.basiclandEdition=$scope.basiclandCard.editions[0];
+    };
+    $scope.setBasiclandEdition=function(){
+      $scope.basiclandEdition=$scope.basiclandCard.editions[$scope.basiclandEditionIndex];
+    };
+
     $scope.closeModalCard = function () {
       $uibModalInstance.dismiss('cancel');
     };

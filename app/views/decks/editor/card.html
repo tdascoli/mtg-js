@@ -1,0 +1,52 @@
+<div ng-show="card!==undefined">
+  <div class="btn-group" uib-dropdown ng-disabled="card===undefined">
+    <button id="add-main-card" type="button" class="btn btn-primary" ng-click="addCard(1,0)">Add card</button>
+    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="add-main-card">
+      <li role="menuitem"><a class="pointer" ng-click="addCard(2,0)">Add 2 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(3,0)">Add 3 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(4,0)">Add 4 cards</a></li>
+    </ul>
+  </div>
+
+  <p></p>
+
+  <img ng-src="{{currentEdition.image_url}}" class="card-detail__image" />
+
+  <hr/>
+
+  <p>
+    <strong>{{card.name}}</strong> <span class="card-detail__text" ng-bind-html="renderCost(card.cost)"></span>
+  </p>
+  <strong>
+    <span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span>
+    <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span>
+    <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span>
+  </strong>
+
+  <span ng-if="card.editions.length===1">
+    <i class="ss ss-1_5x {{renderExpansion(currentEdition.set_id,currentEdition.rarity)}}"></i>
+    <span class="card-list__set" render-rarity="currentEdition.rarity">{{currentEdition.set_id}}</span>
+  </span>
+
+  <div class="btn-group btn-group-narrow" uib-dropdown ng-if="card.editions.length>1">
+    <button id="editions" type="button" class="btn btn-default" uib-dropdown-toggle>
+      <i class="ss ss-1_5x {{renderExpansion(currentEdition.set_id,currentEdition.rarity)}}"></i>
+      <span class="card-list__set" render-rarity="currentEdition.rarity">{{currentEdition.set_id}}</span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="editions">
+      <li role="menuitem" ng-repeat="edition in card.editions | orderBy:'multiverse_id'">
+        <a ng-click="setCurrentEdition(edition)">
+          <i class="ss ss-2x {{renderExpansion(edition.set_id,edition.rarity)}}"></i>
+          <span class="card-list__set" render-rarity="edition.rarity">{{edition.set_id}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <hr/>
+  <p class="card-detail__text" ng-bind-html="renderOracle(card.text)"></p>
+</div>

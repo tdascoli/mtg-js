@@ -15,13 +15,13 @@
 
 <uib-tabset ng-show="mobile">
   <uib-tab index="0" heading="Card Catalog">
-    <ng-include src="'views/decks/editor-catalog.html'"></ng-include>
+    <ng-include src="'views/decks/editor/catalog.html'"></ng-include>
   </uib-tab>
   <uib-tab index="1" heading="Main Deck">
-    <ng-include src="'views/decks/editor-main.html'"></ng-include>
+    <ng-include src="'views/decks/editor/main.html'"></ng-include>
   </uib-tab>
   <uib-tab index="2" heading="Sideboard">
-    <ng-include src="'views/decks/editor-side.html'"></ng-include>
+    <ng-include src="'views/decks/editor/sideboard.html'"></ng-include>
   </uib-tab>
 </uib-tabset>
 
@@ -30,7 +30,7 @@
   <!-- catalog -->
   <div class="row--small">
 
-    <ng-include src="'views/decks/editor-catalog.html'"></ng-include>
+    <ng-include src="'views/decks/editor/catalog.html'"></ng-include>
 
   </div>
   <!-- /catalog -->
@@ -42,15 +42,15 @@
       <!-- main deck -->
       <div class="row--tall">
 
-        <ng-include src="'views/decks/editor-main.html'"></ng-include>
+        <ng-include src="'views/decks/editor/main.html'"></ng-include>
 
       </div>
       <!-- catalog -->
 
       <!-- detail -->
-      <div class="row--small golden-ratio--column">
-        <div class="mobile-hide">
-          <ng-include src="'views/decks/editor-card.html'"></ng-include>
+      <div class="row--small">
+        <div class="mobile-hide card-list--card-view">
+          <ng-include src="'views/decks/editor/card.html'"></ng-include>
         </div>
       </div>
       <!-- /detail -->

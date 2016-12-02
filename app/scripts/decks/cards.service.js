@@ -70,6 +70,9 @@ angular.module('mtgJsApp')
       return $http.get(baseUrl + '/cards?'+filter);
     }
 
+    function listBasiclands(){
+      return $http.get(baseUrl + '/cards?supertype=basic');
+    }
 
     function renderOracle(text){
       if (text!==undefined) {
@@ -145,6 +148,7 @@ angular.module('mtgJsApp')
       listSet: listSet,
       allCards: allCards,
       filterCards: filterCards,
+      listBasiclands: listBasiclands,
       showCard: showCard,
       renderExpansion: renderExpansion,
       renderCost: renderCost,

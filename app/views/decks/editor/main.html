@@ -1,26 +1,15 @@
 <div class="card-list--toolbar" ng-hide="mobile">
-  <p />
+  <button type="button" class="btn btn-default" ng-click="addBasiclands()">Add Basiclands</button>
 
-  <div class="btn-group" uib-dropdown ng-disabled="card===undefined">
-    <button id="add-main-card" type="button" class="btn btn-primary" ng-click="addCard(1,0)">Add card</button>
-    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="add-main-card">
-      <li role="menuitem"><a class="pointer" ng-click="addCard(2,0)">Add 2 cards</a></li>
-      <li role="menuitem"><a class="pointer" ng-click="addCard(3,0)">Add 3 cards</a></li>
-      <li role="menuitem"><a class="pointer" ng-click="addCard(4,0)">Add 4 cards</a></li>
-    </ul>
-  </div>
-
+  <button class="btn btn-warning" ng-click="removeCard(card.deck)" ng-disabled="card.deck===false || card.deck===undefined">Remove</button>
   <span ng-show="idle">loading...</span>
 </div>
 
-<p />
+<p></p>
 
 <div class="list-group card-list">
-  <a ng-click="showCard(card.id,$index)" class="list-group-item card-list--item"
-     ng-repeat="card in deck.main track by $index">
+  <a ng-click="showCard(card,$index)" class="list-group-item card-list--item"
+     ng-repeat="card in deck.main | orderBy:'name' track by $index">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
     <div class="card-list__card-detail">

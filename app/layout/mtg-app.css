@@ -372,6 +372,10 @@ html, body {
 .tab-content {
   padding-top: 1em; }
 
+/* forms */
+.form-control.form-narrow {
+  width: 2.5em; }
+
 .avatar img {
   height: 65px;
   width: 65px; }
@@ -680,6 +684,9 @@ html, body {
 .card-list__card-detail {
   margin: 0 5px;
   flex-grow: 2; }
+
+.card-list--card-view {
+  position: fixed; }
 
 .card-list__cost-set {
   text-align: right; }

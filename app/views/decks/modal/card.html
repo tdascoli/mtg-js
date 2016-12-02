@@ -7,7 +7,7 @@
   <uib-tabset>
     <uib-tab index="0" heading="Card">
       <div class="card-modal__image">
-        <img ng-src="{{card.editions[0].image_url}}" class="card-detail__image" />
+        <img ng-src="{{currentEdition.image_url}}" class="card-detail__image" />
       </div>
     </uib-tab>
     <uib-tab index="1" heading="Detail">
@@ -17,7 +17,7 @@
           <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span>
         </strong>
 
-        <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+        <i class="ss ss-2x {{renderExpansion(currentEdition.set_id,currentEdition.rarity)}}"></i>
 
         <hr/>
 
@@ -27,6 +27,21 @@
 
 </div>
 <div class="modal-footer">
+  <div class="btn-group btn-group-narrow" uib-dropdown ng-if="card.editions.length>1">
+    <button id="editions" type="button" class="btn btn-default" uib-dropdown-toggle>
+      <i class="ss ss-1_5x {{renderExpansion(currentEdition.set_id,currentEdition.rarity)}}"></i>
+      <span class="card-list__set" render-rarity="currentEdition.rarity">{{currentEdition.set_id}}</span>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="editions">
+      <li role="menuitem" ng-repeat="edition in card.editions | orderBy:'multiverse_id'">
+        <a ng-click="setCurrentEdition(edition)">
+          <i class="ss ss-2x {{renderExpansion(edition.set_id,edition.rarity)}}"></i>
+          <span class="card-list__set" render-rarity="edition.rarity">{{edition.set_id}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
   <div class="btn-group" uib-dropdown>
     <button id="split-button" type="button" class="btn btn-primary" ng-click="addCard(1); closeModalCard()">Add card</button>
