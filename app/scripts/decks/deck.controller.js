@@ -138,7 +138,11 @@ angular.module('mtgJsApp')
       });
     };
 
-    $scope.addBasiclands=function(){
+    $scope.addCardByCard=function(card){
+      $scope.deck.main.push(card);
+    };
+
+    $scope.showBasiclandModal=function(){
       $uibModal.open({
         animation: true,
         scope: $scope,
@@ -215,6 +219,12 @@ angular.module('mtgJsApp')
     $scope.setBasiclandEdition=function(){
       $scope.basiclandEdition=$scope.basiclandCard.editions[$scope.basiclandEditionIndex];
     };
+
+     $scope.addBasiclands=function(){
+       for (var i =0; i < $scope.amount; i++) {
+        $scope.addCardByCard($scope.basiclandCard);
+       }
+     };
 
     $scope.closeModalCard = function () {
       $uibModalInstance.dismiss('cancel');

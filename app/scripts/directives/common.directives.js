@@ -1,4 +1,3 @@
-
 /**
  * @ngdoc function
  * @name mtgJsApp.directive:ngHideAuth
@@ -13,7 +12,7 @@ angular.module('mtgJsApp')
 
     return {
       restrict: 'A',
-      link: function(scope, el) {
+      link: function (scope, el) {
         if ($state.includes('game')) {
           el.addClass('container-full');
         }
@@ -25,7 +24,7 @@ angular.module('mtgJsApp')
 
     return {
       restrict: 'A',
-      link: function(scope, el, attrs) {
+      link: function (scope, el, attrs) {
         var state = attrs.hideOnState;
         if ($state.includes(state)) {
           el.addClass('hide');
@@ -38,7 +37,7 @@ angular.module('mtgJsApp')
 
     return {
       restrict: 'A',
-      link: function(scope, el, attrs) {
+      link: function (scope, el, attrs) {
         var state = attrs.showOnState;
         el.addClass('hide');
 
@@ -57,19 +56,19 @@ angular.module('mtgJsApp')
       scope: {
         renderCost: '='
       },
-      link: function(scope, el) {
+      link: function (scope, el) {
         var costs = scope.renderCost.split('{');
-        angular.forEach(costs, function(cost){
-          if (cost!=='') {
+        angular.forEach(costs, function (cost) {
+          if (cost !== '') {
             var costElement = angular.element('<i class="ms ms-cost ms-shadow"></i>');
 
             var finalCost = cost.replace('}', '').toLowerCase();
 
             // phyrexia/split mana
-            if (finalCost.indexOf('/')>=0) {
+            if (finalCost.indexOf('/') >= 0) {
               var manas = finalCost.split('/');
               // phyrexia
-              if (manas[0]==='p' || manas[1]==='p') {
+              if (manas[0] === 'p' || manas[1] === 'p') {
                 finalCost = manas[0] + ' ms-' + manas[1];
               }
               else {
@@ -77,13 +76,13 @@ angular.module('mtgJsApp')
                 finalCost = manas[0] + manas[1] + ' ms-split';
               }
             }
-            else if (finalCost==='hw'){
+            else if (finalCost === 'hw') {
               finalCost = 'w';
             }
 
             costElement.addClass('ms-' + finalCost);
 
-            if (cost==='hw}'){
+            if (cost === 'hw}') {
               var hwCost = angular.element('<span class="ms-half"></span>');
               el.wrap(hwCost);
             }
@@ -103,11 +102,11 @@ angular.module('mtgJsApp')
         renderExpansion: '=',
         renderRarity: '='
       },
-      link: function(scope, el) {
-        el.addClass('ss-'+scope.renderExpansion.toLowerCase());
+      link: function (scope, el) {
+        el.addClass('ss-' + scope.renderExpansion.toLowerCase());
 
-        if (scope.renderRarity!==undefined){
-          el.addClass('ss-'+scope.renderRarity);
+        if (scope.renderRarity !== undefined) {
+          el.addClass('ss-' + scope.renderRarity);
         }
       }
     };
@@ -120,7 +119,7 @@ angular.module('mtgJsApp')
       scope: {
         renderRarity: '='
       },
-      link: function(scope, el) {
+      link: function (scope, el) {
         el.addClass(scope.renderRarity.toLowerCase());
       }
     };
@@ -134,16 +133,59 @@ angular.module('mtgJsApp')
       scope: {
         renderColor: '='
       },
-      link: function(scope, el) {
-        if (scope.renderColor===undefined){
+      link: function (scope, el) {
+        if (scope.renderColor === undefined) {
           el.after('colorless');
         }
-        else if (scope.renderColor.length===1){
+        else if (scope.renderColor.length === 1) {
           el.after(scope.renderColor[0]);
         }
-        else if (scope.renderColor.length>0){
+        else if (scope.renderColor.length > 0) {
           el.after('multi');
         }
       }
     };
-  }]);
+  }])
+  .directive('clearInput', ['$parse',
+    function ($parse) {
+      'use strict';
+
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attr) {
+          var htmlMarkup = attr.clearBtnMarkup ? attr.clearBtnMarkup : '<span>X</span>';
+          var btn = angular.element(htmlMarkup);
+          btn.addClass(attr.clearBtnClass ? attr.clearBtnClass : 'clear-btn');
+          element.after(btn);
+
+          btn.on('click', function (event) {
+            if (attr.clearInput) {
+              var fn = $parse(attr.clearInput);
+              scope.$apply(function () {
+                fn(scope, {
+                  $event: event
+                });
+              });
+            } else {
+              scope[attr.ngModel] = null;
+              scope.$digest();
+            }
+          });
+
+          scope.$watch(attr.ngModel, function (val) {
+            var hasValue = val && val.length > 0;
+            if (!attr.clearDisableVisibility) {
+              btn.css('visibility', hasValue ? 'visible' : 'hidden');
+            }
+
+            if (hasValue && !btn.hasClass('clear-visible')) {
+              btn.removeClass('clear-hidden').addClass('clear-visible');
+            } else if (!hasValue && !btn.hasClass('clear-hidden')) {
+              btn.removeClass('clear-visible').addClass('clear-hidden');
+            }
+          });
+        }
+      };
+    }
+  ]);
