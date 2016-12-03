@@ -57,39 +57,41 @@ angular.module('mtgJsApp')
         renderCost: '='
       },
       link: function (scope, el) {
-        var costs = scope.renderCost.split('{');
-        angular.forEach(costs, function (cost) {
-          if (cost !== '') {
-            var costElement = angular.element('<i class="ms ms-cost ms-shadow"></i>');
+        if (scope.renderCost!=='') {
+          var costs = scope.renderCost.split('{');
+          angular.forEach(costs, function (cost) {
+            if (cost !== '') {
+              var costElement = angular.element('<i class="ms ms-cost ms-shadow"></i>');
 
-            var finalCost = cost.replace('}', '').toLowerCase();
+              var finalCost = cost.replace('}', '').toLowerCase();
 
-            // phyrexia/split mana
-            if (finalCost.indexOf('/') >= 0) {
-              var manas = finalCost.split('/');
-              // phyrexia
-              if (manas[0] === 'p' || manas[1] === 'p') {
-                finalCost = manas[0] + ' ms-' + manas[1];
+              // phyrexia/split mana
+              if (finalCost.indexOf('/') >= 0) {
+                var manas = finalCost.split('/');
+                // phyrexia
+                if (manas[0] === 'p' || manas[1] === 'p') {
+                  finalCost = manas[0] + ' ms-' + manas[1];
+                }
+                else {
+                  // split
+                  finalCost = manas[0] + manas[1] + ' ms-split';
+                }
               }
-              else {
-                // split
-                finalCost = manas[0] + manas[1] + ' ms-split';
+              else if (finalCost === 'hw') {
+                finalCost = 'w';
               }
-            }
-            else if (finalCost === 'hw') {
-              finalCost = 'w';
-            }
 
-            costElement.addClass('ms-' + finalCost);
+              costElement.addClass('ms-' + finalCost);
 
-            if (cost === 'hw}') {
-              var hwCost = angular.element('<span class="ms-half"></span>');
-              el.wrap(hwCost);
+              if (cost === 'hw}') {
+                var hwCost = angular.element('<span class="ms-half"></span>');
+                el.wrap(hwCost);
+              }
+
+              el.before(costElement);
             }
-
-            el.before(costElement);
-          }
-        });
+          });
+        }
       }
     };
   }])
@@ -120,7 +122,9 @@ angular.module('mtgJsApp')
         renderRarity: '='
       },
       link: function (scope, el) {
-        el.addClass(scope.renderRarity.toLowerCase());
+        if (scope.renderRarity!=='' && scope.renderRarity!==undefined) {
+          el.addClass(scope.renderRarity.toLowerCase());
+        }
       }
     };
   }])
@@ -154,10 +158,11 @@ angular.module('mtgJsApp')
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attr) {
-          var htmlMarkup = attr.clearBtnMarkup ? attr.clearBtnMarkup : '<span>X</span>';
+          var htmlMarkup = attr.clearBtnMarkup ? attr.clearBtnMarkup : '<i class="material-icons">clear</i>';
           var btn = angular.element(htmlMarkup);
           btn.addClass(attr.clearBtnClass ? attr.clearBtnClass : 'clear-btn');
           element.after(btn);
+          element.addClass('clear-input');
 
           btn.on('click', function (event) {
             if (attr.clearInput) {

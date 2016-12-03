@@ -1,14 +1,13 @@
-<div class="card-list--toolbar" ng-hide="mobile">
-  <button class="btn btn-default" ng-click="removeCard(1)" ng-disabled="card===undefined">Remove card</button>
-  <button class="btn btn-default" ng-click="removeCard(4)" ng-disabled="card===undefined">Remove 4 cards</button>
-
-  to main...
-  <hr/>
+<div class="card-list--toolbar">
+  <button class="btn btn-warning" ng-click="removeCard()" ng-disabled="card.deck===false || card.deck===undefined" ng-hide="mobile">Remove</button>
+  <span ng-show="idle">loading...</span>
 </div>
 
+<p></p>
+
 <div class="list-group card-list">
-  <a ng-click="showCard(card.id)" class="list-group-item card-list--item"
-     ng-repeat="card in deck.sideboard track by $index">
+  <a ng-click="showCard(card,'sideboard')" class="list-group-item card-list--item"
+     ng-repeat="card in deck.sideboard | orderBy:'name' track by $index">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
     <div class="card-list__card-detail">
@@ -19,6 +18,7 @@
     <div class="card-list__cost-set">
       <div render-cost="card.cost"></div>
       <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+      <span class="card-list__set" render-rarity="card.editions[0].rarity">{{card.editions[0].set_id}}</span>
     </div>
   </a>
 </div>

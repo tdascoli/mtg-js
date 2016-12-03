@@ -125,12 +125,13 @@ angular.module('mtgJsApp')
 
     $scope.addCardById=function(cardId,setId){
       CardsService.showCard(cardId).success(function (card) {
-        $scope.card=card;
         if (angular.isString(setId)) {
           $scope.setCurrentEdition(lodash.find(card.editions, { 'set_id': setId }));
           var editions = new Array($scope.currentEdition);
           card.editions = editions;
         }
+        $scope.card=card;
+
         $scope.deck.main.push(card);
       })
       .error(function (error) {
@@ -152,8 +153,9 @@ angular.module('mtgJsApp')
       });
     };
 
-    $scope.removeCard=function(index){
-      $scope.deck.main.splice(index, 1);
+    $scope.removeCard=function(){
+      $scope.card.deck=false;
+      $scope.deck.main.splice($scope.deck.main.indexOf($scope.card), 1);
     };
 
     $scope.renderOracle=function(text){
@@ -193,20 +195,20 @@ angular.module('mtgJsApp')
       }
     };
   })
-  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, CardsService) {
+  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, lodash, CardsService) {
     // basic lands
-    $scope.basiclandEditionIndex=0;
+    $scope.basiclandEditionIndex=undefined;
     $scope.basiclandEdition=undefined;
     $scope.basiclandCard=undefined;
     $scope.basiclands=undefined;
 
     $scope.basicland='0';
-    $scope.amount=0;
+    $scope.amount=1;
 
     $scope.listBasiclands=function(){
       CardsService.listBasiclands().success(function (result) {
         $scope.basiclands=result;
-        $scope.showBasicland(0);
+        $scope.showBasicland();
       })
       .error(function (error) {
         console.error(error);
@@ -215,12 +217,22 @@ angular.module('mtgJsApp')
     $scope.showBasicland=function(){
       $scope.basiclandCard=$scope.basiclands[$scope.basicland];
       $scope.basiclandEdition=$scope.basiclandCard.editions[0];
+      $scope.basiclandEditionIndex=$scope.basiclandCard.editions[0].set_id+'-'+$scope.basiclandCard.editions[0].multiverse_id+'-'+$scope.basiclandCard.editions[0].number;
     };
+
     $scope.setBasiclandEdition=function(){
-      $scope.basiclandEdition=$scope.basiclandCard.editions[$scope.basiclandEditionIndex];
+      var index = $scope.basiclandEditionIndex.split('-');
+      var setId=index[0];
+      var multiverseId=index[1];
+      var number=index[2];
+      var edition = lodash.find($scope.basiclandCard.editions, { 'set_id': setId, 'multiverse_id': parseInt(multiverseId), 'number': number });
+      $scope.basiclandEdition=edition;
     };
 
      $scope.addBasiclands=function(){
+       var editions = new Array($scope.basiclandEdition);
+       $scope.basiclandCard.editions = editions;
+
        for (var i =0; i < $scope.amount; i++) {
         $scope.addCardByCard($scope.basiclandCard);
        }

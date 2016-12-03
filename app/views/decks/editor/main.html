@@ -1,15 +1,16 @@
 <div class="card-list--toolbar">
   <button type="button" class="btn btn-default" ng-click="showBasiclandModal()">Add Basiclands</button>
 
-  <button class="btn btn-warning" ng-click="removeCard(card.deck)" ng-disabled="card.deck===false || card.deck===undefined" ng-hide="mobile">Remove</button>
+  <button class="btn btn-warning" ng-click="removeCard()" ng-disabled="card.deck===false || card.deck===undefined" ng-hide="mobile">Remove</button>
   <span ng-show="idle">loading...</span>
 </div>
 
 <p></p>
 
 <div class="list-group card-list">
-  <a ng-click="showCard(card,$index)" class="list-group-item card-list--item"
-     ng-repeat="card in deck.main | orderBy:'name' track by $index">
+  <!-- | orderBy:'name'  -->
+  <a ng-click="showCard(card,'main')" class="list-group-item card-list--item"
+     ng-repeat="card in deck.main track by $index">
     <img ng-src="{{card.editions[0].image_url}}"/>
 
     <div class="card-list__card-detail">

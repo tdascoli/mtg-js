@@ -166,3 +166,20 @@ h1, h2, h3, h4, h5, h6 {
 .form-control.form-narrow {
   width: 2.5em;
 }
+.clear-input,
+.form-control.clear-input {
+  padding-right: 1.5em;
+}
+.clear-btn {
+  position: relative;
+  right: 0.8em;
+  bottom: -0.25em;
+  cursor: pointer;
+}
+.form-control ~ .clear-btn {
+  position: relative;
+  right: 0;
+  top: -1.25em;
+  cursor: pointer;
+  float: right;
+}

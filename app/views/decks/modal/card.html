@@ -22,6 +22,7 @@
         <hr/>
 
         <p class="card-detail__text" ng-bind-html="renderOracle(card.text)"></p>
+        <i class="card-detail__text">{{currentEdition.flavor}}</i>
     </uib-tab>
   </uib-tabset>
 
@@ -55,5 +56,5 @@
     </ul>
   </div>
 
-  <button class="btn btn-warning" ng-click="removeCard(card.deck); closeModalCard()" ng-disabled="card.deck===false">Remove</button>
+  <button class="btn btn-warning" ng-click="removeCard(); closeModalCard()" ng-disabled="card.deck===false">Remove</button>
 </div>
