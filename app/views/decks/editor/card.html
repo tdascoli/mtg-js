@@ -1,13 +1,18 @@
 <div ng-show="card!==undefined">
   <div class="btn-group" uib-dropdown ng-disabled="card===undefined">
-    <button id="add-main-card" type="button" class="btn btn-primary" ng-click="addCard(1,0)">Add card</button>
+    <button id="add-main-card" type="button" class="btn btn-primary" ng-click="addCard(1,true)">Add card</button>
     <button type="button" class="btn btn-primary" uib-dropdown-toggle>
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="add-main-card">
-      <li role="menuitem"><a class="pointer" ng-click="addCard(2,0)">Add 2 cards</a></li>
-      <li role="menuitem"><a class="pointer" ng-click="addCard(3,0)">Add 3 cards</a></li>
-      <li role="menuitem"><a class="pointer" ng-click="addCard(4,0)">Add 4 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(2,true)">Add 2 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(3,true)">Add 3 cards</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(4,true)">Add 4 cards</a></li>
+      <li class="divider"></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(1,false)">Add card to Sideboard</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(2,false)">Add 2 cards to Sideboard</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(3,false)">Add 3 cards to Sideboard</a></li>
+      <li role="menuitem"><a class="pointer" ng-click="addCard(4,false)">Add 4 cards to Sideboard</a></li>
     </ul>
   </div>
 

@@ -1,7 +1,7 @@
 //* game area */
 .avatar img {
-  height: 65px;
-  width: 65px;
+  height: $game-action-height;
+  width: $game-action-height;
 }
 
 .avatar[data-life]:after {
@@ -190,5 +190,11 @@
 
 .game-action {
   height: $game-action-height;
+}
+.game-action__bar {
+  margin: 0.25em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 

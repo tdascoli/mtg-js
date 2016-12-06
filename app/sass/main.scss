@@ -166,6 +166,13 @@ h1, h2, h3, h4, h5, h6 {
 .form-control.form-narrow {
   width: 2.5em;
 }
+.form-group.form-narrow {
+  width: 3.75em;
+  float: left;
+}
+.btn-fake-label {
+  margin-top: 28px;
+}
 .clear-input,
 .form-control.clear-input {
   padding-right: 1.5em;

@@ -21,19 +21,24 @@
     <i class="ss ss-2x {{renderExpansion(basiclandEdition.set_id,basiclandEdition.rarity)}}"></i>
   </div>
 </div>
-<div class="modal-footer form-inline">
+<div class="modal-footer">
 
-  <div class="form-group">
-    <label for="edition-select" class="control-label">Edition</label>
-    <select class="form-control" ng-model="basiclandEditionIndex" id="edition-select" ng-change="setBasiclandEdition()">
-      <option ng-repeat="edition in basiclandCard.editions | orderBy:'multiverse_id'" value="{{edition.set_id}}-{{edition.multiverse_id}}-{{edition.number}}">{{edition.set_id}} - {{edition.set}}</option>
-    </select>
+  <div class="golden-ratio--row">
+
+    <div class="form-group row--tall">
+      <label for="edition-select" class="control-label">Edition</label>
+      <select class="form-control" ng-model="basiclandEditionIndex" id="edition-select" ng-change="setBasiclandEdition()">
+        <option ng-repeat="edition in basiclandCard.editions | orderBy:'multiverse_id'" value="{{edition.set_id}}-{{edition.multiverse_id}}-{{edition.number}}">{{edition.set_id}} - {{edition.set}}</option>
+      </select>
+    </div>
+
+    <div class="form-group row--small">
+      <label for="amount" class="label-control">Amount</label>
+      <input type="number" class="form-control" id="amount" ng-model="amount" />
+    </div>
+
   </div>
 
-  <div class="form-group">
-    <label for="amount" class="label-control">Amount</label>
-    <input type="number" class="form-control form-narrow" id="amount" ng-model="amount" />
-  </div>
+  <button type="button" class="btn btn-primary btn-fake-label" ng-click="addBasiclands()">Add</button>
 
-  <button type="button" class="btn btn-primary" ng-click="addBasiclands()">Add</button>
 </div>

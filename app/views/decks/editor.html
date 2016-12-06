@@ -17,10 +17,10 @@
   <uib-tab index="0" heading="Card Catalog">
     <ng-include src="'views/decks/editor/catalog.html'"></ng-include>
   </uib-tab>
-  <uib-tab index="1" heading="Main Deck">
+  <uib-tab index="1" heading="Main Deck ({{deck.main.length}})">
     <ng-include src="'views/decks/editor/main.html'"></ng-include>
   </uib-tab>
-  <uib-tab index="2" heading="Sideboard">
+  <uib-tab index="2" heading="Sideboard ({{deck.sideboard.length}})">
     <ng-include src="'views/decks/editor/sideboard.html'"></ng-include>
   </uib-tab>
 </uib-tabset>

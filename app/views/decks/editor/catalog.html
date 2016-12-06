@@ -99,13 +99,13 @@
 
       <br />
 
-      <button class="btn btn-default" ng-click="addCardById(card.id,card.editions[0].set_id)" ng-if="card.editions.length===1">
+      <button class="btn btn-default" ng-click="addCardById(card.id,card.editions[0].set_id,true)" ng-if="card.editions.length===1">
         <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
         <span class="card-list__set" render-rarity="card.editions[0].rarity">{{card.editions[0].set_id}}</span>
       </button>
 
       <div class="btn-group btn-group-narrow" uib-dropdown ng-if="card.editions.length>1">
-        <button id="editions" type="button" class="btn btn-default" ng-click="addCardById(card.id,card.editions[0].set_id)">
+        <button id="editions" type="button" class="btn btn-default" ng-click="addCardById(card.id,card.editions[0].set_id,true)">
           <i class="ss ss-1_5x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
           <span class="card-list__set" render-rarity="card.editions[0].rarity">{{card.editions[0].set_id}}</span>
         </button>
@@ -114,7 +114,7 @@
         </button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="editions">
           <li role="menuitem" ng-repeat="edition in card.editions | orderBy:'multiverse_id'">
-            <a ng-click="addCardById(card.id,edition.set_id)">
+            <a ng-click="addCardById(card.id,edition.set_id,true)">
               <i class="ss ss-2x {{renderExpansion(edition.set_id,edition.rarity)}}"></i>
               <span class="card-list__set" render-rarity="edition.rarity">{{edition.set_id}}</span>
             </a>

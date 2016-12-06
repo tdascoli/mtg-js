@@ -311,7 +311,7 @@ html, body {
 .drawer-controls {
   margin-top: 30px;
   width: 48px;
-  padding-top: 45px;
+  padding-top: 30px;
   padding-left: 0;
   height: auto; }
 
@@ -376,6 +376,13 @@ html, body {
 .form-control.form-narrow {
   width: 2.5em; }
 
+.form-group.form-narrow {
+  width: 3.75em;
+  float: left; }
+
+.btn-fake-label {
+  margin-top: 28px; }
+
 .clear-input,
 .form-control.clear-input {
   padding-right: 1.5em; }
@@ -394,8 +401,8 @@ html, body {
   float: right; }
 
 .avatar img {
-  height: 65px;
-  width: 65px; }
+  height: 50px;
+  width: 50px; }
 
 .avatar[data-life]:after {
   content: attr(data-life);
@@ -407,23 +414,23 @@ html, body {
   top: -35px; }
 
 .game-area {
-  height: calc(100% - 65px); }
+  height: calc(100% - 50px); }
 
 .game-area__statusbar {
-  height: 65px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap; }
   .game-area__statusbar > div {
     height: 100%; }
   .game-area__statusbar .avatar {
-    flex-basis: 65px; }
+    flex-basis: 50px; }
   .game-area__statusbar .toolbar {
     flex-basis: auto;
     flex-grow: 1; }
 
 .game-area__playground {
-  height: calc(100% - (65px*2)); }
+  height: calc(100% - (50px*2)); }
 
 .playground__opponent,
 .playground__player {
@@ -515,7 +522,7 @@ html, body {
 
 .info-bar {
   background-color: darkgrey;
-  height: 40px; }
+  height: 25px; }
   .info-bar ul {
     margin: 0;
     padding: 0;
@@ -524,7 +531,7 @@ html, body {
     flex-wrap: nowrap;
     justify-content: space-between; }
     .info-bar ul li {
-      line-height: 40px;
+      line-height: 25px;
       flex-grow: 1;
       color: white;
       font-weight: 700;
@@ -536,7 +543,13 @@ html, body {
       background-color: lightsteelblue; }
 
 .game-action {
-  height: 65px; }
+  height: 50px; }
+
+.game-action__bar {
+  margin: 0.25em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
 
 /*
   always three rows?! see mtg-app!!
@@ -689,10 +702,12 @@ html, body {
   box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45);
   margin-right: 3px; }
 
+/*
 .card-list {
   height: inherit;
-  overflow-y: scroll; }
-
+  overflow-y: scroll;
+}
+*/
 .card-list--item {
   display: flex; }
   .card-list--item > img {

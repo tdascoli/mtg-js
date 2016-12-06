@@ -13,10 +13,27 @@ angular.module('mtgJsApp')
     $scope.card=undefined;
     $scope.currentEdition=undefined;
 
+    $scope.sortedCards={main:[],sideboard:[]};
+
     $scope.deck={name:'New Deck',main:[],sideboard:[]};
     $scope.decks = decks;
 
     $scope.params = CardsService.params;
+
+    /*function reduceCards(cards) {
+      return lodash.reduce(cards, function(result, value, key) {
+        (result[value.id] || (result[value.id] = [])).push(cards[key]);
+        return result;
+      }, {});
+    }
+
+    $scope.$watchCollection('deck.main', function() {
+      $scope.sortedCards.main = reduceCards($scope.deck.main);
+    });
+
+    $scope.$watchCollection('deck.sideboard', function() {
+      $scope.sortedCards.sideboard = reduceCards($scope.deck.sideboard);
+    });*/
 
     // INIT
     CardsService.filterCards(false).success(function (result) {
@@ -115,15 +132,20 @@ angular.module('mtgJsApp')
       $scope.filterCards(true);
     };
 
-    $scope.addCard=function(amount){
+    $scope.addCard=function(amount,main){
       if ($scope.card!==undefined) {
         for (var i =0; i < amount; i++) {
-          $scope.deck.main.push($scope.card);
+          if (main) {
+            $scope.deck.main.push($scope.card);
+          }
+          else {
+            $scope.deck.sideboard.push($scope.card);
+          }
         }
       }
     };
 
-    $scope.addCardById=function(cardId,setId){
+    $scope.addCardById=function(cardId,setId,main){
       CardsService.showCard(cardId).success(function (card) {
         if (angular.isString(setId)) {
           $scope.setCurrentEdition(lodash.find(card.editions, { 'set_id': setId }));
@@ -132,15 +154,25 @@ angular.module('mtgJsApp')
         }
         $scope.card=card;
 
-        $scope.deck.main.push(card);
+        if (main) {
+          $scope.deck.main.push(card);
+        }
+        else {
+          $scope.deck.sideboard.push(card);
+        }
       })
       .error(function (error) {
         console.error(error);
       });
     };
 
-    $scope.addCardByCard=function(card){
-      $scope.deck.main.push(card);
+    $scope.addCardByCard=function(card,main){
+      if (main) {
+        $scope.deck.main.push(card);
+      }
+      else {
+        $scope.deck.sideboard.push(card);
+      }
     };
 
     $scope.showBasiclandModal=function(){
@@ -225,16 +257,13 @@ angular.module('mtgJsApp')
       var setId=index[0];
       var multiverseId=index[1];
       var number=index[2];
-      var edition = lodash.find($scope.basiclandCard.editions, { 'set_id': setId, 'multiverse_id': parseInt(multiverseId), 'number': number });
-      $scope.basiclandEdition=edition;
+      $scope.basiclandEdition = lodash.find($scope.basiclandCard.editions, { 'set_id': setId, 'multiverse_id': parseInt(multiverseId), 'number': number });
     };
 
      $scope.addBasiclands=function(){
-       var editions = new Array($scope.basiclandEdition);
-       $scope.basiclandCard.editions = editions;
-
+       $scope.basiclandCard.editions = new Array($scope.basiclandEdition);
        for (var i =0; i < $scope.amount; i++) {
-        $scope.addCardByCard($scope.basiclandCard);
+        $scope.addCardByCard($scope.basiclandCard,true);
        }
      };
 
