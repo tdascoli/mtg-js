@@ -13,14 +13,15 @@ angular.module('mtgJsApp')
     $scope.card=undefined;
     $scope.currentEdition=undefined;
 
-    $scope.sortedCards={main:[],sideboard:[]};
-
     $scope.deck={name:'New Deck',main:[],sideboard:[]};
     $scope.decks = decks;
 
     $scope.params = CardsService.params;
 
-    /*function reduceCards(cards) {
+    /*
+    $scope.sortedCards={main:[],sideboard:[]};
+
+    function reduceCards(cards) {
       return lodash.reduce(cards, function(result, value, key) {
         (result[value.id] || (result[value.id] = [])).push(cards[key]);
         return result;
@@ -135,12 +136,7 @@ angular.module('mtgJsApp')
     $scope.addCard=function(amount,main){
       if ($scope.card!==undefined) {
         for (var i =0; i < amount; i++) {
-          if (main) {
-            $scope.deck.main.push($scope.card);
-          }
-          else {
-            $scope.deck.sideboard.push($scope.card);
-          }
+          $scope.addCardByCard($scope.card,main);
         }
       }
     };
@@ -153,13 +149,7 @@ angular.module('mtgJsApp')
           card.editions = editions;
         }
         $scope.card=card;
-
-        if (main) {
-          $scope.deck.main.push(card);
-        }
-        else {
-          $scope.deck.sideboard.push(card);
-        }
+        $scope.addCardByCard(card,main);
       })
       .error(function (error) {
         console.error(error);
@@ -171,6 +161,9 @@ angular.module('mtgJsApp')
         $scope.deck.main.push(card);
       }
       else {
+        if ($scope.deck.sideboard===undefined){
+          $scope.deck.sideboard=new Array();
+        }
         $scope.deck.sideboard.push(card);
       }
     };
