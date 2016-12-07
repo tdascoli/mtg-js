@@ -22,6 +22,11 @@ angular.module('mtgJsApp')
       return $http.get(baseUrl + '/cards/'+cardId);
     }
 
+    function lookupCard(card){
+      // format? set?
+      return $http.get(baseUrl + '/cards?name='+card.name);
+    }
+
     function doFilter(pagination){
       var filter='';
 
@@ -152,7 +157,8 @@ angular.module('mtgJsApp')
       showCard: showCard,
       renderExpansion: renderExpansion,
       renderCost: renderCost,
-      renderOracle: renderOracle
+      renderOracle: renderOracle,
+      lookupCard: lookupCard
     };
 
   });

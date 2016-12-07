@@ -289,6 +289,11 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
+      .state('decks.import', {
+        url: '/decks/import',
+        controller: 'DeckParserCtrl',
+        templateUrl: 'views/decks/import.html'
+      })
       // game
       .state('game', {
         url: '/game',

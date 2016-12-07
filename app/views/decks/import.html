@@ -1,0 +1,14 @@
+<h2>import deck</h2>
+
+<div class="form-group">
+  <label for="format" class="control-label">Format</label>
+  <select id="format" class="form-control" ng-options="format as value for (key, value) in formats" ng-model="format"></select>
+</div>
+<div class="form-group">
+  <label for="deckList" class="control-label">Deck List</label>
+  <textarea id="deckList" class="form-control" row="3" ng-model="deckList"></textarea>
+</div>
+
+<button class="btn btn-primary" ng-click="importDeck()">Import Deck</button>
+
+<pre>{{deck | json}}</pre>
