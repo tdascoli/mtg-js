@@ -8,7 +8,7 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, lodash, profile, decks) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, DeckParserService, lodash, profile, decks) {
 
     $scope.card=undefined;
     $scope.currentEdition=undefined;
@@ -47,6 +47,10 @@ angular.module('mtgJsApp')
 
     if ($stateParams.deckId!==undefined){
       $scope.deck = $scope.decks.$getRecord($stateParams.deckId);
+    }
+    if ($stateParams.importDeck!==undefined){
+      // prepare?!
+      $scope.deck = DeckParserService.deck;
     }
     // .INIT
 
@@ -144,9 +148,12 @@ angular.module('mtgJsApp')
     $scope.addCardById=function(cardId,setId,main){
       CardsService.showCard(cardId).success(function (card) {
         if (angular.isString(setId)) {
-          $scope.setCurrentEdition(lodash.find(card.editions, { 'set_id': setId }));
-          var editions = new Array($scope.currentEdition);
-          card.editions = editions;
+          var edition=lodash.find(card.editions, { 'set_id': setId });
+          if (edition===undefined){
+            edition=card.editions[0];
+          }
+          $scope.setCurrentEdition(edition);
+          card.editions = new Array($scope.currentEdition);
         }
         $scope.card=card;
         $scope.addCardByCard(card,main);
@@ -162,7 +169,7 @@ angular.module('mtgJsApp')
       }
       else {
         if ($scope.deck.sideboard===undefined){
-          $scope.deck.sideboard=new Array();
+          $scope.deck.sideboard=[];
         }
         $scope.deck.sideboard.push(card);
       }
@@ -212,6 +219,8 @@ angular.module('mtgJsApp')
           }).then(function (ref) {
             console.log('saved!');
             $state.go('decks/deck',{deckId:ref.key});
+          }, function errorCallback(response) {
+            console.log('error!',response);
           });
         }
         else {

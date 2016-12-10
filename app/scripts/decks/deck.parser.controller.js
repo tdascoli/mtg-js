@@ -8,16 +8,17 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckParserCtrl', function ($scope, DeckParserService) {
+  .controller('DeckParserCtrl', function ($scope, $state, DeckParserService) {
 
     $scope.deckList='';
     $scope.deck={};
 
-    $scope.format=DeckParserService.format;
+    $scope.deckFormat='mtgf';
     $scope.formats=DeckParserService.formats;
 
     $scope.importDeck=function(){
-      $scope.deck=DeckParserService.parseDeck($scope.deckList);
+      $scope.deck=DeckParserService.parseDeck($scope.deckFormat,$scope.deckList);
+      $state.go('decks/create/imported', {importDeck: $scope.deck.name});
     };
 
   });

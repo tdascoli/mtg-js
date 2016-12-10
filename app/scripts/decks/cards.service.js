@@ -22,9 +22,8 @@ angular.module('mtgJsApp')
       return $http.get(baseUrl + '/cards/'+cardId);
     }
 
-    function lookupCard(card){
-      // format? set?
-      return $http.get(baseUrl + '/cards?name='+card.name);
+    function lookupCard(name){
+      return $http.get(baseUrl + '/cards?name='+name);
     }
 
     function doFilter(pagination){

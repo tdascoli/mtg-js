@@ -260,6 +260,35 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
+      .state('decks/create/imported', {
+        url: '/decks/create/{importDeck}',
+        views: {
+          content: {
+            controller: 'DeckCtrl',
+            templateUrl: 'views/decks/editor.html'
+          }
+        },
+        resolve: {
+          decks: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getUserDecks(auth.uid);
+            });
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
+          }
+        }
+      })
       .state('decks/deck', {
         url: '/decks/{deckId}',
         views: {
