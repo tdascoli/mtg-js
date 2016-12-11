@@ -8,9 +8,9 @@
    * Provides rudimentary account management functions.
    */
   angular.module('mtgJsApp')
-    .controller('LobbyCtrl', function($scope, $state, Auth, Users, profile, lobbies){
+    .controller('LobbyCtrl', function($scope, $state, Auth, Users, profile, lobby){
       $scope.profile = profile;
-      $scope.lobbies = lobbies;
+      $scope.lobby = lobby;
 
       $scope.getDisplayName = Users.getDisplayName;
       $scope.getEmail = Users.getEmail;
@@ -25,8 +25,8 @@
       };
 
       $scope.createGame = function(){
-        $scope.lobbies.$add($scope.newGame).then(function(ref){
-          $state.go('lobby.messages', {lobbyId: ref.key()});
+        $scope.lobby.$add($scope.newGame).then(function(ref){
+          $state.go('lobby/game', {gameId: ref.key()});
         });
       };
     });

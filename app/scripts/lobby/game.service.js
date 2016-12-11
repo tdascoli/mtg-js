@@ -1,11 +1,11 @@
 'use strict';
 angular.module('mtgJsApp')
   .factory('Games', function($firebaseArray, Ref){
-    var lobbyGamesRef = Ref.child('lobbyGames');
+    var gamesRef = Ref.child('games');
 
     return {
-      forLobby: function(lobbyId){
-        return $firebaseArray(lobbyGamesRef.child(lobbyId));
+      forLobby: function(gameId){
+        return $firebaseArray(gamesRef.child(gameId));
       }
     };
   });

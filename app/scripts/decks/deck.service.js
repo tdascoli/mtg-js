@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mtgJsApp')
-  .factory('Decks', function($firebaseArray, Ref){
+  .factory('Decks', function($firebaseArray, $firebaseObject, Ref){
     var decksRef = Ref.child('decks');
     var decks = $firebaseArray(decksRef);
 
@@ -9,7 +9,7 @@ angular.module('mtgJsApp')
         return $firebaseArray(decksRef.child(uid));
       },
       getDeck: function(uid,deckId){
-        return $firebaseArray(decksRef.child(uid).child(deckId));
+        return $firebaseObject(decksRef.child(uid).child(deckId));
       },
       all: decks
     };

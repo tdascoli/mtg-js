@@ -6,8 +6,8 @@
     </div>
 
     <div class="lobby-list">
-      <div class="lobby" ng-repeat="lobby in lobbies">
-        <a ui-sref="lobby.game({lobbyId: lobby.$id})" ui-sref-active="selected"># {{ lobby.name }}</a>
+      <div class="lobby" ng-repeat="game in lobby">
+        <a ui-sref="lobby/game({gameId: game.$id})" ui-sref-active="selected"># {{ game.name }}</a>
       </div>
 
       <div class="lobby create">

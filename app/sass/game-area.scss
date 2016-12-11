@@ -196,5 +196,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  small {
+    line-height: 1.7;
+  }
+  .btn {
+    line-height: 1.15;
+  }
 }
 

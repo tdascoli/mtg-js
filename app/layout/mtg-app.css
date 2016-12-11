@@ -550,6 +550,10 @@ html, body {
   display: flex;
   flex-direction: row;
   justify-content: space-between; }
+  .game-action__bar small {
+    line-height: 1.7; }
+  .game-action__bar .btn {
+    line-height: 1.15; }
 
 /*
   always three rows?! see mtg-app!!

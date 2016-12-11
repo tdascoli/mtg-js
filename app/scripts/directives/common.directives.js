@@ -13,7 +13,7 @@ angular.module('mtgJsApp')
     return {
       restrict: 'A',
       link: function (scope, el) {
-        if ($state.includes('game')) {
+        if ($state.includes('game') || $state.includes('solitaire')) {
           el.addClass('container-full');
         }
       }
@@ -124,6 +124,27 @@ angular.module('mtgJsApp')
       link: function (scope, el) {
         if (scope.renderRarity!=='' && scope.renderRarity!==undefined) {
           el.addClass(scope.renderRarity.toLowerCase());
+        }
+      }
+    };
+  }])
+  .directive('renderPAndT', [function () {
+    'use strict';
+
+    return {
+      restrict: 'A',
+      scope: {
+        renderPAndT: '=',
+        renderP: '=',
+        renderT: '='
+      },
+      link: function (scope, el) {
+        if (scope.renderPAndT==='creature') {
+          var pAndT = angular.element('<span>'+scope.renderP+'/'+scope.renderT+'</span>');
+          el.append(pAndT);
+        }
+        else {
+          el.addClass('hide');
         }
       }
     };

@@ -108,8 +108,8 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          lobbies: function (Lobbies){
-            return Lobbies.$loaded();
+          lobby: function (Lobby){
+            return Lobby.$loaded();
           },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
@@ -131,16 +131,33 @@ var app = angular.module('mtgJsApp', [
         controller: 'LobbyCtrl',
         templateUrl: 'views/lobby/create.html'
       })
-      .state('lobby.game', {
-        url: '/{channelId}/game',
-        templateUrl: 'views/lobby/game.html',
-        controller: 'GameCtrl',
+      .state('lobby/game', {
+        url: '/{gameId}/game',
+        views: {
+          content: {
+            controller: 'GameCtrl',
+            templateUrl: 'views/lobby/game.html'
+          }
+        },
         resolve: {
-          game: function($stateParams, Messages){
-            return Messages.forChannel($stateParams.channelId).$loaded();
+          game: function($stateParams, Games){
+            return Games.forLobby($stateParams.gameId).$loaded();
           },
-          lobbyName: function($stateParams, channels){
-            return '#'+channels.$getRecord($stateParams.channelId).name;
+          lobbyName: function($stateParams, Lobby){
+            return '#'+Lobby.$getRecord($stateParams.gameId).name;
+          },
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
           }
         }
       })
@@ -327,12 +344,53 @@ var app = angular.module('mtgJsApp', [
       .state('game', {
         url: '/game',
         menu: {
-          name: 'solitaire game'
+          name: 'game'
         },
         views: {
           content: {
             controller: 'Game2Ctrl',
             templateUrl: 'views/game.html'
+          }
+        }
+      })
+      .state('solitaire', {
+        url: '/solitaire',
+        menu: {
+          name: 'solitaire game'
+        },
+        views: {
+          content: {
+            controller: 'BattlegroundCtrl',
+            templateUrl: 'views/lobby/solitaire.html'
+          }
+        },
+        resolve: {
+          deck: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              //-KXvi7izzUe7ZZmuqt53 The Deck
+              //-KYe0pVO2xZhXueb6D7g thomas-deck
+              return Decks.getDeck(auth.uid,'-KXvi7izzUe7ZZmuqt53');
+            });
+          },
+          /*
+           decks: function (Decks,Auth){
+           return Auth.$requireSignIn().then(function(auth){
+           return Decks.getUserDecks(auth.uid);
+           });
+           },
+           */
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('home');
+            });
           }
         }
       });
