@@ -56,7 +56,7 @@ angular.module('mtgJsApp')
       scope: {
         renderCost: '='
       },
-      link: function (scope, el) {
+      link: function (scope, el, attrs) {
         if (scope.renderCost!=='' && scope.renderCost!==undefined) {
           var costs = scope.renderCost.split('{');
           angular.forEach(costs, function (cost) {

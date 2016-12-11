@@ -217,11 +217,11 @@
           <div class="playground-container">
 
             <div class="mtg-card-stack" ng-repeat="card in user.playground.creatures track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'creatures')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
-                <span class="mtg-card__cost"><span render-cost="card.cost"></span></span>
+                <!-- combat, summoning sickness -->
                 <span class="mtg-card__p-and-t" render-p-and-t="card.types[0]" render-p="card.power" render-t="card.toughness"></span>
               </div>
             </div>
@@ -234,24 +234,20 @@
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.lands track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'lands')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
-                <span class="mtg-card__cost"><span render-cost="card.cost"></span></span>
-                <span class="mtg-card__p-and-t" render-p-and-t="card.types[0]" render-p="card.power" render-t="card.toughness"></span>
               </div>
             </div>
           </div>
 
           <div class="playground--other playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.permanents track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'permanents')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
-                <span class="mtg-card__cost"><span render-cost="card.cost"></span></span>
-                <span class="mtg-card__p-and-t" render-p-and-t="card.types[0]" render-p="card.power" render-t="card.toughness"></span>
               </div>
             </div>
           </div>
@@ -259,6 +255,7 @@
       </div>
     </div>
 
+    <!--  HAND -->
     <div class="playground__hand">
       <div class="mtg-card-container">
 
@@ -267,7 +264,7 @@
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
-            <span class="mtg-card__cost"><span render-cost="card.cost"></span></span>
+            <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
             <span class="mtg-card__p-and-t" render-p-and-t="card.types[0]" render-p="card.power" render-t="card.toughness"></span>
           </div>
         </div>
