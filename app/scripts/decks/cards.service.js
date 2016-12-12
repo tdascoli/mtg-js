@@ -147,6 +147,14 @@ angular.module('mtgJsApp')
       }
     }
 
+    function renderPandT(type,power,toughness){
+      var pAndT='';
+      if (type==='creature') {
+        pAndT = '<span>'+power+'/'+toughness+'</span>';
+      }
+      return $sce.trustAsHtml(pAndT);
+    }
+
     return {
       params: params,
       listSet: listSet,
@@ -155,6 +163,7 @@ angular.module('mtgJsApp')
       listBasiclands: listBasiclands,
       showCard: showCard,
       renderExpansion: renderExpansion,
+      renderPandT: renderPandT,
       renderCost: renderCost,
       renderOracle: renderOracle,
       lookupCard: lookupCard

@@ -2,9 +2,21 @@
 
 <pre>{{ lobbyName | json}}<br />{{ game | json}}</pre>
 
-[GRAVATAR] Player 1 Name<br />
-[GRAVATAR] Team 1 v | Human/AI Toggle<br />
-[ Custom User Decks: Deck-Name ]
+<div class="golden-ratio--row row--flex-height">
+
+  <div class="row--small">
+    <img gravatar-src="profile.email" />
+  </div>
+
+  <div class="row--tall">
+    <strong>{{profile.name}}</strong><br />
+    <select class="form-control" ng-model="selectedDeckId">
+      <option ng-repeat="deck in decks" value="{{deck.$id}}">Deck: {{deck.name}}</option>
+    </select>
+  </div>
+
+</div>
+
 <hr />
 
 [GRAVATAR] Player 2 Name<br />
@@ -12,4 +24,4 @@
 [ Random Decks: Random-Deck-Name ]
 <hr />
 
-[ START ]
+<button class="btn btn-primary">Start</button>

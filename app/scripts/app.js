@@ -158,6 +158,11 @@ var app = angular.module('mtgJsApp', [
             }, function(error){
               $state.go('home');
             });
+          },
+          decks: function (Decks,Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getUserDecks(auth.uid);
+            });
           }
         }
       })
@@ -372,13 +377,6 @@ var app = angular.module('mtgJsApp', [
               return Decks.getDeck(auth.uid,'-KXvi7izzUe7ZZmuqt53');
             });
           },
-          /*
-           decks: function (Decks,Auth){
-           return Auth.$requireSignIn().then(function(auth){
-           return Decks.getUserDecks(auth.uid);
-           });
-           },
-           */
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
@@ -408,5 +406,10 @@ var app = angular.module('mtgJsApp', [
       Auth.$signOut();
     };
   });
+
+  // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
 
 }());

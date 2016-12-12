@@ -133,6 +133,29 @@
         });
       }
 
+      $scope.playCardByIndex=function(index){
+        // log/stack
+        var card = $scope.user.hand[index];
+        
+        console.log('play card',card.name);
+
+        // remove from hand
+        $scope.user.hand.splice(index,1);
+
+        if (card.types[0]==='creature' || card.types[0]==='planeswalker'){
+          $scope.user.playground.creatures.push(card);
+        }
+        else if (card.types[0]==='land'){
+          $scope.user.playground.lands.push(card);
+        }
+        else if (card.types[0]==='artifact' || card.types[0]==='enchantment') {
+          $scope.user.playground.permanents.push(card);
+        }
+        else {
+          $scope.user.graveyard.push(card);
+        }
+      };
+      
       $scope.playCard=function(){
         // log/stack
         console.log('play card',$scope.card.name);
@@ -174,6 +197,15 @@
       //--- END DECK ---//
 
       //--- CARDS ---//
+      // Example functions
+      $scope.itemOnLongPress = function() {
+        console.log('Long press');
+      };
+
+      $scope.itemOnTouchEnd = function() {
+        console.log('Touch end');
+      };
+      
       $scope.renderOracle=function(text){
         return CardsService.renderOracle(text);
       };
@@ -184,6 +216,10 @@
 
       $scope.renderExpansion=function(set,rarity){
         return CardsService.renderExpansion(set,rarity);
+      };
+
+      $scope.renderPandT=function(type,power,toughness){
+        return CardsService.renderPandT(type,power,toughness);
       };
       //--- END CARDS ---//
 
