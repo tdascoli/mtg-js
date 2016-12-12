@@ -28,8 +28,8 @@
 
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" ng-click="playCard(); closeModalCard()">Play</button>
-  <button class="btn btn-primary" ng-click="closeModalCard()">Tap</button>
+  <button class="btn btn-primary" ng-if="cardWhere==='hand'" ng-click="playCard(); closeModalCard()">Play</button>
+  <button class="btn btn-primary" ng-if="cardWhere==='playground'" ng-click="tapCard(); closeModalCard()">Tap</button>
 
   <button class="btn btn-default" ng-click="closeModalCard()">Close</button>
 </div>

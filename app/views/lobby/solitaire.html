@@ -217,11 +217,20 @@
           <div class="playground-container">
 
             <div class="mtg-card-stack" ng-repeat="card in user.playground.creatures track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'creatures')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" ng-click="showCard(card, $index, 'playground')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
                 <!-- combat, summoning sickness -->
+                <span class="mtg-card__summoned" ng-if="card.summoned">
+                    <i class="icon-summoned"></i>
+                </span>
+                <span class="mtg-card__attack" ng-if="combat.attack">
+                    <i class="icon-attack"></i>
+                </span>
+                <span class="mtg-card__block" ng-if="combat.block">
+                    <i class="icon-block"></i>
+                </span>
                 <span class="mtg-card__p-and-t" render-p-and-t="card.types[0]" render-p="card.power" render-t="card.toughness"></span>
               </div>
             </div>
@@ -234,7 +243,7 @@
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.lands track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'lands')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" ng-click="showCard(card, $index, 'playground')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -244,7 +253,7 @@
 
           <div class="playground--other playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.permanents track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-click="showCard(card, $index, 'permanents')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" ng-click="showCard(card, $index, 'playground')">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>

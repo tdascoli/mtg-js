@@ -32,6 +32,7 @@
       $scope.showCard = function (card, index, where) {
         $scope.card=card;
         $scope.cardIndex=index;
+        $scope.cardWhere=where;
 
         $uibModal.open({
           animation: true,
@@ -153,9 +154,14 @@
         }
       };
 
+      $scope.tapCard=function(){
+        // todo tap card...?!
+      };
+
 
       if ($scope.idle){
         $scope.user.library = $scope.deck.main;
+        // todo add id to every card?!
         $scope.shuffleLibrary();
         // todo coin
         $scope.drawFullHand();
