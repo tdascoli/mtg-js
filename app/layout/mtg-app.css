@@ -461,12 +461,17 @@ html, body {
 .playground--hide {
   display: none; }
 
-.playground--creatures,
-.playground--permanents {
+.playground--creatures {
   height: 33%;
   overflow-y: hidden; }
   @media only screen and (max-width: 767px) {
-    .playground--creatures,
+    .playground--creatures {
+      height: 50%; } }
+
+.playground--permanents {
+  height: 66%;
+  overflow-y: hidden; }
+  @media only screen and (max-width: 767px) {
     .playground--permanents {
       height: 50%; } }
 
@@ -482,6 +487,11 @@ html, body {
   height: 100%;
   display: inline-block; }
 
+@media screen and (min-width: 768px) {
+  .playground--land.playground-container,
+  .playground--other.playground-container {
+    height: 50%;
+    display: block; } }
 .op-life,
 .my-life {
   color: white;

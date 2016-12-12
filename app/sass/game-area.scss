@@ -80,14 +80,21 @@
 }
 
 
-.playground--creatures,
-.playground--permanents {
+.playground--creatures {
   height: 33%;
   @media #{$media-phone} {
     height: 50%;
   }
   overflow-y: hidden;
 }
+.playground--permanents {
+  height: 66%;
+  @media #{$media-phone} {
+    height: 50%;
+  }
+  overflow-y: hidden;
+}
+
 .playground__opponent .playground--permanents,
 .playground__opponent .playground--creatures {
   padding-top: 4px;
@@ -102,6 +109,13 @@
   height: 100%;
   display: inline-block;
   // todo when no creatures, display block --> jquery!
+}
+@media screen and (min-width: 768px) {
+  .playground--land.playground-container,
+  .playground--other.playground-container {
+    height: 50%;
+    display: block;
+  }
 }
 
 .op-life,
