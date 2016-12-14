@@ -217,7 +217,7 @@
           <div class="playground-container">
 
             <div class="mtg-card-stack" ng-repeat="card in user.playground.creatures track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -243,7 +243,7 @@
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.lands track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -253,7 +253,7 @@
 
           <div class="playground--other playground-container">
             <div class="mtg-card-stack" ng-repeat="card in user.playground.permanents track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')">
+              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>

@@ -49,6 +49,8 @@
       $scope.phases=BattlegroundService.phases;
 
       function checkPhase(){
+        // todo even if next phae disabled -> phase action!
+
         if ($scope.phases[currentPhase].disabled){
           currentPhase++;
           checkPhase();
@@ -77,9 +79,23 @@
       };
 
       $scope.nextTurn=function(){
+        console.log('next turn');
+        // todo upkeep
+        $scope.upkeepPhase();
+
         $scope.message.turn++;
         // todo next turn, new user!
         $scope.message.user=profile.name;
+      };
+
+      $scope.upkeepPhase=function(){
+        console.log('upkeep');
+        angular.forEach($scope.user.playground, function (playground) {
+          angular.forEach(playground, function(card){
+            card.tapped=false;
+            card.summoned=false;
+          });
+        });
       };
 
       // todo end Turn -> next Player
@@ -136,13 +152,14 @@
       $scope.playCardByIndex=function(index){
         // log/stack
         var card = $scope.user.hand[index];
-        
+
         console.log('play card',card.name);
 
         // remove from hand
         $scope.user.hand.splice(index,1);
 
         if (card.types[0]==='creature' || card.types[0]==='planeswalker'){
+          card.summoned=true;
           $scope.user.playground.creatures.push(card);
         }
         else if (card.types[0]==='land'){
@@ -155,7 +172,8 @@
           $scope.user.graveyard.push(card);
         }
       };
-      
+
+      // obsolete
       $scope.playCard=function(){
         // log/stack
         console.log('play card',$scope.card.name);
@@ -164,6 +182,10 @@
         $scope.user.hand.splice($scope.cardIndex,1);
 
         if ($scope.card.types[0]==='creature' || $scope.card.types[0]==='planeswalker'){
+          if ($scope.card.types[0]==='creature'){
+            $scope.card.summoned=true;
+          }
+          console.log($scope.card);
           $scope.user.playground.creatures.push($scope.card);
         }
         else if ($scope.card.types[0]==='land'){
@@ -177,8 +199,18 @@
         }
       };
 
-      $scope.tapCard=function(){
-        // todo tap card...?!
+      $scope.defaultAction=function(card){
+        console.log('default action',card.name);
+        $scope.tapCard(card);
+      };
+
+      $scope.tapCard=function(card){
+        console.log('tap/untap card',card.name);
+        // todo -> untap event?!
+        if (!card.tapped || card.tapped===undefined){
+          // todo undo?
+          card.tapped=!card.tapped;
+        }
       };
 
 
@@ -205,7 +237,7 @@
       $scope.itemOnTouchEnd = function() {
         console.log('Touch end');
       };
-      
+
       $scope.renderOracle=function(text){
         return CardsService.renderOracle(text);
       };
