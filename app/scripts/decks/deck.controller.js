@@ -36,13 +36,11 @@ angular.module('mtgJsApp')
       $scope.sortedCards.sideboard = reduceCards($scope.deck.sideboard);
     });*/
 
+    // Todo change all success to then
+
     // INIT
-    CardsService.filterCards(false).success(function (result) {
-      $scope.cards = result;
-    })
-    .error(function (error) {
-      $scope.idle = false;
-      console.error(error);
+    CardsService.filterCards(false).then(function (result) {
+      $scope.cards = result.data;
     });
 
     if ($stateParams.deckId!==undefined){

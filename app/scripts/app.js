@@ -405,9 +405,7 @@ var app = angular.module('mtgJsApp', [
   });
 
   // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
-  /*
   app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
   }]);
-  */
 }());
