@@ -5,9 +5,10 @@
     .controller('BattlegroundCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, deck, profile){
 
       $scope.idle=true;
-      $scope.message={
+      $scope.status={
         priority:'username',
         turn:0,
+        phase:0,
         user:'username',
         stack:'Empty'
       };
@@ -45,14 +46,13 @@
       //--- END USER ---//
 
       //--- PHASES ---//
-      var currentPhase=0;
       $scope.phases=BattlegroundService.phases;
 
       function checkPhase(){
         // todo even if next phae disabled -> phase action!
 
-        if ($scope.phases[currentPhase].disabled){
-          currentPhase++;
+        if ($scope.phases[$scope.status.phase].disabled){
+          $scope.status.phase++;
           checkPhase();
         }
       }
@@ -66,10 +66,10 @@
       }
 
       $scope.nextPhase=function(){
-        currentPhase++;
+        $scope.status.phase++;
         // todo --> next Player
-        if (currentPhase===$scope.phases.length){
-          currentPhase=0;
+        if ($scope.status.phase===$scope.phases.length){
+          $scope.status.phase=0;
           $scope.nextTurn();
         }
         // check if Next Phase is Disabled
@@ -83,9 +83,9 @@
         // todo upkeep
         $scope.upkeepPhase();
 
-        $scope.message.turn++;
+        $scope.status.turn++;
         // todo next turn, new user!
-        $scope.message.user=profile.name;
+        $scope.status.user=profile.name;
       };
 
       $scope.upkeepPhase=function(){
@@ -101,10 +101,10 @@
       // todo end Turn -> next Player
 
       $scope.getCurrentPhase=function(){
-        return $scope.phases[currentPhase].phase;
+        return $scope.phases[$scope.status.phase].phase;
       };
       $scope.getCurrentPhaseName=function(){
-        return $scope.phases[currentPhase].phaseName;
+        return $scope.phases[$scope.status.phase].phaseName;
       };
 
       $scope.togglePhase=function(index){

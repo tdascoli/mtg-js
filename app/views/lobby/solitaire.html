@@ -345,12 +345,12 @@
   <div class="game-action__bar">
     <button class="btn btn-primary" ng-click="nextPhase()">OK</button>
     <small>
-      Priority: {{message.priority}}<br />
-      Turn {{message.turn}} ({{message.user}})
+      Priority: {{status.priority}}<br />
+      Turn {{status.turn}} ({{status.user}})
     </small>
     <small>
       Phase: {{getCurrentPhaseName()}}<br />
-      Stack: {{message.stack}}
+      Stack: {{status.stack}}
     </small>
     <button class="btn">End<br />Turn</button>
   </div>

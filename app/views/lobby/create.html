@@ -3,8 +3,29 @@
 </div>
 
 <form ng-submit="createGame()">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Game Name" ng-model="newGame.name">
+  <div class="golden-ratio--row row--flex-height">
+
+    <div class="row--small">
+      <img gravatar-src="profile.email" />
+    </div>
+
+    <div class="row--tall">
+      <strong>{{profile.name}}</strong><br />
+
+      <div class="form-group">
+        <label for="gameName">Game Name</label>
+        <input type="text" id="gameName" class="form-control" placeholder="Game Name" ng-model="newGame.name" />
+      </div>
+
+      <div class="form-group">
+        <label for="deck">Deck</label>
+        <select id="deck" class="form-control" ng-model="newGame.player1.deckId">
+          <option ng-repeat="deck in decks" value="{{deck.$id}}">Deck: {{deck.name}}</option>
+        </select>
+      </div>
+    </div>
+
   </div>
+
   <input type="submit" class="btn btn-default" value="Create Game">
 </form>

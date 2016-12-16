@@ -7,7 +7,7 @@
 
     <div class="lobby-list">
       <div class="lobby" ng-repeat="game in lobby">
-        <a ui-sref="lobby/game({gameId: game.$id})" ui-sref-active="selected"># {{ game.name }}</a>
+        <a ui-sref="lobby/game({gameId: game.$id})" ui-sref-active="selected"># {{game.name}} ({{game.player1.name}} vs. {{game.player2.name}})</a>
       </div>
 
       <div class="lobby create">
