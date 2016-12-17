@@ -403,11 +403,5 @@ var app = angular.module('mtgJsApp', [
       Auth.$signOut();
     };
   });
-
-  // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
-  /*
-  app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-  }]);
-  */
+  
 }());
