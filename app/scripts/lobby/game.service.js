@@ -6,6 +6,9 @@ angular.module('mtgJsApp')
     return {
       forLobby: function(gameId){
         return $firebaseObject(gamesRef.child(gameId));
+      },
+      connectionStatus: function(gameId){
+        return $firebaseObject(gamesRef.child(gameId).child('connected'));
       }
     };
   });

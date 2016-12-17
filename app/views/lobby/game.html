@@ -2,7 +2,7 @@
 
   <div class="game-area__statusbar">
 
-    <div class="avatar" data-life="20">
+    <div class="avatar" data-life="{{game[getOpponent()].life}}">
       <img src="images/avatar/batman-512.png" />
     </div>
 
@@ -216,7 +216,7 @@
         <div class="mtg-card-container">
           <div class="playground-container">
 
-            <div class="mtg-card-stack" ng-repeat="card in game.player1.playground.creatures track by $index">
+            <div class="mtg-card-stack" ng-repeat="card in game[getPlayer()].playground.creatures track by $index">
               <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
@@ -242,7 +242,7 @@
 
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in game.player1.playground.lands track by $index">
+            <div class="mtg-card-stack" ng-repeat="card in game[getPlayer()].playground.lands track by $index">
               <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
@@ -252,7 +252,7 @@
           </div>
 
           <div class="playground--other playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in game.player1.playground.permanents track by $index">
+            <div class="mtg-card-stack" ng-repeat="card in game[getPlayer()].playground.permanents track by $index">
               <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
@@ -269,7 +269,7 @@
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
-          <div ng-repeat="card in game.player1.hand track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
+          <div ng-repeat="card in game[getPlayer()].hand track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
@@ -284,7 +284,7 @@
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
-          <div ng-repeat="card in game.player1.graveyard track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
+          <div ng-repeat="card in game[getPlayer()].graveyard track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
@@ -298,7 +298,7 @@
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
-          <div ng-repeat="card in game.player1.exile track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
+          <div ng-repeat="card in game[getPlayer()].exile track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
@@ -314,19 +314,19 @@
 
   <div class="game-area__statusbar">
 
-    <div class="avatar" data-life="{{game.player1.life}}">
+    <div class="avatar" data-life="{{game[getPlayer()].life}}">
       <img gravatar-src="profile.email" />
     </div>
 
     <div class="toolbar">
       <div class="info-bar">
         <ul>
-          <li class="toggle-playground current" data-playground="hand"><i class="icon-hand"></i> {{game.player1.hand.length}}</li>
-          <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> {{game.player1.graveyard.length}}</li>
-          <li><i class="icon-library"></i> {{game.player1.library.length}}</li>
+          <li class="toggle-playground current" data-playground="hand"><i class="icon-hand"></i> {{game[getPlayer()].hand.length}}</li>
+          <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> {{game[getPlayer()].graveyard.length}}</li>
+          <li><i class="icon-library"></i> {{game[getPlayer()].library.length}}</li>
           <li><i class="icon-flashback"></i> 0</li>
-          <li><i class="ms ms-x ms-fw ms-cost"></i> {{game.player1.mana}}</li>
-          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> {{game.player1.exile.length}}</li>
+          <li><i class="ms ms-x ms-fw ms-cost"></i> {{game[getPlayer()].mana}}</li>
+          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> {{game[getPlayer()].exile.length}}</li>
           <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>
@@ -355,3 +355,5 @@
     <button class="btn" ng-click="save()">End<br />Turn</button>
   </div>
 </div>
+
+<div ng-if="idle || init" class="sleep-screen"></div>

@@ -25,6 +25,7 @@
           name: profile.name,
           userId: profile.$id,
           deckId: '',
+          library: [],
           life: 20,
           mana: 0
         },
@@ -41,6 +42,10 @@
           phase:0,
           user:'username',
           stack:'Empty'
+        },
+        connected: {
+          player1:false,
+          player2:false
         }
       };
 

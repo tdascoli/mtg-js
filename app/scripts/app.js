@@ -160,6 +160,9 @@ var app = angular.module('mtgJsApp', [
             }, function(error){
               $state.go('home');
             });
+          },
+          connection: function($stateParams, Games){
+            return Games.connectionStatus($stateParams.gameId);
           }
         }
       })
@@ -403,5 +406,9 @@ var app = angular.module('mtgJsApp', [
       Auth.$signOut();
     };
   });
-  
+
+  // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
+  app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+  }]);
 }());
