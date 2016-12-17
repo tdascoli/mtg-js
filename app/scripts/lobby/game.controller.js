@@ -63,7 +63,7 @@
         }
       }
 
-      function initPhase(){
+      function doInitPhase(){
         var initPhase = $scope.getCurrentPhase();
         if (initPhase==='dr'){
           // draw phase
@@ -81,7 +81,7 @@
         // check if Next Phase is Disabled
         checkPhase();
         // todo check functions for current phase?!
-        initPhase();
+        doInitPhase();
 
         $scope.idle = false;
       };

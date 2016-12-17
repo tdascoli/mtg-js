@@ -56,7 +56,7 @@ angular.module('mtgJsApp')
       scope: {
         renderCost: '='
       },
-      link: function (scope, el, attrs) {
+      link: function (scope, el) {
         if (scope.renderCost!=='' && scope.renderCost!==undefined) {
           var costs = scope.renderCost.split('{');
           angular.forEach(costs, function (cost) {
@@ -217,10 +217,12 @@ angular.module('mtgJsApp')
   ])
   // Add this directive where you keep your directives
   .directive('onLongPress', function($timeout) {
+    'use strict';
+    
     return {
       restrict: 'A',
       link: function($scope, $elm, $attrs) {
-        $elm.bind('touchstart', function(evt) {
+        $elm.bind('touchstart', function() {
           // Locally scoped variable that will keep track of the long press
           $scope.longPress = true;
 
@@ -230,19 +232,19 @@ angular.module('mtgJsApp')
               // If the touchend event hasn't fired,
               // apply the function given in on the element's on-long-press attribute
               $scope.$apply(function() {
-                $scope.$eval($attrs.onLongPress)
+                $scope.$eval($attrs.onLongPress);
               });
             }
           }, 600);
         });
 
-        $elm.bind('touchend', function(evt) {
+        $elm.bind('touchend', function() {
           // Prevent the onLongPress event from firing
           $scope.longPress = false;
           // If there is an on-touch-end function attached to this element, apply it
           if ($attrs.onTouchEnd) {
             $scope.$apply(function() {
-              $scope.$eval($attrs.onTouchEnd)
+              $scope.$eval($attrs.onTouchEnd);
             });
           }
         });
