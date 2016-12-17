@@ -71,7 +71,6 @@ angular.module('mtgJsApp')
 
     function filterCards(pagination){
       var filter = doFilter(pagination);
-      console.log(filter);
       return $http.get(baseUrl + '/cards?'+filter);
     }
 

@@ -18,6 +18,7 @@ angular.module('mtgJsApp')
 
     $scope.importDeck=function(){
       $scope.deck=DeckParserService.parseDeck($scope.deckFormat,$scope.deckList);
+      // todo importDeck == deck name?!
       $state.go('decks/create/imported', {importDeck: $scope.deck.name});
     };
 

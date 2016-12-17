@@ -70,8 +70,8 @@ angular.module('mtgJsApp')
 
     // vereinfachen!
     $scope.showCardById = function (cardId, deck) {
-      CardsService.showCard(cardId).success(function (result) {
-        $scope.card=result;
+      CardsService.showCard(cardId).then(function (result) {
+        $scope.card=result.data;
         $scope.card.deck=deck;
         $scope.setCurrentEdition($scope.card.editions[0]);
 
@@ -84,9 +84,6 @@ angular.module('mtgJsApp')
             controller: 'ModalInstanceCtrl'
           });
         }
-      })
-      .error(function (error) {
-        console.error(error);
       });
     };
 
@@ -98,19 +95,15 @@ angular.module('mtgJsApp')
 
       $scope.idle = true;
 
-      CardsService.filterCards(pagination).success(function (result) {
-        if (result.length>0){
-          $scope.cards = result;
+      CardsService.filterCards(pagination).then(function (result) {
+        if (result.data.length>0){
+          $scope.cards = result.data;
         }
         else {
           $scope.params.pagination.page--;
         }
         $scope.idle = false;
-      })
-        .error(function (error) {
-          $scope.idle = false;
-          console.error(error);
-        });
+      });
     };
 
     $scope.toggleParam=function(param){
@@ -144,7 +137,8 @@ angular.module('mtgJsApp')
     };
 
     $scope.addCardById=function(cardId,setId,main){
-      CardsService.showCard(cardId).success(function (card) {
+      CardsService.showCard(cardId).then(function (result) {
+        var card = result.data;
         if (angular.isString(setId)) {
           var edition=lodash.find(card.editions, { 'set_id': setId });
           if (edition===undefined){
@@ -155,9 +149,6 @@ angular.module('mtgJsApp')
         }
         $scope.card=card;
         $scope.addCardByCard(card,main);
-      })
-      .error(function (error) {
-        console.error(error);
       });
     };
 

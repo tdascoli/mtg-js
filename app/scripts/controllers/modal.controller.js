@@ -19,13 +19,10 @@ angular.module('mtgJsApp')
     $scope.amount=1;
 
     $scope.listBasiclands=function(){
-      CardsService.listBasiclands().success(function (result) {
-        $scope.basiclands=result;
+      CardsService.listBasiclands().then(function (result) {
+        $scope.basiclands=result.data;
         $scope.showBasicland();
-      })
-        .error(function (error) {
-          console.error(error);
-        });
+      });
     };
     $scope.showBasicland=function(){
       $scope.basiclandCard=$scope.basiclands[$scope.basicland];

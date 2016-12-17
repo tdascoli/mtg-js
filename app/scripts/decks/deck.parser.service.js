@@ -27,7 +27,7 @@ angular.module('mtgJsApp')
 
         if (~line.indexOf('//')) {
 
-          // Commentary
+          // commentary
           ['NAME', 'CREATOR', 'FORMAT'].map(function(meta) {
             if (~line.indexOf(meta)) {
               deck[meta.toLowerCase()] = line.split(meta + ' : ')[1];
@@ -159,24 +159,26 @@ angular.module('mtgJsApp')
         line = line.trim();
 
         // Detecting main start
-        if (line==='[Main]') {
+        if (line.toLowerCase()==='[main]') {
           mainReached = true;
           return false;
         }
         // Detecting sideboard start
-        if (line==='[Sideboard]') {
+        if (line.toLowerCase()==='[sideboard]') {
           sideboardReached = true;
           return false;
         }
 
         // Detecting metadata start
-        if (line==='[metadata]') {
+        if (line.toLowerCase()==='[metadata]') {
           return false;
         }
 
         // metadata
         if (!sideboardReached && !mainReached){
-          deck.name = line.split('Name=')[1];
+          if (line.indexOf('Name=')!==-1) {
+            deck.name = line.split('Name=')[1];
+          }
         }
         else {
           // card
@@ -210,13 +212,13 @@ angular.module('mtgJsApp')
             card.name = card.name.split('/')[0];
           }
 
-          CardsService.lookupCard(card.name).success(function (result) {
+          CardsService.lookupCard(card.name).then(function (result) {
             var lookup;
-            if (result.length>1){
-              lookup = lodash.find(result, function(o) { return o.name === card.name; });
+            if (result.data.length>1){
+              lookup = lodash.find(result.data, function(o) { return o.name === card.name; });
             }
             else {
-              lookup = result[0];
+              lookup = result.data[0];
             }
 
             if (card.set!==undefined){
@@ -233,9 +235,6 @@ angular.module('mtgJsApp')
             for(var i=0;i<card.number;i++){
               main.push(lookup);
             }
-          })
-          .error(function (error) {
-            console.error(error);
           });
         });
       }
@@ -247,13 +246,13 @@ angular.module('mtgJsApp')
             card.name = card.name.split('/')[0];
           }
 
-          CardsService.lookupCard(card.name).success(function (result) {
+          CardsService.lookupCard(card.name).then(function (result) {
             var lookup;
-            if (result.length>1){
-              lookup = lodash.find(result, function(o) { return o.name === card.name; });
+            if (result.data.length>1){
+              lookup = lodash.find(result.data, function(o) { return o.name === card.name; });
             }
             else {
-              lookup = result[0];
+              lookup = result.data[0];
             }
 
             if (card.set!==undefined){
@@ -270,9 +269,6 @@ angular.module('mtgJsApp')
             for(var i=0;i<card.number;i++){
               sideboard.push(lookup);
             }
-          })
-          .error(function (error) {
-            console.error(error);
           });
         });
       }
