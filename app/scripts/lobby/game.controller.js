@@ -51,12 +51,14 @@
 
         $scope.game.connected[$scope.getPlayer()]=false;
         $scope.game.connected[$scope.getOpponent()]=false;
+        $scope.game.new=false;
         //---
         $scope.players[$scope.game.player1.userId]='player1';
         $scope.players[$scope.game.player2.userId]='player2';
         //---
         $scope.game.$save().then(function (){
           console.log('start game');
+          $scope.game = lodash.merge($scope.game,$scope.newGame);
           $scope.init=false;
         });
       }
@@ -197,7 +199,7 @@
       //--- DECK (Library, Graveyard, Exile, Hand etc.) ---//
       $scope.shuffleLibrary=function(){
         console.log('shuffle library');
-        $scope.game[$scope.getPlayer()].lbrary=lodash.shuffle($scope.game[$scope.getPlayer()].library);
+        $scope.game[$scope.getPlayer()].library=lodash.shuffle($scope.game[$scope.getPlayer()].library);
       };
       //--- DECK.HAND ---//
       $scope.drawFullHand=function(){
@@ -323,7 +325,6 @@
       function initGame(){
         // init game
         if ($scope.game.new) {
-          $scope.game.new=false;
           // todo add id to every card?!
           $scope.shuffleLibrary();
           // todo coin and ask for play or not
