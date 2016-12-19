@@ -2,45 +2,43 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, Games, game, profile, connection){
+    .controller('GameCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, profile, connection, status, player1, player2){
 
       $scope.idle=true;
       $scope.init=true;
-      $scope.connection=connection;
-      $scope.players=[];
 
       // todo maybe loading different vars for different usage and save status!
       /*
-        example:
-        - library etc. former -scope.user (user independet?)
-        - status
-        - user informations such as deckId, userId, etc.
+       example:
+       - player - library etc. former -scope.user (user independet?)
+       - status
+       - user informations such as deckId, userId, etc.
        */
-      $scope.game=game;
-      $scope.newGame = {
-        player1: {
-          library: [],
-          hand: [],
-          graveyard: [],
-          exile: [],
-          playground: {
-            creatures: [],
-            permanents: [],
-            lands: []
-          }
-        },
-        player2: {
-          library: [],
-          hand: [],
-          graveyard: [],
-          exile: [],
-          playground: {
-            creatures: [],
-            permanents: [],
-            lands: []
-          }
-        },
-        log: []
+      // Connection Status
+      $scope.connection=connection;
+
+      // Game Status
+      $scope.status = status;
+      status.$bindTo($scope, 'status');
+
+      // Player 1
+      $scope.player1 = player1;
+      player1.$bindTo($scope, 'player1');
+
+      // Player 2
+      $scope.player2 = player2;
+      player2.$bindTo($scope, 'player2');
+
+      $scope.player = {
+        library: [],
+        hand: [],
+        graveyard: [],
+        exile: [],
+        playground: {
+          creatures: [],
+          permanents: [],
+          lands: []
+        }
       };
 
       //--- USER ---//
@@ -49,28 +47,20 @@
       function resetConnection(){
         initGame();
 
-        $scope.game.connected[$scope.getPlayer()]=false;
-        $scope.game.connected[$scope.getOpponent()]=false;
-        $scope.game.new=false;
-        //---
-        $scope.players[$scope.game.player1.userId]='player1';
-        $scope.players[$scope.game.player2.userId]='player2';
-        //---
-        $scope.game.$save().then(function (){
-          console.log('start game');
-          $scope.game = lodash.merge($scope.game,$scope.newGame);
-          $scope.init=false;
+        $scope.connection.$save().then(function (){
+          console.log('reset connection');
         });
+
+        console.log('start game');
+        $scope.init=false;
       }
 
       $scope.loadGame=function(){
-        // todo load game...
-        //$scope.game = lodash.merge($scope.game,$scope.newGame);
-        // players
-        if ($scope.players.length===0){
-          $scope.players[$scope.game.player1.userId]='player1';
-          $scope.players[$scope.game.player2.userId]='player2';
-        }
+        // annahme, alle player sind offline
+        // ich bin online
+        // aderer user ist auch online
+        // watch?! bis beide online...
+
         // todo update player name?!
         // todo connect players
         if ($scope.init){
@@ -90,14 +80,22 @@
       // watch connection -- init
       $scope.$watchCollection('connection', function(){
         if ($scope.connection[$scope.getOpponent()] && $scope.init){
-          console.log('opponent connected');
-          // reset and init=false
+          console.log('opponent connected ('+$scope.getOpponent()+')');
           resetConnection();
         }
       });
 
       $scope.getPlayer=function(){
-        return $scope.players[$scope.profile.$id];
+        if ($scope.player1.userId===$scope.profile.$id){
+          return 'player1'
+        }
+        return 'player2';
+      };
+      $scope.getPlayerObject=function(){
+        if ($scope.getPlayer()==='player1'){
+          return lodash.merge($scope.player1,$scope.player);
+        }
+        return lodash.merge($scope.player2,$scope.player);
       };
       $scope.getOpponent=function(){
         if ($scope.getPlayer()==='player1'){
@@ -105,11 +103,17 @@
         }
         return 'player1';
       };
-      $scope.getNextPlayer=function(){
-        if ($scope.game.status.user===$scope.game.player1.name){
-          return 'player2';
+      $scope.getOpponentObject=function(){
+        if ($scope.getOpponent()==='player1'){
+          return lodash.merge($scope.player1,$scope.player);
         }
-        return 'player1';
+        return lodash.merge($scope.player2,$scope.player);
+      };
+      $scope.getNextPlayer=function(){
+        if ($scope.status.user===$scope.player1.name){
+          return $scope.player2.name;
+        }
+        return $scope.player1.name;
       };
 
       $scope.showCard = function (card, index, where) {
@@ -132,8 +136,8 @@
 
       function checkPhase(){
         // todo even if next phae disabled -> phase action!
-        if ($scope.phases[$scope.game.status.phase].disabled){
-          $scope.game.status.phase++;
+        if ($scope.phases[$scope.status.phase].disabled){
+          $scope.status.phase++;
           checkPhase();
         }
       }
@@ -148,10 +152,10 @@
 
       $scope.nextPhase=function(){
         // nextPhase!! > user independent...
-        $scope.game.status.phase++;
+        $scope.status.phase++;
         // todo --> next Player
-        if ($scope.game.status.phase===$scope.phases.length){
-          $scope.game.status.phase=0;
+        if ($scope.status.phase===$scope.phases.length){
+          $scope.status.phase=0;
           $scope.nextTurn();
         }
         // check if Next Phase is Disabled
@@ -167,14 +171,14 @@
         // todo upkeep
         $scope.upkeepPhase();
 
-        $scope.game.status.turn++;
+        $scope.status.turn++;
         // todo next turn, new user! --> user.id
-        $scope.game.status.user=$scope.game[$scope.getNextPlayer()].name;
+        $scope.status.user=$scope.getNextPlayer();
       };
 
       $scope.upkeepPhase=function(){
         console.log('upkeep');
-        angular.forEach($scope.game[$scope.getPlayer()].playground, function (playground) {
+        angular.forEach($scope.getPlayerObject().playground, function (playground) {
           angular.forEach(playground, function(card){
             card.tapped=false;
             card.summoned=false;
@@ -185,12 +189,11 @@
       // todo end Turn -> next Player
 
       $scope.getCurrentPhase=function(){
-        return $scope.phases[$scope.game.status.phase].phase;
+        return $scope.phases[$scope.status.phase].phase;
       };
       $scope.getCurrentPhaseName=function(){
-        return $scope.phases[$scope.game.status.phase].phaseName;
+        return $scope.phases[$scope.status.phase].phaseName;
       };
-
       $scope.togglePhase=function(index){
         $scope.phases[index].disabled=!$scope.phases[index].disabled;
       };
@@ -199,20 +202,20 @@
       //--- DECK (Library, Graveyard, Exile, Hand etc.) ---//
       $scope.shuffleLibrary=function(){
         console.log('shuffle library');
-        $scope.game[$scope.getPlayer()].library=lodash.shuffle($scope.game[$scope.getPlayer()].library);
+        $scope.getPlayerObject().library=lodash.shuffle($scope.getPlayerObject().library);
       };
       //--- DECK.HAND ---//
       $scope.drawFullHand=function(){
         console.log('draw full hand');
         var fullHand=7;
-        if ($scope.game[$scope.getPlayer()].library.length<7){
-          fullHand=$scope.game[$scope.getPlayer()].library.length;
+        if ($scope.getPlayerObject().library.length<7){
+          fullHand=$scope.getPlayerObject().library.length;
         }
         drawCards(fullHand);
       };
 
       $scope.drawMulligan=function(){
-        var amount = $scope.game[$scope.getPlayer()].hand.length--;
+        var amount = $scope.getPlayerObject().hand.length--;
         drawCards(amount);
       };
 
@@ -226,83 +229,39 @@
       };
 
       function drawCards(amount){
-        var hand = $scope.game[$scope.getPlayer()].library.splice(0,amount);
+        var hand = $scope.getPlayerObject().library.splice(0,amount);
         // check if array exists
-        if ($scope.game[$scope.getPlayer()].hand===undefined) {
-          $scope.game[$scope.getPlayer()].hand = [];
+        if ($scope.getPlayerObject().hand===undefined) {
+          $scope.getPlayerObject().hand = [];
         }
         angular.forEach(hand, function(card){
-          $scope.game[$scope.getPlayer()].hand.push(card);
+          $scope.getPlayerObject().hand.push(card);
         });
       }
 
       $scope.playCardByIndex=function(index){
         // log/stack
-        var card = $scope.game[$scope.getPlayer()].hand[index];
+        var card = $scope.getPlayerObject().hand[index];
 
         console.log('play card',card.name);
 
         // remove from hand
-        $scope.game[$scope.getPlayer()].hand.splice(index,1);
+        $scope.getPlayerObject().hand.splice(index,1);
 
         if (card.types[0]==='creature' || card.types[0]==='planeswalker'){
           card.summoned=true;
-          // check if array exists
-          if ($scope.game[$scope.getPlayer()].playground.creatures===undefined){
-            $scope.game[$scope.getPlayer()].playground.creatures=[];
-          }
-          $scope.game[$scope.getPlayer()].playground.creatures.push(card);
+          $scope.getPlayerObject().playground.creatures.push(card);
         }
         else if (card.types[0]==='land'){
-          // check if array exists
-          if ($scope.game[$scope.getPlayer()].playground.lands===undefined){
-            $scope.game[$scope.getPlayer()].playground.lands=[];
-          }
-          $scope.game[$scope.getPlayer()].playground.lands.push(card);
+          $scope.getPlayerObject().playground.lands.push(card);
         }
         else if (card.types[0]==='artifact' || card.types[0]==='enchantment') {
-          // check if array exists
-          if ($scope.game[$scope.getPlayer()].playground.permanents===undefined){
-            $scope.game[$scope.getPlayer()].playground.permanents=[];
-          }
-          $scope.game[$scope.getPlayer()].playground.permanents.push(card);
+          $scope.getPlayerObject().playground.permanents.push(card);
         }
         else {
-          // check if array exists
-          if ($scope.game[$scope.getPlayer()].graveyard===undefined){
-            $scope.game[$scope.getPlayer()].graveyard=[];
-          }
-          $scope.game[$scope.getPlayer()].graveyard.push(card);
+          $scope.getPlayerObject().graveyard.push(card);
         }
       };
-
-      // obsolete
-      /*
-      $scope.playCard=function(){
-        // log/stack
-        console.log('play card',$scope.card.name);
-
-        // remove from hand
-        $scope.game[$scope.getPlayer()].hand.splice($scope.cardIndex,1);
-
-        if ($scope.card.types[0]==='creature' || $scope.card.types[0]==='planeswalker'){
-          if ($scope.card.types[0]==='creature'){
-            $scope.card.summoned=true;
-          }
-          console.log($scope.card);
-          $scope.game[$scope.getPlayer()].playground.creatures.push($scope.card);
-        }
-        else if ($scope.card.types[0]==='land'){
-          $scope.game[$scope.getPlayer()].playground.lands.push($scope.card);
-        }
-        else if ($scope.card.types[0]==='artifact' || $scope.card.types[0]==='enchantment') {
-          $scope.game[$scope.getPlayer()].playground.permanents.push($scope.card);
-        }
-        else {
-          $scope.game[$scope.getPlayer()].graveyard.push($scope.card);
-        }
-      };
-      */
 
       $scope.defaultAction=function(card){
         console.log('default action',card.name);
@@ -324,7 +283,8 @@
 
       function initGame(){
         // init game
-        if ($scope.game.new) {
+        if ($scope.getPlayerObject().init===undefined) {
+
           // todo add id to every card?!
           $scope.shuffleLibrary();
           // todo coin and ask for play or not
@@ -339,15 +299,6 @@
         $scope.idle=false;
       }
 
-      // SAVE
-      $scope.save=function(){
-        $scope.idle=true;
-        $scope.game.$save().then(function (){
-          // load game and merge with array
-          $scope.loadGame();
-          console.log('saved');
-        });
-      };
       //--- END DECK ---//
 
       //--- CARDS ---//

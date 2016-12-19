@@ -9,6 +9,18 @@ angular.module('mtgJsApp')
       },
       connectionStatus: function(gameId){
         return $firebaseObject(gamesRef.child(gameId).child('connected'));
+      },
+      gameStatus: function(gameId){
+        return $firebaseObject(gamesRef.child(gameId).child('status'));
+      },
+      getPlayer1: function(gameId){
+        return $firebaseObject(gamesRef.child(gameId).child('player1'));
+      },
+      getPlayer2: function(gameId){
+        return $firebaseObject(gamesRef.child(gameId).child('player2'));
+      },
+      getInitNewGame: function(gameId){
+        return $firebaseObject(gamesRef.child(gameId).child('new'));
       }
     };
   });

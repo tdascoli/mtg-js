@@ -156,9 +156,6 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          game: function($stateParams, Games){
-            return Games.forLobby($stateParams.gameId);
-          },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
@@ -174,7 +171,20 @@ var app = angular.module('mtgJsApp', [
           },
           connection: function($stateParams, Games){
             return Games.connectionStatus($stateParams.gameId);
+          },
+          status: function($stateParams, Games){
+            return Games.gameStatus($stateParams.gameId);
+          },
+          player1: function($stateParams, Games){
+            return Games.getPlayer1($stateParams.gameId);
+          },
+          player2: function($stateParams, Games){
+            return Games.getPlayer2($stateParams.gameId);
           }
+        },
+        onExit: function(){
+          // offline broadcast
+          console.log('exit');
         }
       })
       // account

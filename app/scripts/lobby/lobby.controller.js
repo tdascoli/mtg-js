@@ -20,7 +20,6 @@
 
       $scope.newGame = {
         name: '',
-        new: true,
         player1: {
           name: profile.name,
           userId: profile.$id,
@@ -50,7 +49,6 @@
       };
 
       $scope.joinOrNot=function(player1,player2){
-
         if (player2==='' && player1!==profile.$id){
           // JOIN
           return true;
