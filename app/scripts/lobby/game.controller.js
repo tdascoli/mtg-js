@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, profile, connection, status, player1, player2){
+    .controller('GameCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, profile, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
@@ -15,7 +15,7 @@
        - user informations such as deckId, userId, etc.
        */
       // Connection Status
-      $scope.connection=connection;
+      $scope.connected=connected;
 
       // Game Status
       $scope.status = status;
@@ -41,21 +41,33 @@
         }
       };
 
+      $scope.players=players;
+
       //--- USER ---//
       $scope.profile=profile;
 
       function resetConnection(){
         initGame();
-
-        $scope.connection.$save().then(function (){
-          console.log('reset connection');
-        });
-
         console.log('start game');
         $scope.init=false;
       }
 
       $scope.loadGame=function(){
+        $scope.connected[$scope.getPlayer()]=true;
+        $scope.connected.$save().then(function(){
+          console.log('connected',$scope.getPlayer());
+          if ($scope.connected[$scope.getOpponent()]){
+            // both online
+            $scope.connected.player1=false;
+            $scope.connected.player2=false;
+            $scope.connected.$save().then(function() {
+              resetConnection();
+            });
+          }
+        });
+
+
+
         // annahme, alle player sind offline
         // ich bin online
         // aderer user ist auch online
@@ -65,31 +77,30 @@
         // todo connect players
         if ($scope.init){
           // init player
-          $scope.connection[$scope.getPlayer()]=true;
-          $scope.connection.$save().then(function (){
+          /*
+          $scope.connected[$scope.getPlayer()]=true;
+          $scope.connected.$save().then(function (){
             console.log('connected');
-            if ($scope.connection[$scope.getOpponent()]){
+            if ($scope.connected[$scope.getOpponent()]){
               resetConnection();
             }
           });
+          */
         }
 
-        $scope.idle=false;
+        //$scope.idle=false;
       };
 
       // watch connection -- init
-      $scope.$watchCollection('connection', function(){
-        if ($scope.connection[$scope.getOpponent()] && $scope.init){
+      $scope.$watchCollection('connected', function(){
+        if ($scope.connected[$scope.getOpponent()] && $scope.init){
           console.log('opponent connected ('+$scope.getOpponent()+')');
           resetConnection();
         }
       });
 
       $scope.getPlayer=function(){
-        if ($scope.player1.userId===$scope.profile.$id){
-          return 'player1'
-        }
-        return 'player2';
+        return $scope.players[$scope.profile.$id];
       };
       $scope.getPlayerObject=function(){
         if ($scope.getPlayer()==='player1'){
@@ -282,9 +293,9 @@
       $scope.loadGame();
 
       function initGame(){
+        console.log('init game');
         // init game
         if ($scope.getPlayerObject().init===undefined) {
-
           // todo add id to every card?!
           $scope.shuffleLibrary();
           // todo coin and ask for play or not
@@ -302,15 +313,6 @@
       //--- END DECK ---//
 
       //--- CARDS ---//
-      // Example functions
-      $scope.itemOnLongPress = function() {
-        console.log('Long press');
-      };
-
-      $scope.itemOnTouchEnd = function() {
-        console.log('Touch end');
-      };
-
       $scope.renderOracle=function(text){
         return CardsService.renderOracle(text);
       };

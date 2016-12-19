@@ -142,7 +142,7 @@ var app = angular.module('mtgJsApp', [
         templateUrl: 'views/lobby/join.html',
         resolve: {
           game: function($stateParams, Games){
-            return Games.forLobby($stateParams.gameId);
+            return Games.getGame($stateParams.gameId);
           }
         }
 
@@ -169,7 +169,7 @@ var app = angular.module('mtgJsApp', [
               $state.go('home');
             });
           },
-          connection: function($stateParams, Games){
+          connected: function($stateParams, Games){
             return Games.connectionStatus($stateParams.gameId);
           },
           status: function($stateParams, Games){
@@ -180,6 +180,14 @@ var app = angular.module('mtgJsApp', [
           },
           player2: function($stateParams, Games){
             return Games.getPlayer2($stateParams.gameId);
+          },
+          players: function($stateParams, Games){
+            return Games.getGame($stateParams.gameId).$loaded().then(function(game){
+              var players=[];
+              players[game.player1.userId]='player1';
+              players[game.player2.userId]='player2';
+              return players;
+            });
           }
         },
         onExit: function(){

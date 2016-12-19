@@ -4,7 +4,7 @@ angular.module('mtgJsApp')
     var gamesRef = Ref.child('lobby');
 
     return {
-      forLobby: function(gameId){
+      getGame: function(gameId){
         return $firebaseObject(gamesRef.child(gameId));
       },
       connectionStatus: function(gameId){
@@ -18,9 +18,6 @@ angular.module('mtgJsApp')
       },
       getPlayer2: function(gameId){
         return $firebaseObject(gamesRef.child(gameId).child('player2'));
-      },
-      getInitNewGame: function(gameId){
-        return $firebaseObject(gamesRef.child(gameId).child('new'));
       }
     };
   });
