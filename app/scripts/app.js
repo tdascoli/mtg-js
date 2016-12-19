@@ -136,6 +136,17 @@ var app = angular.module('mtgJsApp', [
         controller: 'LobbyCtrl',
         templateUrl: 'views/lobby/create.html'
       })
+      .state('lobby.join', {
+        url: '/{gameId}/join',
+        controller: 'GameJoinCtrl',
+        templateUrl: 'views/lobby/join.html',
+        resolve: {
+          game: function($stateParams, Games){
+            return Games.forLobby($stateParams.gameId);
+          }
+        }
+
+      })
       .state('lobby/game', {
         url: '/{gameId}/game',
         views: {
@@ -408,7 +419,9 @@ var app = angular.module('mtgJsApp', [
   });
 
   // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
+  /*
   app.config(['$qProvider', function ($qProvider) {
     $qProvider.errorOnUnhandledRejections(false);
   }]);
+  */
 }());

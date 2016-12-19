@@ -51,6 +51,10 @@
 
         $scope.game.connected[$scope.getPlayer()]=false;
         $scope.game.connected[$scope.getOpponent()]=false;
+        //---
+        $scope.players[$scope.game.player1.userId]='player1';
+        $scope.players[$scope.game.player2.userId]='player2';
+        //---
         $scope.game.$save().then(function (){
           console.log('start game');
           $scope.init=false;
@@ -322,13 +326,14 @@
           $scope.game.new=false;
           // todo add id to every card?!
           $scope.shuffleLibrary();
-          // todo coin
+          // todo coin and ask for play or not
           $scope.drawFullHand();
           // todo ask for mulligan
+          // GAME STARTS --> wait for player2
           // todo next turn? firstTurn? > priority!
           // $scope.nextTurn();
           // todo next phase?!
-          $scope.nextPhase();
+          // $scope.nextPhase();
         }
         $scope.idle=false;
       }

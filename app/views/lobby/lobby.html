@@ -7,7 +7,8 @@
 
     <div class="lobby-list">
       <div class="lobby" ng-repeat="game in lobby">
-        <a ui-sref="lobby/game({gameId: game.$id})" ui-sref-active="selected"># {{game.name}} ({{game.player1.name}} vs. {{game.player2.name}})</a>
+        <a ui-sref="lobby/game({gameId: game.$id})" ng-if="!joinOrNot(game.player1.userId,game.player2.userId)"># {{game.name}} ({{game.player1.name}} vs. {{game.player2.name}})</a>
+        <a ui-sref="lobby.join({gameId: game.$id})" ng-if="joinOrNot(game.player1.userId,game.player2.userId)">join - # {{game.name}} ({{game.player1.name}})</a>
       </div>
 
       <div class="lobby create">

@@ -1,0 +1,43 @@
+<div class="header">
+  <h3>Join Game <small># {{game.name}}</small></h3>
+</div>
+
+<form ng-submit="joinGame()">
+  <div class="golden-ratio--row row--flex-height">
+
+    <div class="row--small">
+      <img gravatar-src="profile.email" />
+    </div>
+
+    <div class="row--tall">
+      <strong>{{game.player1.name}}</strong><br />
+
+      <div class="form-group">
+        <label for="deck">Deck</label>
+        <div>{{game.player1.deckId}}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="golden-ratio--row row--flex-height">
+
+    <div class="row--small">
+      <img gravatar-src="profile.email" />
+    </div>
+
+    <div class="row--tall">
+      <strong>{{profile.name}}</strong><br />
+
+      <div class="form-group">
+        <label for="deck">Deck</label>
+        <select id="deck" class="form-control" ng-model="newGame.player2.deckId">
+          <option ng-repeat="deck in decks" value="{{deck.$id}}">Deck: {{deck.name}}</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <input type="submit" class="btn btn-primary" ng-disabled="!newGame.player2.deckId" value="Join Game" />
+</form>
