@@ -314,7 +314,7 @@
 
       //--- CHAT ---//
       $rootScope.getMessages=function () {
-        return $scope.messages - $scope.readMessages;
+        return $scope.messages.length - $scope.readMessages;
       };
       $scope.messages=Messages.forChannel($stateParams.gameId);
       $scope.readMessages=$scope.messages.length;
