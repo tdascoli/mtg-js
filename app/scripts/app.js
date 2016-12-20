@@ -206,7 +206,7 @@ var app = angular.module('mtgJsApp', [
         },
         resolve: {
           requireNoAuth: function($state, Auth){
-            return Auth.$requireSignIn().then(function(auth){
+            return Auth.$requireSignIn().then(function(){
               $state.go('account');
             }, function(error){
               return;
@@ -248,7 +248,7 @@ var app = angular.module('mtgJsApp', [
           }
         }
       })
-      // sandbox
+      // decks
       .state('decks', {
         url: '/decks',
         menu: {
@@ -374,19 +374,7 @@ var app = angular.module('mtgJsApp', [
         controller: 'DeckParserCtrl',
         templateUrl: 'views/decks/import.html'
       })
-      // game
-      .state('game', {
-        url: '/game',
-        menu: {
-          name: 'game'
-        },
-        views: {
-          content: {
-            controller: 'Game2Ctrl',
-            templateUrl: 'views/game.html'
-          }
-        }
-      })
+      // solitaire
       .state('solitaire', {
         url: '/solitaire',
         menu: {
@@ -430,9 +418,11 @@ var app = angular.module('mtgJsApp', [
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 
     $rootScope.logout=function(){
-      $state.go('home');
       $rootScope.profile=undefined;
-      Auth.$signOut();
+      $rootScope.profile.online = null;
+      Auth.$signOut().then(function(){
+        $state.go('home');
+      });
     };
   });
 

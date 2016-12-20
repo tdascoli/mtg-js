@@ -2,10 +2,13 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Messages, profile, connected, status, player1, player2, players){
+    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Users, Messages, profile, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
+
+      // todo check if online, when offline message!!
+      Users.setOnline(profile.$id);
 
       // todo maybe loading different vars for different usage and save status!
       /*

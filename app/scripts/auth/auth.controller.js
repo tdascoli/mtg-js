@@ -24,7 +24,7 @@ angular.module('mtgJsApp')
     };
 
     $scope.register = function (){
-      Auth.$createUserWithEmailAndPassword($scope.user.email,$scope.user.password).then(function (user){
+      Auth.$createUserWithEmailAndPassword($scope.user.email,$scope.user.password).then(function (){
         $scope.login();
       }, function (error){
         $scope.error = error;

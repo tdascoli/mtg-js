@@ -105,10 +105,10 @@ angular.module('mtgJsApp')
       }
     }
 
-    function renderCost(renderCost){
+    function renderCost(cost){
       var allCost='';
-      if (renderCost!==undefined) {
-        var costs = renderCost.split('{');
+      if (cost!==undefined) {
+        var costs = cost.split('{');
         angular.forEach(costs, function (cost) {
           if (cost !== '') {
             var finalCost = cost.replace('}', '').toLowerCase();
