@@ -575,6 +575,10 @@ html, body {
   left: 0;
   z-index: 1000; }
 
+.chat-modal {
+  height: 310px;
+  overflow: auto; }
+
 /*
   always three rows?! see mtg-app!!
 */

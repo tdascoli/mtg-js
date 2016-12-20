@@ -8,9 +8,9 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('ModalChatCtrl', function ($scope, $uibModalInstance, $stateParams, Users, Messages, gameId, profile) {
+  .controller('ModalChatCtrl', function ($scope, $rootScope, $uibModalInstance, Users, profile, messages) {
 
-    $scope.messages=Messages.forChannel(gameId);
+    $scope.messages=messages;
     $scope.message='';
 
     $scope.getDisplayName = Users.getDisplayName;

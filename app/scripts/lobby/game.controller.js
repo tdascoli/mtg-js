@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, profile, connected, status, player1, player2, players){
+    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Messages, profile, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
@@ -313,22 +313,28 @@
       //--- END DECK ---//
 
       //--- CHAT ---//
+      $rootScope.getMessages=function () {
+        return $scope.messages - $scope.readMessages;
+      };
+      $scope.messages=Messages.forChannel($stateParams.gameId);
+      $scope.readMessages=$scope.messages.length;
+
       $rootScope.chat=function(){
-        console.log('rootscope chat');
         $uibModal.open({
           animation: true,
-          scope: $scope,
           templateUrl: 'views/lobby/modal/chat.html',
           size: 'lg',
           resolve: {
-            gameId: function() {
-              return $stateParams.gameId;
-            },
             profile: function() {
               return $scope.profile;
+            },
+            messages: function() {
+              return $scope.messages;
             }
           },
           controller: 'ModalChatCtrl'
+        }).closed.then(function(){
+          $scope.readMessages=$scope.messages.length;
         });
       };
       //--- END CHAT ---//

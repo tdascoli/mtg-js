@@ -40,7 +40,7 @@
 
         <a class="navigation-control" id="chat" ng-click="chat()">
           <span class="material-icons">chat</span>
-          <span class="badge show-badge">1</span>
+          <span class="badge show-badge" ng-if="getMessages()>0">{{getMessages()}}</span>
         </a>
       </div>
       <div class="drawer-contents golden-ratio--column">
