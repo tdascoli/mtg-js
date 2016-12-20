@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <strong>Game Chat</strong>
+  <button type="button" class="close" ng-click="closeModalCard()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="card-modal modal-body" id="modal-body">
+
+  <div class="message-wrap" ng-repeat="message in messages">
+    <img class="user-pic" gravatar-src="getEmail(message.uid)" />
+    <div class="message-info">
+      <div class="user-name">
+        {{ getDisplayName(message.uid) }}
+        <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
+      </div>
+      <div class="message">
+        {{ message.body }}
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <div class="input-group">
+    <input type="text" class="form-control" ng-model="message" placeholder="Type a message..." />
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit" ng-click="sendMessage()">Send</button>
+    </span>
+  </div>
+</div>

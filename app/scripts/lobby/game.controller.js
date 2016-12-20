@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $uibModal, lodash, BattlegroundService, CardsService, profile, connected, status, player1, player2, players){
+    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, profile, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
@@ -311,6 +311,27 @@
       }
 
       //--- END DECK ---//
+
+      //--- CHAT ---//
+      $rootScope.chat=function(){
+        console.log('rootscope chat');
+        $uibModal.open({
+          animation: true,
+          scope: $scope,
+          templateUrl: 'views/lobby/modal/chat.html',
+          size: 'lg',
+          resolve: {
+            gameId: function() {
+              return $stateParams.gameId;
+            },
+            profile: function() {
+              return $scope.profile;
+            }
+          },
+          controller: 'ModalChatCtrl'
+        });
+      };
+      //--- END CHAT ---//
 
       //--- CARDS ---//
       $scope.renderOracle=function(text){

@@ -31,14 +31,14 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="navigation" class="drawer drawer-right dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="navigation">
+     <div id="navigation" class="drawer drawer-right dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="navigation">
       <div class="drawer-controls">
         <a id="hamburger" data-target="#navigation" data-toggle="drawer" aria-foldedopen="false" aria-controls="navigation"
            class="c-hamburger c-hamburger--htx">
           <span>toggle menu</span>
         </a>
 
-        <a class="navigation-control hide" id="chat">
+        <a class="navigation-control" id="chat" ng-click="chat()">
           <span class="material-icons">chat</span>
           <span class="badge show-badge">1</span>
         </a>
@@ -49,11 +49,6 @@
           <h4 class="drawer-title" ng-show="profile.name">{{profile.name}}</h4>
         </div>
         <div class="column--tall">
-          <div class="drawer-body">
-            <p>
-              BODY
-            </p>
-          </div>
           <ul class="drawer-fullnav" menus="menuItems">
             <li ng-repeat="menu in menuItems" role="presentation" ui-sref-active="active" ng-show-or-hide-on-auth="{{menu.onAuth}}"><a data-target="#navigation" data-toggle="drawer"  ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
             <!-- login -->
@@ -166,6 +161,7 @@
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/game.js"></script>
     <script src="scripts/controllers/modal.controller.js"></script>
+    <script src="scripts/controllers/modal.chat.controller.js"></script>
 
     <script src="scripts/filters/reverse.js"></script>
 

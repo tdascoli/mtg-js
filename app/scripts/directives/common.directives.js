@@ -218,7 +218,7 @@ angular.module('mtgJsApp')
   // Add this directive where you keep your directives
   .directive('onLongPress', function($timeout) {
     'use strict';
-    
+
     return {
       restrict: 'A',
       link: function($scope, $elm, $attrs) {
