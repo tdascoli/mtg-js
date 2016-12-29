@@ -1,27 +1,56 @@
+<h2 class="title-brand">Welcome to <span class="brand">mtg</span></h2>
+
 <div class="panel panel-primary login-container">
-  <div class="panel-heading">
-    <h3 class="panel-title">Log In</h3>
-  </div>
-  <div class="panel-body">
-    <div class="alert alert-dismissible alert-warning" ng-show="error">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <h4>Warning!</h4>
-      <p>{{ error.message }}</p>
-    </div>
+  <uib-tabset justified="true">
+    <uib-tab index="0" heading="Log In">
+      <div class="panel-body">
 
-    <div class="form-group">
-      <label class="control-label" for="email">E-Mail</label>
-      <input class="form-control" id="email" type="email" ng-model="user.email" />
-    </div>
+        <div class="alert alert-dismissible alert-warning" ng-show="error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h4>Warning!</h4>
+          <p>{{ error.message }}</p>
+        </div>
 
-    <div class="form-group">
-      <label class="control-label" for="password">Password</label>
-      <input class="form-control" id="password" type="password" ng-model="user.password" />
-    </div>
+        <div class="form-group">
+          <label class="control-label" for="email">E-Mail</label>
+          <input class="form-control" id="email" type="email" ng-model="user.email" placeholder="E-Mail" />
+        </div>
 
-    <button type="submit" class="btn btn-success" ng-click="login()">Log In</button>
+        <div class="form-group">
+          <label class="control-label" for="password">Password</label>
+          <input class="form-control" id="password" type="password" ng-model="user.password" placeholder="Password" />
+        </div>
 
-    <br />+ register&nbsp;&nbsp;&nbsp;&nbsp;o keep logged in
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Remember Me
+            </label>
+          </div>
+        </div>
 
-  </div>
+        <button type="submit" class="btn btn-block btn-primary" ng-click="login()">Log In</button>
+      </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Sign Up">
+      <div class="panel-body">
+        <div class="alert alert-dismissible alert-warning" ng-show="error">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h4>Warning!</h4>
+          <p>{{ error.message }}</p>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="reg-email">E-Mail</label>
+          <input class="form-control" id="reg-email" type="email" ng-model="user.email" placeholder="E-Mail" />
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="reg-password">Password</label>
+          <input class="form-control" id="reg-password" type="password" ng-model="user.password" placeholder="Password" />
+        </div>
+
+        <button type="submit" class="btn btn-block btn-success" ng-click="register()">Register</button>
+      </div>
+    </uib-tab>
+  </uib-tabset>
 </div>

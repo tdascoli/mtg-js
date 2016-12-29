@@ -5,6 +5,7 @@ body { padding-top: 70px; }
 
 html, body {
   height: 100%;
+  font-family: $font-family--primary;
 }
 
 .container-full {
@@ -18,8 +19,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* navbar */
-.navbar-brand {
+.navbar-brand,
+.brand {
   font-family: 'Magic Cards Normal', $font-family--primary;
+}
+h2.title-brand {
+  text-align: center;
 }
 
 @media #{$media-phone} {
@@ -137,8 +142,30 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* login */
-.login-container {
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .login-container {
+    margin: 0 auto;
+    width: 480px;
+  }
+}
 
+.login-container {
+  margin-top: 55px;
+
+  .nav-tabs {
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+  }
+  .nav-tabs.nav-justified>li:first-of-type>a{
+    text-align: left;
+  }
+  .nav-tabs.nav-justified>li:last-of-type>a {
+    text-align: right;
+  }
 }
 
 /* buttons */

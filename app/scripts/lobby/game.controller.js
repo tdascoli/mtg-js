@@ -2,10 +2,38 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $rootScope, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Users, Messages, profile, connected, status, player1, player2, players){
+    .controller('GameCtrl', function($scope, $rootScope, $state, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Users, Messages, profile, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
+      $scope.solitaire=false;
+
+      if ($state.includes('solitaire')){
+        $scope.solitaire=true;
+        console.log('starting solitaire game');
+      }
+
+      $scope.actions={
+        primary: 'OK',
+        secondary: 'End'
+      };
+      /*
+        phases default:
+          me: m1, db, m2
+          op: bc, db, et
+
+        states:
+        -coin:
+          won: play, draw
+          lost: play, mulligan
+        -first draw:
+          coin won: keep, mulligan
+          coin lost: play, mulligan (?)
+        -default: ok, end (turn)
+        -play (pay mana): auto, cancel
+        -da: ok, alpha strike (select creature to attack {op name} or select player/planeswalker you wish to attack)
+          - select creature (or alpha strike): ok, call back
+       */
 
       // todo check if online, when offline message!!
       Users.setOnline(profile.$id);
@@ -22,15 +50,17 @@
 
       // Game Status
       $scope.status = status;
-      status.$bindTo($scope, 'status');
-
       // Player 1
       $scope.player1 = player1;
-      player1.$bindTo($scope, 'player1');
-
       // Player 2
       $scope.player2 = player2;
-      player2.$bindTo($scope, 'player2');
+
+      // bind to scope
+      if (!$scope.solitaire) {
+        status.$bindTo($scope, 'status');
+        player1.$bindTo($scope, 'player1');
+        player2.$bindTo($scope, 'player2');
+      }
 
       $scope.player = {
         library: [],
@@ -56,42 +86,26 @@
       }
 
       $scope.loadGame=function(){
-        $scope.connected[$scope.getPlayer()]=true;
-        $scope.connected.$save().then(function(){
-          console.log('connected',$scope.getPlayer());
-          if ($scope.connected[$scope.getOpponent()]){
-            // both online
-            $scope.connected.player1=false;
-            $scope.connected.player2=false;
-            $scope.connected.$save().then(function() {
-              resetConnection();
-            });
-          }
-        });
-
-
-
-        // annahme, alle player sind offline
-        // ich bin online
-        // aderer user ist auch online
-        // watch?! bis beide online...
+        if (!$scope.solitaire) {
+          $scope.connected[$scope.getPlayer()] = true;
+          $scope.connected.$save().then(function () {
+            console.log('connected', $scope.getPlayer());
+            if ($scope.connected[$scope.getOpponent()]) {
+              // both online
+              $scope.connected.player1 = false;
+              $scope.connected.player2 = false;
+              $scope.connected.$save().then(function () {
+                resetConnection();
+              });
+            }
+          });
+        }
+        else {
+          resetConnection();
+        }
 
         // todo update player name?!
         // todo connect players
-        if ($scope.init){
-          // init player
-          /*
-          $scope.connected[$scope.getPlayer()]=true;
-          $scope.connected.$save().then(function (){
-            console.log('connected');
-            if ($scope.connected[$scope.getOpponent()]){
-              resetConnection();
-            }
-          });
-          */
-        }
-
-        //$scope.idle=false;
       };
 
       // watch connection -- init
@@ -103,7 +117,11 @@
       });
 
       $scope.getPlayer=function(){
-        return $scope.players[$scope.profile.$id];
+        var player = $scope.players[$scope.profile.$id];
+        if ($scope.solitaire){
+          player = 'player1';
+        }
+        return player;
       };
       $scope.getPlayerObject=function(){
         if ($scope.getPlayer()==='player1'){
@@ -158,7 +176,7 @@
 
       function doInitPhase(){
         var initPhase = $scope.getCurrentPhase();
-        if (initPhase==='dr'){
+        if (initPhase==='dr' && $scope.isCurrentPlayer()){
           // draw phase
           $scope.drawCardPhase();
         }
@@ -183,10 +201,12 @@
       $scope.nextTurn=function(){
         console.log('next turn');
         // todo upkeep
-        $scope.upkeepPhase();
-
+        if ($scope.isCurrentPlayer()) {
+          $scope.upkeepPhase();
+        }
         $scope.status.turn++;
         // todo next turn, new user! --> user.id
+        $scope.status.priority=$scope.getNextPlayer();
         $scope.status.user=$scope.getNextPlayer();
       };
 
@@ -208,6 +228,24 @@
       $scope.getCurrentPhaseName=function(){
         return $scope.phases[$scope.status.phase].phaseName;
       };
+      $scope.getCurrentPlayer=function(){
+        if ($scope.player1.name===$scope.status.user){
+          return 'player1';
+        }
+        return 'player2';
+      };
+      $scope.isCurrentPlayer=function(){
+        if ($scope.player1.name===$scope.status.user){
+          return true;
+        }
+        return false;
+      };
+      $scope.hasPriority=function(){
+        if ($scope.player1.name===$scope.status.priority){
+          return true;
+        }
+        return false;
+      };
       $scope.togglePhase=function(index){
         $scope.phases[index].disabled=!$scope.phases[index].disabled;
       };
@@ -215,12 +253,12 @@
 
       //--- DECK (Library, Graveyard, Exile, Hand etc.) ---//
       $scope.shuffleLibrary=function(){
-        console.log('shuffle library');
+        console.log($scope.getPlayer()+' shuffles library');
         $scope.getPlayerObject().library=lodash.shuffle($scope.getPlayerObject().library);
       };
       //--- DECK.HAND ---//
       $scope.drawFullHand=function(){
-        console.log('draw full hand');
+        console.log($scope.getPlayer()+' draws full hand');
         var fullHand=7;
         if ($scope.getPlayerObject().library.length<7){
           fullHand=$scope.getPlayerObject().library.length;
@@ -229,6 +267,7 @@
       };
 
       $scope.drawMulligan=function(){
+        console.log($scope.getPlayer()+' draws a mulligan');
         var amount = $scope.getPlayerObject().hand.length--;
         drawCards(amount);
       };
@@ -254,26 +293,31 @@
       }
 
       $scope.playCardByIndex=function(index){
-        // log/stack
-        var card = $scope.getPlayerObject().hand[index];
+        if ($scope.hasPriority()) {
+          // log/stack
+          var card = $scope.getPlayerObject().hand[index];
 
-        console.log('play card',card.name);
+          console.log('play card', card.name);
 
-        // remove from hand
-        $scope.getPlayerObject().hand.splice(index,1);
+          // remove from hand
+          $scope.getPlayerObject().hand.splice(index, 1);
 
-        if (card.types[0]==='creature' || card.types[0]==='planeswalker'){
-          card.summoned=true;
-          $scope.getPlayerObject().playground.creatures.push(card);
-        }
-        else if (card.types[0]==='land'){
-          $scope.getPlayerObject().playground.lands.push(card);
-        }
-        else if (card.types[0]==='artifact' || card.types[0]==='enchantment') {
-          $scope.getPlayerObject().playground.permanents.push(card);
+          if (card.types[0] === 'creature' || card.types[0] === 'planeswalker') {
+            card.summoned = true;
+            $scope.getPlayerObject().playground.creatures.push(card);
+          }
+          else if (card.types[0] === 'land') {
+            $scope.getPlayerObject().playground.lands.push(card);
+          }
+          else if (card.types[0] === 'artifact' || card.types[0] === 'enchantment') {
+            $scope.getPlayerObject().playground.permanents.push(card);
+          }
+          else {
+            $scope.getPlayerObject().graveyard.push(card);
+          }
         }
         else {
-          $scope.getPlayerObject().graveyard.push(card);
+          console.log('no prio > showcard?!');
         }
       };
 
@@ -295,20 +339,48 @@
       // INIT
       $scope.loadGame();
 
+      function coinFlip() {
+        var player = 'player1';
+        if (!$scope.solitaire){
+          player = (Math.floor(Math.random() * 2) == 0) ? 'player1' : 'player2';
+        }
+        console.log(player+' has won the coin toss.');
+
+        if (player===$scope.getPlayer()){
+          // ask play or draw
+          var play=true;
+          if (play){
+            $scope.status.priority=$scope.getPlayerObject().name;
+          }
+          else {
+            $scope.status.priority=$scope.getOpponentObject().name;
+          }
+        }
+        else {
+          $scope.status.priority=$scope.getOpponentObject().name;
+        }
+        $scope.status.turn=1;
+        // todo start phase === m1?!
+        $scope.status.phase=2;
+        $scope.status.user=$scope.status.priority;
+        console.log($scope.status.priority+' plays first.');
+        // ask for mulligan?! or callback...
+      }
+
       function initGame(){
         console.log('init game');
         // init game
         if ($scope.getPlayerObject().init===undefined) {
           // todo add id to every card?!
           $scope.shuffleLibrary();
-          // todo coin and ask for play or not
+          // draw 7 cards
           $scope.drawFullHand();
+
+          // todo coin and ask for play or not
+          coinFlip();
+
           // todo ask for mulligan
           // GAME STARTS --> wait for player2
-          // todo next turn? firstTurn? > priority!
-          // $scope.nextTurn();
-          // todo next phase?!
-          // $scope.nextPhase();
         }
         $scope.idle=false;
       }
@@ -319,7 +391,10 @@
       $rootScope.getMessages=function () {
         return $scope.messages.length - $scope.readMessages;
       };
-      $scope.messages=Messages.forChannel($stateParams.gameId);
+      $scope.messages=[];
+      if (!$scope.solitaire) {
+        $scope.messages = Messages.forChannel($stateParams.gameId);
+      }
       $scope.readMessages=$scope.messages.length;
 
       $rootScope.chat=function(){

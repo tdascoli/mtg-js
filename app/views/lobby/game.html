@@ -10,7 +10,7 @@
       <div class="phase-bar">
         <ul>
           <!-- OPPONENT! -->
-          <li ng-repeat="phase in phases track by $index" data-phase="{{phase.phase}}" ng-class="{'disabled':phase.disabled, 'current':phase.phase===getCurrentPhase()}" ng-click="togglePhase($index)">{{phase.phase}}</li>
+          <li ng-repeat="phase in phases track by $index" data-phase="{{phase.phase}}" ng-class="{'disabled':phase.disabled, 'current':phase.phase===getCurrentPhase() && getCurrentPlayer()===getOpponent()}" ng-click="togglePhase($index)">{{phase.phase}}</li>
         </ul>
       </div>
 
@@ -204,7 +204,7 @@
 
       <div class="phase-bar">
         <ul>
-          <li ng-repeat="phase in phases track by $index" data-phase="{{phase.phase}}" ng-class="{'disabled':phase.disabled, 'current':phase.phase===getCurrentPhase()}" ng-click="togglePhase($index)">{{phase.phase}}</li>
+          <li ng-repeat="phase in phases track by $index" data-phase="{{phase.phase}}" ng-class="{'disabled':phase.disabled, 'current':phase.phase===getCurrentPhase() && getCurrentPlayer()===getPlayer()}" ng-click="togglePhase($index)">{{phase.phase}}</li>
         </ul>
       </div>
     </div>
@@ -214,7 +214,7 @@
 
 <div class="game-action">
   <div class="game-action__bar">
-    <button class="btn btn-primary" ng-click="nextPhase()">OK</button>
+    <button class="btn btn-primary" ng-click="nextPhase()">{{actions.primary}}</button>
     <small>
       Priority: {{status.priority}}<br />
       Turn {{status.turn}} ({{status.user}})
@@ -223,7 +223,7 @@
       Phase: {{getCurrentPhaseName()}}<br />
       Stack: {{status.stack}}
     </small>
-    <button class="btn">End<br />Turn</button>
+    <button class="btn">{{actions.secondary}}</button>
   </div>
 </div>
 

@@ -35,12 +35,28 @@ var app = angular.module('mtgJsApp', [
       .state('home', {
         url: '/home',
         menu: {
-          name: 'home'
+          name: 'home',
+          onAuth: 'show'
         },
         views: {
           content: {
             controller: 'MainCtrl',
             templateUrl: 'views/main.html'
+          }
+        },
+        resolve: {
+          profile: function ($state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                if(profile.name){
+                  return profile;
+                } else {
+                  $state.go('account');
+                }
+              });
+            }, function(error){
+              $state.go('login');
+            });
           }
         }
       })
@@ -71,7 +87,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           }
         }
@@ -166,7 +182,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           },
           connected: function($stateParams, Games){
@@ -211,15 +227,6 @@ var app = angular.module('mtgJsApp', [
             }, function(error){
               return;
             });
-          }
-        }
-      })
-      .state('register', {
-        url: '/register',
-        views: {
-          content: {
-            controller: 'AuthCtrl',
-            templateUrl: 'views/auth/register.html'
           }
         }
       })
@@ -277,7 +284,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           }
         }
@@ -306,7 +313,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           }
         }
@@ -335,7 +342,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           }
         }
@@ -364,7 +371,7 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           }
         }
@@ -378,22 +385,16 @@ var app = angular.module('mtgJsApp', [
       .state('solitaire', {
         url: '/solitaire',
         menu: {
-          name: 'solitaire game'
+          name: 'solitaire game',
+          onAuth: 'show'
         },
         views: {
           content: {
-            controller: 'BattlegroundCtrl',
-            templateUrl: 'views/lobby/solitaire.html'
+            controller: 'GameCtrl',
+            templateUrl: 'views/lobby/game.html'
           }
         },
         resolve: {
-          deck: function (Decks,Auth){
-            return Auth.$requireSignIn().then(function(auth){
-              //-KXvi7izzUe7ZZmuqt53 The Deck
-              //-KYe0pVO2xZhXueb6D7g thomas-deck
-              return Decks.getDeck(auth.uid,'-KXvi7izzUe7ZZmuqt53');
-            });
-          },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
@@ -404,8 +405,48 @@ var app = angular.module('mtgJsApp', [
                 }
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
+          },
+          connected: function(){
+            return { player1: true, player2: true };
+          },
+          status: function(){
+            return {
+                priority:'username',
+                turn:0,
+                phase:0,
+                user:'username',
+                stack:'Empty'
+              };
+          },
+          player1: function(Auth,Decks){
+            return Auth.$requireSignIn().then(function(auth){
+              return Decks.getDeck(auth.uid,'-KYe0pVO2xZhXueb6D7g').$loaded().then(function(deck){
+                return {
+                  name: 'solitaire player 1',
+                  userId: 'player1',
+                  library: deck.main,
+                  life: 20,
+                  mana: 0
+                };
+              });
+            });
+          },
+          player2: function(){
+            return {
+              name: 'solitaire player 2',
+              userId: 'player2',
+              library: [],
+              life: 20,
+              mana: 0
+            };
+          },
+          players: function(){
+            var players=[];
+            players['player1']='player1';
+            players['player2']='player2';
+            return players;
           }
         }
       });
@@ -418,10 +459,10 @@ var app = angular.module('mtgJsApp', [
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 
     $rootScope.logout=function(){
+      // delete online...?!
       $rootScope.profile=undefined;
-      $rootScope.profile.online = null;
       Auth.$signOut().then(function(){
-        $state.go('home');
+        $state.go('login');
       });
     };
   });

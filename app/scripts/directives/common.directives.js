@@ -41,6 +41,8 @@ angular.module('mtgJsApp')
         var state = attrs.showOnState;
         el.addClass('hide');
 
+        
+
         if ($state.includes(state)) {
           el.removeClass('hide');
         }

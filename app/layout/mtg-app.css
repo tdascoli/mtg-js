@@ -250,7 +250,8 @@ body {
   padding-top: 70px; }
 
 html, body {
-  height: 100%; }
+  height: 100%;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .container-full {
   padding-left: 0;
@@ -258,8 +259,12 @@ html, body {
   height: 100%; }
 
 /* navbar */
-.navbar-brand {
-  font-family: "Magic Cards Normal", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.navbar-brand,
+.brand {
+  font-family: "Magic Cards Normal", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+h2.title-brand {
+  text-align: center; }
 
 @media only screen and (max-width: 767px) {
   /* navbar-fixed-top */
@@ -353,6 +358,45 @@ html, body {
   cursor: pointer; }
 
 /* login */
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .login-container {
+    margin: 0 auto;
+    width: 480px; } }
+.login-container {
+  margin-top: 55px; }
+  .login-container .nav-tabs {
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-transform: uppercase; }
+  .login-container .nav-tabs.nav-justified > li:first-of-type > a {
+    text-align: left; }
+  .login-container .nav-tabs.nav-justified > li:last-of-type > a {
+    text-align: right; }
+
+.login-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  padding-top: 15px; }
+  .login-title .login {
+    padding-left: 15px; }
+  .login-title .login.active {
+    border-left: 3px solid #2196f3;
+    padding-left: 12px; }
+  .login-title .signup {
+    padding-right: 15px; }
+  .login-title .signup.active {
+    border-right: 3px solid #2196f3;
+    padding-right: 12px; }
+  .login-title .login, .login-title .signup {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    display: inline-block; }
+
 /* buttons */
 .btn-active {
   color: #ffffff;

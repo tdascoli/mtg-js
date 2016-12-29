@@ -18,7 +18,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous"/>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" />
 
     <link rel="stylesheet" href="layout/mtg-app.css">
 
@@ -31,14 +32,15 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-     <div id="navigation" class="drawer drawer-right dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="navigation">
+    <!-- DRAWER NAVIGATION -->
+    <div id="navigation" class="drawer drawer-right dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="navigation">
       <div class="drawer-controls">
         <a id="hamburger" data-target="#navigation" data-toggle="drawer" aria-foldedopen="false" aria-controls="navigation"
            class="c-hamburger c-hamburger--htx">
           <span>toggle menu</span>
         </a>
 
-        <a class="navigation-control" id="chat" ng-click="chat()">
+        <a class="navigation-control" id="chat" ng-click="chat()" ng-show-auth show-on-state="lobby/game">
           <span class="material-icons">chat</span>
           <span class="badge show-badge" ng-if="getMessages()>0">{{getMessages()}}</span>
         </a>
