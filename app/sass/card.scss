@@ -5,16 +5,20 @@
 .mtg-card-container {
   height: 100%;
 
-  width: 1000px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 
 .mtg-card-stack {
-  float: left;
+  display: inline-block;
   height: 100%;
 
   margin-right: 5px;
+  white-space: nowrap;
 }
 
+// todo width -> text is out of card
 .mtg-card {
   height: 100%;
 
@@ -168,7 +172,7 @@
 }
 
 .mtg-card--hand {
-  float: left;
+  display: inline-block;
 
   margin-right: 5px;
 }

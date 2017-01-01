@@ -87,8 +87,8 @@
         <div class="mtg-card-container">
           <div class="playground-container">
 
-            <div class="mtg-card-stack" ng-repeat="card in getPlayerObject().playground.creatures track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+            <div class="mtg-card-stack" ng-repeat="cards in getPlayerObject().playground.creatures | groupBy: 'name'">
+              <div ng-repeat="card in cards track by $index"  class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -113,18 +113,22 @@
 
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in getPlayerObject().playground.lands track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+
+            <div class="mtg-card-stack" ng-repeat="cards in getPlayerObject().playground.lands | groupBy: 'name'">
+
+              <div ng-repeat="card in cards track by $index" class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
               </div>
+
             </div>
+
           </div>
 
           <div class="playground--other playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in getPlayerObject().playground.permanents track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+            <div class="mtg-card-stack" ng-repeat="cards in getPlayerObject().playground.permanents  | groupBy: 'name'">
+              <div ng-repeat="card in cards track by $index" class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -223,7 +227,7 @@
       Phase: {{getCurrentPhaseName()}}<br />
       Stack: {{status.stack}}
     </small>
-    <button class="btn">{{actions.secondary}}</button>
+    <button class="btn" ng-click="heights()">{{actions.secondary}}</button>
   </div>
 </div>
 

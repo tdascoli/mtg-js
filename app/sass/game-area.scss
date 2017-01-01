@@ -109,6 +109,7 @@
   height: 100%;
   display: inline-block;
   // todo when no creatures, display block --> jquery!
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 768px) {

@@ -19,6 +19,7 @@ var app = angular.module('mtgJsApp', [
     'ngTouch',
     'ngLodash',
     'angular-md5',
+    'angular.filter',
     'ui.router',
     'ui.router.menus',
     'ui.gravatar',
@@ -422,7 +423,11 @@ var app = angular.module('mtgJsApp', [
           },
           player1: function(Auth,Decks){
             return Auth.$requireSignIn().then(function(auth){
-              return Decks.getDeck(auth.uid,'-KYe0pVO2xZhXueb6D7g').$loaded().then(function(deck){
+              /*
+              thomas@dasco.li: -KYe0pVO2xZhXueb6D7g
+              thomas.dascoli@gmail.com: -KZBgaX2enPZIFLeHP75
+              */
+              return Decks.getDeck(auth.uid,'-KZBgaX2enPZIFLeHP75').$loaded().then(function(deck){
                 return {
                   name: 'solitaire player 1',
                   userId: 'player1',

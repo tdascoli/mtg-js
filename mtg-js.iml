@@ -6,7 +6,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="PHP Runtime" type="php">
+      <library name="PHP Runtime">
         <CLASSES>
           <root url="jar://$APPLICATION_PLUGINS_DIR$/php/lib/php.jar!/stubs/standard" />
         </CLASSES>
@@ -16,5 +16,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mtg-js node_modules" level="project" />
   </component>
 </module>

@@ -141,7 +141,7 @@ angular.module('mtgJsApp')
         renderT: '='
       },
       link: function (scope, el) {
-        if (scope.renderPAndT==='creature') {
+        if (scope.renderPAndT==='creature' || scope.renderPAndT==='artifactcreature' ) {
           var pAndT = angular.element('<span>'+scope.renderP+'/'+scope.renderT+'</span>');
           el.append(pAndT);
         }

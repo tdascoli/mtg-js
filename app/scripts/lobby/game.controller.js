@@ -200,24 +200,24 @@
 
       $scope.nextTurn=function(){
         console.log('next turn');
-        // todo upkeep
-        if ($scope.isCurrentPlayer()) {
-          $scope.upkeepPhase();
-        }
         $scope.status.turn++;
         // todo next turn, new user! --> user.id
         $scope.status.priority=$scope.getNextPlayer();
         $scope.status.user=$scope.getNextPlayer();
+        // todo upkeep
+        $scope.upkeepPhase();
       };
 
       $scope.upkeepPhase=function(){
-        console.log('upkeep');
-        angular.forEach($scope.getPlayerObject().playground, function (playground) {
-          angular.forEach(playground, function(card){
-            card.tapped=false;
-            card.summoned=false;
+        console.log('upkeep phase');
+        if ($scope.isCurrentPlayer()) {
+          angular.forEach($scope.getPlayerObject().playground, function (playground) {
+            angular.forEach(playground, function (card) {
+              card.tapped = false;
+              card.summoned = false;
+            });
           });
-        });
+        }
       };
 
       // todo end Turn -> next Player
@@ -302,7 +302,8 @@
           // remove from hand
           $scope.getPlayerObject().hand.splice(index, 1);
 
-          if (card.types[0] === 'creature' || card.types[0] === 'planeswalker') {
+          // todo card.types[1] == creature!! modal
+          if (card.types[0] === 'creature' || card.types[1] === 'creature' || card.types[0] === 'planeswalker') {
             card.summoned = true;
             $scope.getPlayerObject().playground.creatures.push(card);
           }
@@ -435,6 +436,19 @@
       };
       //--- END CARDS ---//
 
+
+      $scope.heights=function(){
+        console.log('heights',$('.mtg-card').outerWidth());
+      };
+
+      $scope.$on('$viewContentLoaded', function(){
+        console.log('vcl',$('.mtg-card').outerWidth());
+      });
+
+      angular.element(document).ready(function () {
+        console.log('page loading completed');
+        console.log('loaded',$('.mtg-card').outerWidth());
+      });
     });
 
 }());

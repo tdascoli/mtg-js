@@ -149,7 +149,7 @@ angular.module('mtgJsApp')
 
     function renderPandT(type,power,toughness){
       var pAndT='';
-      if (type==='creature') {
+      if (type==='creature' || type==='artifactcreature') {
         pAndT = '<span>'+power+'/'+toughness+'</span>';
       }
       return $sce.trustAsHtml(pAndT);

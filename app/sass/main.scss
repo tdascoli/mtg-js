@@ -217,3 +217,23 @@ h2.title-brand {
   cursor: pointer;
   float: right;
 }
+
+.test-wrapper {
+  height: 100px;
+
+  background: blue;
+  overflow-x:scroll;
+  overflow-y: hidden;
+}
+.test-content {
+  width: auto;
+  white-space:nowrap;
+}
+.test-item{
+  display: inline-block;
+  background: red;
+
+  width: auto;
+  min-width: 300px;
+  height: 100px;
+}
