@@ -640,6 +640,7 @@ h2.title-brand {
   cursor: pointer;
   position: relative;
   /* transition tapped */
+  white-space: normal;
   border-radius: 2.5px; }
   .mtg-card > img {
     height: 100%;

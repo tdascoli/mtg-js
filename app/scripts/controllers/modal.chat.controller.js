@@ -31,4 +31,10 @@ angular.module('mtgJsApp')
     $scope.closeModalCard = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+    $scope.$watchCollection('messages', function (newValue) {
+      if (newValue) {
+        $("#modal-body").animate({ scrollTop: $('#modal-body').prop("scrollHeight")}, 100);
+      }
+    });
   });
