@@ -384,11 +384,7 @@ var app = angular.module('mtgJsApp', [
       })
       // solitaire
       .state('solitaire', {
-        url: '/solitaire',
-        menu: {
-          name: 'solitaire game',
-          onAuth: 'show'
-        },
+        url: '/{deckId}/solitaire',
         views: {
           content: {
             controller: 'GameCtrl',
@@ -414,20 +410,16 @@ var app = angular.module('mtgJsApp', [
           },
           status: function(){
             return {
-                priority:'username',
-                turn:0,
-                phase:0,
-                user:'username',
-                stack:'Empty'
-              };
+              priority:'username',
+              turn:0,
+              phase:0,
+              user:'username',
+              stack:'Empty'
+            };
           },
-          player1: function(Auth,Decks){
+          player1: function($stateParams,Auth,Decks){
             return Auth.$requireSignIn().then(function(auth){
-              /*
-              thomas@dasco.li: -KYe0pVO2xZhXueb6D7g
-              thomas.dascoli@gmail.com: -KZBgaX2enPZIFLeHP75
-              */
-              return Decks.getDeck(auth.uid,'-KZBgaX2enPZIFLeHP75').$loaded().then(function(deck){
+              return Decks.getDeck(auth.uid,$stateParams.deckId).$loaded().then(function(deck){
                 return {
                   name: 'solitaire player 1',
                   userId: 'player1',

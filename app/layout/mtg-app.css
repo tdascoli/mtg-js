@@ -376,6 +376,13 @@ h2.title-brand {
   .login-container .nav-tabs.nav-justified > li:last-of-type > a {
     text-align: right; }
 
+@media only screen and (max-width: 767px) {
+  .login-container .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%; }
+
+  .login-container .nav-tabs.nav-justified > li > a {
+    border-radius: 0; } }
 /* buttons */
 .btn-active {
   color: #ffffff;

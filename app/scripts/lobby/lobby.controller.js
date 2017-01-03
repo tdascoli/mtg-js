@@ -12,6 +12,7 @@
       $scope.profile = profile;
       $scope.lobby = lobby;
       $scope.decks = decks;
+      $scope.solitaire=false;
 
       $scope.logout = function () {
         Auth.$signOut();
@@ -61,13 +62,19 @@
       };
 
       $scope.createGame = function () {
-        var deck = lodash.find($scope.decks, {$id: $scope.newGame.player1.deckId });
-        $scope.newGame.player1.library=deck.main;
+        if (!$scope.solitaire) {
+          var deck = lodash.find($scope.decks, {$id: $scope.newGame.player1.deckId});
+          $scope.newGame.player1.library = deck.main;
 
-        $scope.lobby.$add($scope.newGame).then(function (ref) {
-          $state.go('lobby/game', {gameId: ref.key()});
-        });
+          $scope.lobby.$add($scope.newGame).then(function (ref) {
+            $state.go('lobby/game', {gameId: ref.key()});
+          });
+        }
+        else {
+          $state.go('solitaire', {deckId: $scope.newGame.player1.deckId});
+        }
       };
+
     });
 
 }());

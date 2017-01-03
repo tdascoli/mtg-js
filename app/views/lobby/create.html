@@ -14,7 +14,7 @@
 
       <div class="form-group">
         <label for="gameName">Game Name</label>
-        <input type="text" id="gameName" class="form-control" placeholder="Game Name" ng-model="newGame.name" />
+        <input type="text" id="gameName" class="form-control" placeholder="Game Name" ng-model="newGame.name" ng-disabled="solitaire" />
       </div>
 
       <div class="form-group">
@@ -22,6 +22,14 @@
         <select id="deck" class="form-control" ng-model="newGame.player1.deckId">
           <option ng-repeat="deck in decks" value="{{deck.$id}}">Deck: {{deck.name}}</option>
         </select>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label for="solitaire">
+            <input type="checkbox" name="solitaire" id="solitaire" ng-model="solitaire"/> Solitaire Game
+          </label>
+        </div>
       </div>
     </div>
 

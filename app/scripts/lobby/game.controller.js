@@ -435,20 +435,6 @@
         return CardsService.renderPandT(type,power,toughness);
       };
       //--- END CARDS ---//
-
-
-      $scope.heights=function(){
-        console.log('heights',$('.mtg-card').outerWidth());
-      };
-
-      $scope.$on('$viewContentLoaded', function(){
-        console.log('vcl',$('.mtg-card').outerWidth());
-      });
-
-      angular.element(document).ready(function () {
-        console.log('page loading completed');
-        console.log('loaded',$('.mtg-card').outerWidth());
-      });
     });
 
 }());

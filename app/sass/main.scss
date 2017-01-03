@@ -168,6 +168,16 @@ h2.title-brand {
   }
 }
 
+@media #{$media-phone} {
+  .login-container .nav-tabs.nav-justified>li {
+    display: table-cell;
+    width: 1%;
+  }
+  .login-container .nav-tabs.nav-justified>li>a {
+    border-radius: 0;
+  }
+}
+
 /* buttons */
 .btn-active {
   color: #ffffff;
