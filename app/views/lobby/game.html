@@ -2,6 +2,8 @@
 
   <div class="game-area__statusbar">
 
+    <!-- TODO show hand,graveyard or exile as "layer" (überlappend...) -->
+
     <div class="avatar" data-life="{{getOpponentObject().life}}">
       <img src="images/avatar/batman-512.png" />
     </div>
@@ -140,7 +142,7 @@
     </div>
 
     <!--  HAND -->
-    <div class="playground__hand">
+    <div class="playground__hand" ng-class="{ 'playground--hide': view[getPlayer()]!=='hand' }">
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
@@ -154,8 +156,8 @@
         </div>
       </div>
     </div>
-
-    <div class="playground__graveyard playground--hide">
+    <!-- GRAVEYARD -->
+    <div class="playground__graveyard" ng-class="{ 'playground--hide': view[getPlayer()]!=='graveyard' }">
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
@@ -169,7 +171,8 @@
         </div>
       </div>
     </div>
-    <div class="playground__exile playground--hide">
+    <!-- EXILE -->
+    <div class="playground__exile" ng-class="{ 'playground--hide': view[getPlayer()]!=='exile' }">
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
@@ -196,12 +199,12 @@
     <div class="toolbar">
       <div class="info-bar">
         <ul>
-          <li class="toggle-playground current" data-playground="hand"><i class="icon-hand"></i> {{getPlayerObject().hand.length}}</li>
-          <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> {{getPlayerObject().graveyard.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='hand' }" ng-click="view[getPlayer()]='hand'"><i class="icon-hand"></i> {{getPlayerObject().hand.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='graveyard' }" ng-click="view[getPlayer()]='graveyard'"><i class="icon-graveyard"></i> {{getPlayerObject().graveyard.length}}</li>
           <li><i class="icon-library"></i> {{getPlayerObject().library.length}}</li>
           <li><i class="icon-flashback"></i> 0</li>
           <li><i class="ms ms-x ms-fw ms-cost"></i> {{getPlayerObject().mana}}</li>
-          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> {{getPlayerObject().exile.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='exile' }" ng-click="view[getPlayer()]='exile'"><i class="icon-exile"></i> {{getPlayerObject().exile.length}}</li>
           <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>

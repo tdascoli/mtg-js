@@ -17,6 +17,10 @@
         primary: 'OK',
         secondary: 'End'
       };
+
+      $scope.view={
+        player1: 'hand'
+      };
       /*
         phases default:
           me: m1, db, m2
