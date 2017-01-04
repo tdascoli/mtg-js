@@ -492,18 +492,18 @@ h2.title-brand {
   border-top: 2px solid darkgrey; }
 
 .playground__hand,
-.playground__graveyard,
-.playground__exile {
+.playground__opponent-hand {
   height: 14.28571%;
   background-color: lightsteelblue;
-  border-top: 1px solid white;
   padding: 2px 0;
   overflow-y: hidden; }
   @media only screen and (max-width: 767px) {
     .playground__hand,
-    .playground__graveyard,
-    .playground__exile {
+    .playground__opponent-hand {
       height: 20%; } }
+
+.playground__opponent-hand {
+  position: relative; }
 
 .playground--hide {
   display: none; }
@@ -532,7 +532,6 @@ h2.title-brand {
 
 .playground-container {
   height: 100%;
-  display: inline-block;
   white-space: nowrap; }
 
 @media screen and (min-width: 768px) {

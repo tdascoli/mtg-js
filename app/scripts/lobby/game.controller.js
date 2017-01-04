@@ -19,7 +19,8 @@
       };
 
       $scope.view={
-        player1: 'hand'
+        player1: '',
+        player2: ''
       };
       /*
         phases default:
@@ -83,6 +84,17 @@
       //--- USER ---//
       $scope.profile=profile;
 
+      $scope.changePlayerView=function(view,player){
+        $scope.view[player]=view;
+      };
+      $scope.toggleOpponentView=function(view){
+        if ($scope.view[$scope.getOpponent()]===view){
+          // toggle view
+          view='';
+        }
+        $scope.changePlayerView(view,$scope.getOpponent());
+      };
+
       function resetConnection(){
         initGame();
         console.log('start game');
@@ -140,7 +152,7 @@
         return 'player1';
       };
       $scope.getOpponentObject=function(){
-        if ($scope.getOpponent()==='player1'){
+        if ($scope.getOpponent()==='player1' || $scope.solitaire){
           return lodash.merge($scope.player1,$scope.player);
         }
         return lodash.merge($scope.player2,$scope.player);
@@ -374,6 +386,7 @@
 
       function initGame(){
         console.log('init game');
+        $scope.view[$scope.getPlayer()]='hand';
         // init game
         if ($scope.getPlayerObject().init===undefined) {
           // todo add id to every card?!

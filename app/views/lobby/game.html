@@ -2,8 +2,6 @@
 
   <div class="game-area__statusbar">
 
-    <!-- TODO show hand,graveyard or exile as "layer" (überlappend...) -->
-
     <div class="avatar" data-life="{{getOpponentObject().life}}">
       <img src="images/avatar/batman-512.png" />
     </div>
@@ -18,12 +16,12 @@
 
       <div class="info-bar">
         <ul>
-          <li class="toggle-playground" data-playground="hand"><i class="icon-hand"></i> {{getOpponentObject().hand.length}}</li>
-          <li class="toggle-playground" data-playground="graveyard"><i class="icon-graveyard"></i> {{getOpponentObject().graveyard.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getOpponent()]==='hand' }"  ng-click="toggleOpponentView('hand')"><i class="icon-hand"></i> {{getOpponentObject().hand.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getOpponent()]==='graveyard' }"  ng-click="toggleOpponentView('graveyard')"><i class="icon-graveyard"></i> {{getOpponentObject().graveyard.length}}</li>
           <li><i class="icon-library"></i> {{getOpponentObject().library.length}}</li>
           <li><i class="icon-flashback"></i> 0</li>
           <li><i class="ms ms-x ms-fw ms-cost"></i> {{getOpponentObject().mana}}</li>
-          <li class="toggle-playground" data-playground="exile"><i class="icon-exile"></i> {{getOpponentObject().exile.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getOpponent()]==='exile' }"  ng-click="toggleOpponentView('exile')"><i class="icon-exile"></i> {{getOpponentObject().exile.length}}</li>
           <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>
@@ -32,23 +30,43 @@
 
   <div class="game-area__playground">
 
+    <!--  OPPONENT HAND -->
+    <div class="playground__opponent-hand" ng-class="{'playground--hide': view[getOpponent()]===''}">
+      <div class="mtg-card-container">
+
+        <div class="mtg-card-stack">
+          <div ng-repeat="card in getOpponentObject()[view[getOpponent()]] track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
+            <img ng-src="{{card.editions[0].image_url}}" />
+
+            <span class="mtg-card__name">{{card.name}}</span>
+            <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
+            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]!=='creature'}" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="playground__opponent">
       <div class="playground--permanents">
 
         <div class="mtg-card-container">
           <div class="playground--land playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in getOpponentObject().playground.lands track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+
+            <div class="mtg-card-stack" ng-repeat="cards in getOpponentObject().playground.lands | groupBy: 'name'">
+
+              <div ng-repeat="card in cards track by $index" class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
               </div>
+
             </div>
+
           </div>
 
           <div class="playground--other playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in getOpponentObject().playground.permanents track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+            <div class="mtg-card-stack" ng-repeat="cards in getOpponentObject().playground.permanents  | groupBy: 'name'">
+              <div ng-repeat="card in cards track by $index" class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -59,10 +77,10 @@
       </div>
       <div class="playground--creatures">
         <div class="mtg-card-container">
-
           <div class="playground-container">
-            <div class="mtg-card-stack" ng-repeat="card in getOpponentObject().playground.creatures track by $index">
-              <div class="mtg-card mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
+
+            <div class="mtg-card-stack" ng-repeat="cards in getOpponentObject().playground.creatures | groupBy: 'name'">
+              <div ng-repeat="card in cards track by $index"  class="mtg-card mtg-card--stacked mtg-card--battlefield" ng-class="{'mtg-card--tapped':card.tapped}" on-long-press="showCard(card, $index, 'playground')" ng-click="defaultAction(card)">
                 <img ng-src="{{card.editions[0].image_url}}" />
 
                 <span class="mtg-card__name">{{card.name}}</span>
@@ -79,6 +97,7 @@
                 <span class="mtg-card__p-and-t" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -142,11 +161,11 @@
     </div>
 
     <!--  HAND -->
-    <div class="playground__hand" ng-class="{ 'playground--hide': view[getPlayer()]!=='hand' }">
+    <div class="playground__hand">
       <div class="mtg-card-container">
 
         <div class="mtg-card-stack">
-          <div ng-repeat="card in getPlayerObject().hand track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
+          <div ng-repeat="card in getPlayerObject()[view[getPlayer()]] track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
@@ -156,37 +175,6 @@
         </div>
       </div>
     </div>
-    <!-- GRAVEYARD -->
-    <div class="playground__graveyard" ng-class="{ 'playground--hide': view[getPlayer()]!=='graveyard' }">
-      <div class="mtg-card-container">
-
-        <div class="mtg-card-stack">
-          <div ng-repeat="card in getPlayerObject().graveyard track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
-            <img ng-src="{{card.editions[0].image_url}}" />
-
-            <span class="mtg-card__name">{{card.name}}</span>
-            <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
-            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]==='creature'}" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- EXILE -->
-    <div class="playground__exile" ng-class="{ 'playground--hide': view[getPlayer()]!=='exile' }">
-      <div class="mtg-card-container">
-
-        <div class="mtg-card-stack">
-          <div ng-repeat="card in getPlayerObject().exile track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="itemOnLongPress()">
-            <img ng-src="{{card.editions[0].image_url}}" />
-
-            <span class="mtg-card__name">{{card.name}}</span>
-            <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
-            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]==='creature'}" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
   </div>
 
@@ -199,12 +187,12 @@
     <div class="toolbar">
       <div class="info-bar">
         <ul>
-          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='hand' }" ng-click="view[getPlayer()]='hand'"><i class="icon-hand"></i> {{getPlayerObject().hand.length}}</li>
-          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='graveyard' }" ng-click="view[getPlayer()]='graveyard'"><i class="icon-graveyard"></i> {{getPlayerObject().graveyard.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='hand' }" ng-click="changePlayerView('hand',getPlayer())"><i class="icon-hand"></i> {{getPlayerObject().hand.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='graveyard' }" ng-click="changePlayerView('graveyard',getPlayer())"><i class="icon-graveyard"></i> {{getPlayerObject().graveyard.length}}</li>
           <li><i class="icon-library"></i> {{getPlayerObject().library.length}}</li>
           <li><i class="icon-flashback"></i> 0</li>
           <li><i class="ms ms-x ms-fw ms-cost"></i> {{getPlayerObject().mana}}</li>
-          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='exile' }" ng-click="view[getPlayer()]='exile'"><i class="icon-exile"></i> {{getPlayerObject().exile.length}}</li>
+          <li class="toggle-playground" ng-class="{ 'current': view[getPlayer()]==='exile' }" ng-click="changePlayerView('exile',getPlayer())"><i class="icon-exile"></i> {{getPlayerObject().exile.length}}</li>
           <li><i class="ms ms-planeswalker" style="font-size: 1.25em;"></i> 0</li>
         </ul>
       </div>
