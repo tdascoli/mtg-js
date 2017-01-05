@@ -198,7 +198,7 @@
       $scope.phases=BattlegroundService.phases;
 
       function checkPhase(){
-        // todo even if next phae disabled -> phase action!
+        // todo even if next phase disabled -> phase action!
         if ($scope.phases[$scope.status.phase].disabled){
           $scope.status.phase++;
           checkPhase();

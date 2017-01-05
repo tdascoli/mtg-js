@@ -795,12 +795,10 @@ h2.title-brand {
   box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45), 2px 2px 0 black, 3px 3px 0 rgba(255, 255, 255, 0.45);
   margin-right: 3px; }
 
-/*
-.card-list {
-  height: inherit;
-  overflow-y: scroll;
-}
-*/
+.modal-card-list {
+  height: 350px;
+  overflow-x: scroll; }
+
 .card-list--item {
   display: flex; }
   .card-list--item > img {

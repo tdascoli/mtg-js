@@ -228,12 +228,13 @@
 
   margin-right: 3px;
 }
-/*
-.card-list {
-  height: inherit;
-  overflow-y: scroll;
+
+//.card-list {
+.modal-card-list {
+  height: 350px;
+  overflow-x: scroll;
 }
-*/
+
 .card-list--item {
 
   display: flex;

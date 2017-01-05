@@ -2,7 +2,25 @@
 
   <p>{{action.message}}</p>
 
-  list of cards...
+  <div class="list-group modal-card-list">
+    <a ng-click="showCard(card, $index, 'init')" class="list-group-item card-list--item"
+       ng-repeat="card in getPlayerObject().hand track by $index">
+      <img ng-src="{{card.editions[0].image_url}}"/>
+
+      <div class="card-list__card-detail">
+        <strong>{{card.name}}</strong>
+        <p><span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span> <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span> <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span></p>
+      </div>
+
+      <div class="card-list__cost-set">
+        <!-- fix -->
+        <div render-cost="card.cost"></div>
+        <i class="ss ss-2x {{renderExpansion(card.editions[0].set_id,card.editions[0].rarity)}}"></i>
+        <!-- fix -->
+        <span class="card-list__set" render-rarity="card.editions[0].rarity">{{card.editions[0].set_id}}</span>
+      </div>
+    </a>
+  </div>
 
 </div>
 <div class="modal-footer">
