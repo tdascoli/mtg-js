@@ -34,7 +34,7 @@ angular.module('mtgJsApp')
 
     $scope.$watchCollection('messages', function (newValue) {
       if (newValue) {
-        $("#modal-body").animate({ scrollTop: $('#modal-body').prop("scrollHeight")}, 100);
+        $('#modal-body').animate({ scrollTop: $('#modal-body').prop('scrollHeight')}, 100);
       }
     });
   });

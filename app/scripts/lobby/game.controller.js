@@ -359,7 +359,7 @@
       function coinFlip() {
         var player = 'player1';
         if (!$scope.solitaire){
-          player = (Math.floor(Math.random() * 2) == 0) ? 'player1' : 'player2';
+          player = (Math.floor(Math.random() * 2) === 0) ? 'player1' : 'player2';
         }
         console.log(player+' has won the coin toss.');
 

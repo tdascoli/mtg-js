@@ -41,7 +41,7 @@ angular.module('mtgJsApp')
         var state = attrs.showOnState;
         el.addClass('hide');
 
-        
+
 
         if ($state.includes(state)) {
           el.removeClass('hide');
@@ -258,7 +258,7 @@ angular.module('mtgJsApp')
 
     return {
       scope: {
-        schrollBottom: "="
+        schrollBottom: '='
       },
       link: function (scope, element) {
         scope.$watchCollection('schrollBottom', function (newValue) {
@@ -267,5 +267,5 @@ angular.module('mtgJsApp')
           }
         });
       }
-    }
+    };
   });

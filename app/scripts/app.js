@@ -441,8 +441,8 @@ var app = angular.module('mtgJsApp', [
           },
           players: function(){
             var players=[];
-            players['player1']='player1';
-            players['player2']='player2';
+            players.player1='player1';
+            players.player2='player2';
             return players;
           }
         }

@@ -31,11 +31,20 @@
   <div class="game-area__playground">
 
     <!--  OPPONENT HAND -->
-    <div class="playground__opponent-hand" ng-class="{'playground--hide': view[getOpponent()]===''}">
+    <!-- TODO when Opponent should show hand?! -->
+    <div class="playground__opponent-hand" ng-class="{'playground--hide': view[getOpponent()]!=='hand'}">
       <div class="mtg-card-container">
-
         <div class="mtg-card-stack">
-          <div ng-repeat="card in getOpponentObject()[view[getOpponent()]] track by $index" class="mtg-card mtg-card--hand" on-long-press="showCard(card, $index, 'hand')" ng-click="playCardByIndex($index);">
+          <div ng-repeat="hand in getOpponentObject().hand track by $index" class="mtg-card mtg-card--hand">
+            <img src="images/card-back.jpeg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="playground__opponent-hand" ng-class="{'playground--hide': view[getOpponent()]==='' || view[getOpponent()]==='hand'}">
+      <div class="mtg-card-container">
+        <div class="mtg-card-stack">
+          <div ng-repeat="card in getOpponentObject()[view[getOpponent()]] track by $index" class="mtg-card mtg-card--hand" ng-click="showCard(card, $index, 'opponent')">
             <img ng-src="{{card.editions[0].image_url}}" />
 
             <span class="mtg-card__name">{{card.name}}</span>
