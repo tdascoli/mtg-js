@@ -218,7 +218,7 @@
 
 <div class="game-action">
   <div class="game-action__bar">
-    <button class="btn btn-primary" ng-click="nextPhase()">{{actions.primary}}</button>
+    <button class="btn btn-primary" ng-click="nextPhase()" ng-disabled="!hasPriority() && !solitaire ">{{actions.primary}}</button>
     <small>
       Priority: {{status.priority}}<br />
       Turn {{status.turn}} ({{status.user}})

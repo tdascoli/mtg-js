@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mtgJsApp')
-  .factory('BattlegroundService', function($q){
+  .factory('BattlegroundService', function(){
 
     var phases = [
       {
@@ -65,25 +65,8 @@ angular.module('mtgJsApp')
       }
     ];
 
-    function initGame(){
-      return $q(function(resolve, reject) {
-
-
-
-
-        setTimeout(function() {
-          if (okToGreet(name)) {
-            resolve('Hello, ' + name + '!');
-          } else {
-            reject('Greeting ' + name + ' is not allowed.');
-          }
-        }, 1000);
-      });
-    }
-
     return {
-      phases: phases,
-      initGame: initGame
+      phases: phases
     };
 
   });

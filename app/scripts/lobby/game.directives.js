@@ -1,3 +1,4 @@
+// todo need or no need?!
 angular.module('mtgJsApp')
   .directive('playgroundOpponentHand', [function () {
     'use strict';

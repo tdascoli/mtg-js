@@ -107,6 +107,7 @@
         initGame();
         console.log('start game');
         $scope.init=false;
+        $scope.idle=false;
       }
 
       $scope.loadGame=function(){
@@ -171,6 +172,12 @@
         }
         return $scope.player1.name;
       };
+      $scope.getNextPrioPlayer=function(){
+        if ($scope.status.priority===$scope.player1.name){
+          return $scope.player2.name;
+        }
+        return $scope.player1.name;
+      };
 
       $scope.showCard = function (card, index, where) {
         $scope.card=card;
@@ -205,23 +212,31 @@
         }
       }
 
-      $scope.nextPhase=function(){
-        // zuerst prio
-
-        // anschliessend neue phase...
-
-        // nextPhase!! > user independent...
-        $scope.status.phase++;
-        // todo --> next Player
-        if ($scope.status.phase===$scope.phases.length){
+      // watch status priority
+      $scope.$watchCollection('status.priority', function(newVal){
+        if (newVal===$scope.status.user && !$scope.idle){
+          console.log('next phase');
+          // nextPhase!! > user independent...
+          $scope.status.phase++;
+          // todo --> next Player
+          if ($scope.status.phase===$scope.phases.length){
           $scope.status.phase=0;
           $scope.nextTurn();
+          }
+          // check if Next Phase is Disabled
+          checkPhase();
+          // todo check functions for current phase?!
+          doInitPhase();
         }
-        // check if Next Phase is Disabled
-        checkPhase();
-        // todo check functions for current phase?!
-        doInitPhase();
+      });
+
+      $scope.nextPhase=function(){
+        // zuerst prio
+        $scope.status.priority=$scope.getNextPrioPlayer();
+        // anschliessend neue phase...
       };
+
+      // todo upkeep !! not showing
       $scope.nextTurn=function(){
         console.log('next turn');
         $scope.status.turn++;
