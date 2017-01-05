@@ -206,6 +206,10 @@
       }
 
       $scope.nextPhase=function(){
+        // zuerst prio
+
+        // anschliessend neue phase...
+
         // nextPhase!! > user independent...
         $scope.status.phase++;
         // todo --> next Player
@@ -217,8 +221,6 @@
         checkPhase();
         // todo check functions for current phase?!
         doInitPhase();
-
-        $scope.idle = false;
       };
       $scope.nextTurn=function(){
         console.log('next turn');
