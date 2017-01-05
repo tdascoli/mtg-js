@@ -8,20 +8,23 @@
    * Provides rudimentary account management functions.
    */
   angular.module('mtgJsApp')
-    .controller('GameJoinCtrl', function ($scope, $state, lodash, profile, game, decks) {
-      $scope.profile = profile;
+    .controller('GameJoinCtrl', function ($scope, $rootScope, $state, lodash, Users, game, decks) {
       $scope.game = game;
       $scope.decks = decks;
 
       $scope.newGame = {
         player2: {
-          name: profile.name,
-          userId: profile.$id,
+          name: $rootScope.profile.name,
+          userId: $rootScope.profile.$id,
           deckId: '',
           library: [],
           life: 20,
           mana: 0
         }
+      };
+
+      $scope.getOpponentEmail=function(){
+        return Users.getEmail($scope.game.player1.userId);
       };
 
       $scope.joinGame = function () {

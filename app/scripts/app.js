@@ -46,14 +46,10 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -78,14 +74,10 @@ var app = angular.module('mtgJsApp', [
           channels: function (Channels){
             return Channels.$loaded();
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -128,17 +120,13 @@ var app = angular.module('mtgJsApp', [
           lobby: function (Lobby){
             return Lobby.$loaded();
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
-              $state.go('home');
+              $state.go('login');
             });
           },
           decks: function (Decks,Auth){
@@ -162,7 +150,6 @@ var app = angular.module('mtgJsApp', [
             return Games.getGame($stateParams.gameId);
           }
         }
-
       })
       .state('lobby/game', {
         url: '/{gameId}/game',
@@ -173,14 +160,10 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -244,14 +227,13 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          auth: function($state, Users, Auth){
-            return Auth.$requireSignIn().catch(function(){
-              $state.go('login');
-            });
-          },
-          profile: function(Users, Auth){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
-              return Users.getProfile(auth.uid).$loaded();
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                $rootScope.profile = profile;
+              });
+            }, function(error){
+              $state.go('login');
             });
           }
         }
@@ -275,14 +257,10 @@ var app = angular.module('mtgJsApp', [
               return Decks.getUserDecks(auth.uid);
             });
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -304,14 +282,10 @@ var app = angular.module('mtgJsApp', [
               return Decks.getUserDecks(auth.uid);
             });
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -333,14 +307,10 @@ var app = angular.module('mtgJsApp', [
               return Decks.getUserDecks(auth.uid);
             });
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -362,14 +332,10 @@ var app = angular.module('mtgJsApp', [
               return Decks.getUserDecks(auth.uid);
             });
           },
-          profile: function ($state, Auth, Users){
+          profile: function ($rootScope, $state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
+                $rootScope.profile = profile;
               });
             }, function(error){
               $state.go('login');
@@ -392,19 +358,6 @@ var app = angular.module('mtgJsApp', [
           }
         },
         resolve: {
-          profile: function ($state, Auth, Users){
-            return Auth.$requireSignIn().then(function(auth){
-              return Users.getProfile(auth.uid).$loaded().then(function (profile){
-                if(profile.name){
-                  return profile;
-                } else {
-                  $state.go('account');
-                }
-              });
-            }, function(error){
-              $state.go('login');
-            });
-          },
           connected: function(){
             return { player1: true, player2: true };
           },
@@ -444,6 +397,15 @@ var app = angular.module('mtgJsApp', [
             players.player1='player1';
             players.player2='player2';
             return players;
+          },
+          profile: function ($rootScope, $state, Auth, Users){
+            return Auth.$requireSignIn().then(function(auth){
+              return Users.getProfile(auth.uid).$loaded().then(function (profile){
+                $rootScope.profile = profile;
+              });
+            }, function(error){
+              $state.go('login');
+            });
           }
         }
       });
@@ -455,19 +417,13 @@ var app = angular.module('mtgJsApp', [
 
     $rootScope.$on('$stateChangeError', console.log.bind(console));
 
-    $rootScope.logout=function(){
-      // delete online...?!
-      $rootScope.profile=undefined;
-      Auth.$signOut().then(function(){
-        $state.go('login');
+    $rootScope.logout = function(){
+      $rootScope.profile.online = null;
+      $rootScope.profile.$save().then(function(){
+        Auth.$signOut().then(function(){
+          $state.go('login');
+        });
       });
     };
   });
-
-  // TODO REMOVE WHEN RESOLVED --> UI-ROUTER
-  /*
-  app.config(['$qProvider', function ($qProvider) {
-    $qProvider.errorOnUnhandledRejections(false);
-  }]);
-  */
 }());

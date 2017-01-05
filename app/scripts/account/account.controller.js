@@ -8,8 +8,9 @@
  * Provides rudimentary account management functions.
  */
 angular.module('mtgJsApp')
-  .controller('AccountCtrl', function ($rootScope, $scope, $state, md5, auth, profile) {
-    $rootScope.profile = profile;
+  .controller('AccountCtrl', function ($rootScope, $scope, $state) {
+
+    console.log($rootScope.profile);
 
     $scope.updateProfile = function(){
       //$rootScope.profile.emailHash = md5.createHash(auth.email);

@@ -2,8 +2,8 @@
 
   <div class="game-area__statusbar">
 
-    <div class="avatar" data-life="{{getOpponentObject().life}}">
-      <img src="images/avatar/batman-512.png" />
+    <div class="avatar" data-life="{{getOpponentObject().life}}" data-player="{{getOpponent()}}" data-name="{{getOpponentObject().name}}">
+      <img gravatar-src="getOpponentEmail()" />
     </div>
 
     <div class="toolbar">
@@ -189,7 +189,7 @@
 
   <div class="game-area__statusbar">
 
-    <div class="avatar" data-life="{{getPlayerObject().life}}">
+    <div class="avatar" data-life="{{getPlayerObject().life}}" data-player="{{getPlayer()}}" data-name="{{getPlayerObject().name}}">
       <img gravatar-src="profile.email" />
     </div>
 

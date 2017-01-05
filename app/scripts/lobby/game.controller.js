@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mtgJsApp')
-    .controller('GameCtrl', function($scope, $rootScope, $state, $stateParams, $uibModal, lodash, BattlegroundService, CardsService, Users, Messages, profile, connected, status, player1, player2, players){
+    .controller('GameCtrl', function($scope, $rootScope, $state, $stateParams, $uibModal, $q, lodash, BattlegroundService, CardsService, Users, Messages, connected, status, player1, player2, players){
 
       $scope.idle=true;
       $scope.init=true;
@@ -41,7 +41,7 @@
        */
 
       // todo check if online, when offline message!!
-      Users.setOnline(profile.$id);
+      Users.setOnline($rootScope.profile.$id);
 
       // todo maybe loading different vars for different usage and save status!
       /*
@@ -82,8 +82,6 @@
       $scope.players=players;
 
       //--- USER ---//
-      $scope.profile=profile;
-
       $scope.changePlayerView=function(view,player){
         $scope.view[player]=view;
       };
@@ -93,6 +91,16 @@
           view='';
         }
         $scope.changePlayerView(view,$scope.getOpponent());
+      };
+      $scope.getOpponentEmail=function(){
+        var email = 'unknown';
+        if ($scope.solitaire){
+          email = $rootScope.profile.email;
+        }
+        else if ($scope.getOpponentObject().userId!==''){
+          email = Users.getEmail($scope.getOpponentObject().userId);
+        }
+        return email;
       };
 
       function resetConnection(){
@@ -133,7 +141,7 @@
       });
 
       $scope.getPlayer=function(){
-        var player = $scope.players[$scope.profile.$id];
+        var player = $scope.players[$rootScope.profile.$id];
         if ($scope.solitaire){
           player = 'player1';
         }
@@ -189,7 +197,6 @@
           checkPhase();
         }
       }
-
       function doInitPhase(){
         var initPhase = $scope.getCurrentPhase();
         if (initPhase==='dr' && $scope.isCurrentPlayer()){
@@ -213,7 +220,6 @@
 
         $scope.idle = false;
       };
-
       $scope.nextTurn=function(){
         console.log('next turn');
         $scope.status.turn++;
@@ -223,7 +229,6 @@
         // todo upkeep
         $scope.upkeepPhase();
       };
-
       $scope.upkeepPhase=function(){
         console.log('upkeep phase');
         if ($scope.isCurrentPlayer()) {
@@ -235,9 +240,6 @@
           });
         }
       };
-
-      // todo end Turn -> next Player
-
       $scope.getCurrentPhase=function(){
         return $scope.phases[$scope.status.phase].phase;
       };
@@ -257,7 +259,7 @@
         return false;
       };
       $scope.hasPriority=function(){
-        if ($scope.player1.name===$scope.status.priority){
+        if ($scope.getPlayerObject().name===$scope.status.priority){
           return true;
         }
         return false;
@@ -283,8 +285,11 @@
       };
 
       $scope.drawMulligan=function(){
-        console.log($scope.getPlayer()+' draws a mulligan');
-        var amount = $scope.getPlayerObject().hand.length--;
+        var amount = $scope.getPlayerObject().hand.length;
+        amount--;
+        console.log($scope.getPlayer()+' draws a mulligan with '+amount+' cards');
+        $scope.toLibrary($scope.getPlayerObject().hand,'bottom');
+        $scope.getPlayerObject().hand=[];
         drawCards(amount);
       };
 
@@ -307,6 +312,15 @@
           $scope.getPlayerObject().hand.push(card);
         });
       }
+
+      $scope.toLibrary=function(cards,where){
+        if (where==='bottom'){
+          $scope.getPlayerObject().library=lodash.concat($scope.getPlayerObject().library,cards);
+        }
+        else {
+          $scope.getPlayerObject().library=lodash.concat(cards,$scope.getPlayerObject().library);
+        }
+      };
 
       $scope.playCardByIndex=function(index){
         if ($scope.hasPriority()) {
@@ -356,51 +370,92 @@
       // INIT
       $scope.loadGame();
 
+      // todo make service!!!!
       function coinFlip() {
-        var player = 'player1';
-        if (!$scope.solitaire){
-          player = (Math.floor(Math.random() * 2) === 0) ? 'player1' : 'player2';
-        }
-        console.log(player+' has won the coin toss.');
+        return $q(function(resolve) {
 
-        if (player===$scope.getPlayer()){
-          // ask play or draw
-          var play=true;
-          if (play){
-            $scope.status.priority=$scope.getPlayerObject().name;
+          var player = 'player1';
+          if (!$scope.solitaire){
+            player = (Math.floor(Math.random() * 2) === 0) ? 'player1' : 'player2';
+          }
+          console.log(player+' has won the coin toss.');
+
+          resolve(player);
+        });
+      }
+
+      function askPlay(player){
+        return $q(function(resolve){
+          if (player===$scope.getPlayer()){
+            $uibModal.open({
+              animation: true,
+              templateUrl: 'views/lobby/modal/simple.html',
+              size: 'xs',
+              resolve: {
+                action: function() {
+                  return {ok:'Play',cancel:'Draw',message:'Play or Draw?'};
+                }
+              },
+              controller: 'SimpleModalCtrl'
+            }).result.then(function (play) {
+              if (play){
+                resolve($scope.getPlayerObject().name);
+              }
+              else {
+                resolve($scope.getOpponentObject().name);
+              }
+            });
           }
           else {
-            $scope.status.priority=$scope.getOpponentObject().name;
+            resolve($scope.getOpponentObject().name);
           }
-        }
-        else {
-          $scope.status.priority=$scope.getOpponentObject().name;
-        }
-        $scope.status.turn=1;
-        // todo start phase === m1?!
-        $scope.status.phase=2;
-        $scope.status.user=$scope.status.priority;
-        console.log($scope.status.priority+' plays first.');
-        // ask for mulligan?! or callback...
+        });
       }
 
       function initGame(){
         console.log('init game');
         $scope.view[$scope.getPlayer()]='hand';
-        // init game
+        // init game todo --> CALLBACKS!
         if ($scope.getPlayerObject().init===undefined) {
-          // todo add id to every card?!
-          $scope.shuffleLibrary();
-          // draw 7 cards
-          $scope.drawFullHand();
-
           // todo coin and ask for play or not
-          coinFlip();
+          coinFlip().then(function(player){
 
-          // todo ask for mulligan
-          // GAME STARTS --> wait for player2
+            askPlay(player).then(function(user){
+              $scope.status.priority=user;
+              $scope.status.user=user;
+              console.log(user+' plays first.');
+
+              $scope.shuffleLibrary();
+              // draw 7 cards
+              $scope.drawFullHand();
+
+              $uibModal.open({
+                animation: true,
+                templateUrl: 'views/lobby/modal/mulligan.html',
+                size: 'xs',
+                scope: $scope,
+                resolve: {
+                  action: function() {
+                    return {ok:'Keep',cancel:'Mulligan',message:'Keep or Mulligan?'};
+                  }
+                },
+                controller: 'SimpleModalCtrl'
+              }).result.then(function () {
+                console.log($scope.getPlayer()+' plays with '+$scope.getPlayerObject().hand.length+' cards');
+
+                $scope.status.turn=1;
+                // todo start phase === m1?!
+                $scope.status.phase=2;
+
+                // GAME STARTS --> wait for player2
+                $scope.getPlayerObject().init=true;
+                $scope.idle=false;
+              });
+
+            });
+
+          });
         }
-        $scope.idle=false;
       }
 
       //--- END DECK ---//
@@ -414,7 +469,6 @@
         $scope.messages = Messages.forChannel($stateParams.gameId);
       }
       $scope.readMessages=$scope.messages.length;
-
       $rootScope.chat=function(){
         $uibModal.open({
           animation: true,
@@ -422,7 +476,7 @@
           size: 'lg',
           resolve: {
             profile: function() {
-              return $scope.profile;
+              return $rootScope.profile;
             },
             messages: function() {
               return $scope.messages;
@@ -439,15 +493,12 @@
       $scope.renderOracle=function(text){
         return CardsService.renderOracle(text);
       };
-
       $scope.renderCost=function(renderCost){
         return CardsService.renderCost(renderCost);
       };
-
       $scope.renderExpansion=function(set,rarity){
         return CardsService.renderExpansion(set,rarity);
       };
-
       $scope.renderPandT=function(type,power,toughness){
         return CardsService.renderPandT(type,power,toughness);
       };

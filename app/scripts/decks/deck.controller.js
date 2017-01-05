@@ -8,7 +8,7 @@
  * Controller of the mtgJsApp
  */
 angular.module('mtgJsApp')
-  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, DeckParserService, lodash, profile, decks) {
+  .controller('DeckCtrl', function ($scope, $rootScope, $uibModal, $stateParams, $state, CardsService, DeckParserService, lodash, decks) {
 
     $scope.card=undefined;
     $scope.currentEdition=undefined;

@@ -8,8 +8,7 @@
    * Provides rudimentary account management functions.
    */
   angular.module('mtgJsApp')
-    .controller('ChannelsCtrl', function($scope, $state, Auth, Users, profile, channels){
-      $scope.profile = profile;
+    .controller('ChannelsCtrl', function($scope, $state, Auth, Users, channels){
       $scope.channels = channels;
 
       $scope.getDisplayName = Users.getDisplayName;

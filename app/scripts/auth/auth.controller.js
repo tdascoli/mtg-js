@@ -8,7 +8,7 @@
  * Provides rudimentary account management functions.
  */
 angular.module('mtgJsApp')
-  .controller('AuthCtrl', function (Auth, $scope, $state) {
+  .controller('AuthCtrl', function (Auth, Users, $scope, $rootScope, $state) {
 
     $scope.user = {
       email: '',
@@ -16,10 +16,20 @@ angular.module('mtgJsApp')
     };
 
     $scope.login = function (){
-      Auth.$signInWithEmailAndPassword($scope.user.email,$scope.user.password).then(function (){
-        $state.go('account');
+      Auth.$signInWithEmailAndPassword($scope.user.email,$scope.user.password).then(function (auth){
+        Users.getProfile(auth.uid).$loaded().then(function (profile){
+          $rootScope.profile=profile;
+          $state.go('account');
+        });
       }, function (error){
         $scope.error = error;
+      });
+    };
+
+    $scope.logout=function(){
+      // delete online...?!
+      Auth.$signOut().then(function(){
+        $state.go('login');
       });
     };
 

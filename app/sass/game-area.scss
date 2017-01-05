@@ -12,7 +12,22 @@
   text-shadow: 1px 1px 1px #000;
 
   position: relative;
+  left: 2px;
   top: -35px;
+}
+
+.avatar[data-player]:before {
+  content: attr(data-player) '\a' attr(data-name);
+  white-space: pre;
+  line-height: 1.0;
+
+  color: white;
+  font-weight: 700;
+  font-size: 10px;
+  text-shadow: 1px 1px 1px #000;
+  position: absolute;
+  left: 2px;
+  display: inline-block;
 }
 
 .game-area {

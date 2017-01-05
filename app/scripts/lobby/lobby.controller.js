@@ -8,8 +8,7 @@
    * Provides rudimentary account management functions.
    */
   angular.module('mtgJsApp')
-    .controller('LobbyCtrl', function ($scope, $state, lodash, Auth, profile, lobby, decks) {
-      $scope.profile = profile;
+    .controller('LobbyCtrl', function ($scope, $rootScope, $state, lodash, Auth, lobby, decks) {
       $scope.lobby = lobby;
       $scope.decks = decks;
       $scope.solitaire=false;
@@ -22,8 +21,8 @@
       $scope.newGame = {
         name: '',
         player1: {
-          name: profile.name,
-          userId: profile.$id,
+          name: $rootScope.profile.name,
+          userId: $rootScope.profile.$id,
           deckId: '',
           library: [],
           life: 20,
@@ -50,11 +49,11 @@
       };
 
       $scope.joinOrNot=function(player1,player2){
-        if (player2==='' && player1!==profile.$id){
+        if (player2==='' && player1!==$rootScope.profile.$id){
           // JOIN
           return true;
         }
-        else if (player1===profile.$id && player2!==''){
+        else if (player1===$rootScope.profile.$id && player2!==''){
           // no Join
           return false;
         }
@@ -67,7 +66,7 @@
           $scope.newGame.player1.library = deck.main;
 
           $scope.lobby.$add($scope.newGame).then(function (ref) {
-            $state.go('lobby/game', {gameId: ref.key()});
+            $state.go('lobby/game', {gameId: ref.key});
           });
         }
         else {
