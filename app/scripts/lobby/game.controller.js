@@ -195,6 +195,7 @@
       //--- END USER ---//
 
       //--- STACK --//
+      $scope.hideStackList=false;
       $scope.trigger='idle';
       var triggers = {
         nextPhase: triggerNextPhase,
@@ -208,9 +209,7 @@
         // todo stack object definition!!
         // todo to stack + add object to stack > play card, message, etc
         $scope.trigger=trigger;
-        $scope.showStackList=true;
-
-        console.log('toStack',card);
+        $scope.hideStackList=false;
 
         if (card!==false) {
           $scope.status.stack.push(card);
@@ -221,7 +220,6 @@
       function resolveStack(){
         triggers[$scope.trigger]();
         $scope.trigger='idle';
-        $scope.showStackList=false;
       }
       function solveStack(){
         $scope.status.priority=$scope.getNextPrioPlayer();
@@ -231,6 +229,9 @@
           return 'Empty';
         }
         return $scope.status.stack.length+' to Resolve';
+      };
+      $scope.toggleStackList=function(){
+        $scope.hideStackList=!$scope.hideStackList;
       };
       //--- END STACK --//
 

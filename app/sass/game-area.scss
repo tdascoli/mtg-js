@@ -258,24 +258,27 @@
   overflow: auto;
 }
 
-.stack-list {
-  position: relative;
-  top: -10px;
+.stack__list {
+  position: absolute;
+  top: $navbar-mobile-height;
+  right: 15px;
 
   visibility: visible;
   opacity: 1;
+
+  z-index: 1035;
 }
 
-.stack-list--hide {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-}
-
-.test-button {
+.stack__link {
   position: absolute;
   top: 5px;
   right: 15px;
-  color: silver;
-  z-index: 2000;
+  color: #fff;
+  z-index: 1035;
+}
+
+.stack--hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
 }

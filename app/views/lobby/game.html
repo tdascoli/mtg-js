@@ -1,7 +1,3 @@
-<a href class="test-button">
-  <i class="material-icons">more_horiz</i>
-</a>
-
 <div class="game-area">
 
   <div class="game-area__statusbar">
@@ -239,6 +235,23 @@
       Stack: {{showStack()}}
     </small>
     <button class="btn">{{actions.secondary}}</button>
+  </div>
+</div>
+
+<div class="stack">
+  <a ng-click="toggleStackList()" class="stack__link">
+    <i class="material-icons">more_horiz</i>
+  </a>
+
+  <div class="stack__list list-group" ng-class="{'stack--hide':hideStackList}">
+    <a ng-repeat="card in status.stack track by $index" ng-click="showCard(card, $index, 'init')" class="list-group-item card-list--item">
+      <img ng-src="{{card.editions[0].image_url}}"/>
+
+      <div class="card-list__card-detail">
+        <strong>{{card.name}}</strong>
+        <p><span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span> <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span> <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span></p>
+      </div>
+    </a>
   </div>
 </div>
 
