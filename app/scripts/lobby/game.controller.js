@@ -194,6 +194,30 @@
       };
       //--- END USER ---//
 
+      //--- TRIGGERS --//
+      $scope.trigger='idle';
+      var triggers = {
+        nextPhase: triggerNextPhase,
+        playCard: triggerPlayCard,
+        idle: function(){
+          console.log('trigger is idle');
+        }
+      };
+      function toStack(trigger){
+        // todo stack object definition!!
+        // todo to stack + add object to stack > play card, message, etc
+        $scope.trigger=trigger;
+        solveStack();
+      }
+      function resolveStack(){
+        triggers[$scope.trigger]();
+        $scope.trigger='idle';
+      }
+      function solveStack(){
+        $scope.status.priority=$scope.getNextPrioPlayer();
+      }
+      //--- END TRIGGERS --//
+
       //--- PHASES ---//
       $scope.phases=BattlegroundService.phases;
 
@@ -212,28 +236,36 @@
         }
       }
 
-      // watch status priority
+      // watch status priority todo move this to log or stack...?
       $scope.$watchCollection('status.priority', function(newVal){
-        if (newVal===$scope.status.user && !$scope.idle){
-          console.log('next phase');
-          // nextPhase!! > user independent...
-          $scope.status.phase++;
-          // todo --> next Player
-          if ($scope.status.phase===$scope.phases.length){
-          $scope.status.phase=0;
-          $scope.nextTurn();
-          }
-          // check if Next Phase is Disabled
-          checkPhase();
-          // todo check functions for current phase?!
-          doInitPhase();
+        if (newVal===$scope.status.user){
+          resolveStack();
         }
       });
 
+      function triggerNextPhase(){
+        console.log('trigger next phase');
+        // nextPhase!! > user independent...
+        $scope.status.phase++;
+        // todo --> next Player
+        if ($scope.status.phase===$scope.phases.length){
+          $scope.status.phase=0;
+          $scope.nextTurn();
+        }
+        // check if Next Phase is Disabled
+        checkPhase();
+        // todo check functions for current phase?!
+        doInitPhase();
+      }
+
+      // todo rename to next...
       $scope.nextPhase=function(){
-        // zuerst prio
-        $scope.status.priority=$scope.getNextPrioPlayer();
-        // anschliessend neue phase...
+        if ($scope.trigger==='idle') {
+          toStack('nextPhase');
+        }
+        else {
+          solveStack();
+        }
       };
 
       // todo upkeep !! not showing
@@ -339,36 +371,49 @@
         }
       };
 
+      function triggerPlayCard(){
+        // todo CARD
+        var card = $scope.cardIndex;
+        console.log('play card', card.name);
+
+        // todo card.types[1] == creature!! modal
+        if (card.types[0] === 'creature' || card.types[1] === 'creature' || card.types[0] === 'planeswalker') {
+          card.summoned = true;
+          $scope.getPlayerObject().playground.creatures.push(card);
+        }
+        else if (card.types[0] === 'land') {
+          $scope.getPlayerObject().playground.lands.push(card);
+        }
+        else if (card.types[0] === 'artifact' || card.types[0] === 'enchantment') {
+          $scope.getPlayerObject().playground.permanents.push(card);
+        }
+        else {
+          $scope.getPlayerObject().graveyard.push(card);
+        }
+
+        $scope.cardIndex='';
+      }
+
       $scope.playCardByIndex=function(index){
         if ($scope.hasPriority()) {
-          // log/stack
           var card = $scope.getPlayerObject().hand[index];
-
-          console.log('play card', card.name);
-
+          // log/stack
+          // add to stack id/index of card...
+          $scope.cardIndex=card;
+          console.log('trigger play card', card.name);
           // remove from hand
           $scope.getPlayerObject().hand.splice(index, 1);
 
-          // todo card.types[1] == creature!! modal
-          if (card.types[0] === 'creature' || card.types[1] === 'creature' || card.types[0] === 'planeswalker') {
-            card.summoned = true;
-            $scope.getPlayerObject().playground.creatures.push(card);
-          }
-          else if (card.types[0] === 'land') {
-            $scope.getPlayerObject().playground.lands.push(card);
-          }
-          else if (card.types[0] === 'artifact' || card.types[0] === 'enchantment') {
-            $scope.getPlayerObject().playground.permanents.push(card);
-          }
-          else {
-            $scope.getPlayerObject().graveyard.push(card);
-          }
+          // trigger play card
+          toStack('playCard');
         }
         else {
           console.log('no prio > showcard?!');
         }
       };
+      //--- END DECK ---//
 
+      //--- ACTION ---//
       $scope.defaultAction=function(card){
         console.log('default action',card.name);
         // todo if idle -> show card! and other defaults!
@@ -383,6 +428,7 @@
           card.tapped=!card.tapped;
         }
       };
+      //--- END ACTION ---//
 
       // INIT
       $scope.loadGame();
@@ -429,6 +475,19 @@
         });
       }
 
+      function prepareLibrary(){
+          var uid=1;
+          if ($scope.getPlayer()==='player2'){
+            uid=$scope.getOpponentObject().library.length+$scope.getOpponentObject().library.hand+1;
+          }
+
+          for(var i=0;i<$scope.getPlayerObject().library.length;i++){
+            $scope.getPlayerObject().library[i].uid=(i+uid);
+          }
+
+          $scope.shuffleLibrary();
+      }
+
       function initGame(){
         console.log('init game');
         $scope.view[$scope.getPlayer()]='hand';
@@ -442,7 +501,7 @@
               $scope.status.user=user;
               console.log(user+' plays first.');
 
-              $scope.shuffleLibrary();
+              prepareLibrary();
               // draw 7 cards
               $scope.drawFullHand();
 
@@ -474,8 +533,7 @@
           });
         }
       }
-
-      //--- END DECK ---//
+      //--- END INIT ---//
 
       //--- CHAT ---//
       $rootScope.getMessages=function () {

@@ -63,7 +63,8 @@
 .mtg-card__name,
 .mtg-card__p-and-t,
 .mtg-card__loyalty,
-.mtg-card__cost {
+.mtg-card__cost,
+.mtg-card__uid {
   position: absolute;
 
   font-size: 1.15em;
@@ -78,8 +79,6 @@
 .mtg-card__block,
 .mtg-card__summoned{
   position: absolute;
-
-  font-size: 1.15em;
 
   @media #{$media-phone} {
     font-size: 0.75em;
@@ -152,7 +151,17 @@
 
   background: rgba(0, 0, 0, 0.450);
 
-  padding: 1px;
+  padding: 0 1px;
+}
+.mtg-card__uid {
+  bottom: 2px;
+  left: 2px;
+
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  line-height: 1.15;
+
+  padding: 0 1px;
 }
 
 /* variant of cards */

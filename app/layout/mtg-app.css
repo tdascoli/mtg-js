@@ -548,6 +548,10 @@ h2.title-brand {
   height: 100%;
   white-space: nowrap; }
 
+.playground--land.playground-container,
+.playground--other.playground-container {
+  display: inline-block; }
+
 @media screen and (min-width: 768px) {
   .playground--land.playground-container,
   .playground--other.playground-container {
@@ -685,21 +689,22 @@ h2.title-brand {
 .mtg-card__name,
 .mtg-card__p-and-t,
 .mtg-card__loyalty,
-.mtg-card__cost {
+.mtg-card__cost,
+.mtg-card__uid {
   position: absolute;
   font-size: 1.15em; }
   @media only screen and (max-width: 767px) {
     .mtg-card__name,
     .mtg-card__p-and-t,
     .mtg-card__loyalty,
-    .mtg-card__cost {
+    .mtg-card__cost,
+    .mtg-card__uid {
       font-size: 0.75em; } }
 
 .mtg-card__attack,
 .mtg-card__block,
 .mtg-card__summoned {
   position: absolute;
-  font-size: 1.15em;
   height: 2.25em;
   width: 2.25em;
   line-height: 2.9em;
@@ -760,7 +765,15 @@ h2.title-brand {
   right: 2px;
   border: 1px solid #fff;
   background: rgba(0, 0, 0, 0.45);
-  padding: 1px; }
+  padding: 0 1px; }
+
+.mtg-card__uid {
+  bottom: 2px;
+  left: 2px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  line-height: 1.15;
+  padding: 0 1px; }
 
 /* variant of cards */
 .mtg-card--tapped {

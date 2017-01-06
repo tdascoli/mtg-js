@@ -125,8 +125,12 @@
 
 .playground-container {
   height: 100%;
-  //display: inline-block;
   white-space: nowrap;
+}
+
+.playground--land.playground-container,
+.playground--other.playground-container {
+  display: inline-block;
 }
 
 @media screen and (min-width: 768px) {
