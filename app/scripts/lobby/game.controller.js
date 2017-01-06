@@ -194,7 +194,7 @@
       };
       //--- END USER ---//
 
-      //--- TRIGGERS --//
+      //--- STACK --//
       $scope.trigger='idle';
       var triggers = {
         nextPhase: triggerNextPhase,
@@ -203,20 +203,36 @@
           console.log('trigger is idle');
         }
       };
-      function toStack(trigger){
+
+      $scope.toStack=function(trigger, card){
         // todo stack object definition!!
         // todo to stack + add object to stack > play card, message, etc
         $scope.trigger=trigger;
+        $scope.showStackList=true;
+
+        console.log('toStack',card);
+
+        if (card!==false) {
+          $scope.status.stack.push(card);
+        }
         solveStack();
-      }
+      };
+
       function resolveStack(){
         triggers[$scope.trigger]();
         $scope.trigger='idle';
+        $scope.showStackList=false;
       }
       function solveStack(){
         $scope.status.priority=$scope.getNextPrioPlayer();
       }
-      //--- END TRIGGERS --//
+      $scope.showStack=function(){
+        if ($scope.status.stack.length===0){
+          return 'Empty';
+        }
+        return $scope.status.stack.length+' to Resolve';
+      };
+      //--- END STACK --//
 
       //--- PHASES ---//
       $scope.phases=BattlegroundService.phases;
@@ -261,7 +277,7 @@
       // todo rename to next...
       $scope.nextPhase=function(){
         if ($scope.trigger==='idle') {
-          toStack('nextPhase');
+          $scope.toStack('nextPhase',false);
         }
         else {
           solveStack();
@@ -373,7 +389,13 @@
 
       function triggerPlayCard(){
         // todo CARD
-        var card = $scope.cardIndex;
+        var card = $scope.status.stack[0];
+        playCard(card);
+        // todo remove from stack...
+        $scope.status.stack=[];
+      }
+
+      function playCard(card){
         console.log('play card', card.name);
 
         // todo card.types[1] == creature!! modal
@@ -390,22 +412,24 @@
         else {
           $scope.getPlayerObject().graveyard.push(card);
         }
-
-        $scope.cardIndex='';
       }
 
       $scope.playCardByIndex=function(index){
         if ($scope.hasPriority()) {
           var card = $scope.getPlayerObject().hand[index];
-          // log/stack
-          // add to stack id/index of card...
-          $scope.cardIndex=card;
-          console.log('trigger play card', card.name);
+
           // remove from hand
           $scope.getPlayerObject().hand.splice(index, 1);
 
-          // trigger play card
-          toStack('playCard');
+          if (card.types[0] === 'land'){
+            // play card
+            playCard(card);
+          }
+          else {
+            console.log('trigger play card', card.name);
+            // trigger play card
+            $scope.toStack('playCard',card);
+          }
         }
         else {
           console.log('no prio > showcard?!');
@@ -578,6 +602,8 @@
         return CardsService.renderPandT(type,power,toughness);
       };
       //--- END CARDS ---//
+
+      $scope.appendToEl = angular.element(document.querySelector('.navbar'));
     });
 
 }());

@@ -40,7 +40,7 @@
           turn:0,
           phase:0,
           user:'username',
-          stack:'Empty'
+          stack:[]
         },
         connected: {
           player1:false,

@@ -290,13 +290,16 @@ h2.title-brand {
     margin: 0;
     height: 30px; }
     .navbar-mobile a {
-      display: inline-block;
       margin: 3px auto;
       color: #fff;
       z-index: 1000; }
 
   .navbar-mobile-right {
-    float: right; } }
+    float: right; }
+    .navbar-mobile-right .navbar-mobile-item {
+      text-align: right; }
+      .navbar-mobile-right .navbar-mobile-item a {
+        display: inline-block; } }
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .drawer-controls {
@@ -644,6 +647,24 @@ h2.title-brand {
   height: 310px;
   overflow: auto; }
 
+.stack-list {
+  position: relative;
+  top: -10px;
+  visibility: visible;
+  opacity: 1; }
+
+.stack-list--hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear; }
+
+.test-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: silver;
+  z-index: 2000; }
+
 /*
   always three rows?! see mtg-app!!
 */
@@ -819,7 +840,8 @@ h2.title-brand {
 
 .card-list__card-detail {
   margin: 0 5px;
-  flex-grow: 2; }
+  flex-grow: 2;
+  color: #666666; }
 
 .card-list__cost-set {
   text-align: right; }

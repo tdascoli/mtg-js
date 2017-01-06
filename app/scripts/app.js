@@ -367,7 +367,7 @@ var app = angular.module('mtgJsApp', [
               turn:0,
               phase:0,
               user:'username',
-              stack:'Empty'
+              stack:[]
             };
           },
           player1: function($stateParams,Auth,Decks){

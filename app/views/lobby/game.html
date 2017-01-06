@@ -1,3 +1,7 @@
+<a href class="test-button">
+  <i class="material-icons">more_horiz</i>
+</a>
+
 <div class="game-area">
 
   <div class="game-area__statusbar">
@@ -232,7 +236,7 @@
     </small>
     <small>
       Phase: {{getCurrentPhaseName()}}<br />
-      Stack: {{status.stack}}
+      Stack: {{showStack()}}
     </small>
     <button class="btn">{{actions.secondary}}</button>
   </div>

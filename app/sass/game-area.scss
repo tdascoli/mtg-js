@@ -257,3 +257,25 @@
   height: 310px;
   overflow: auto;
 }
+
+.stack-list {
+  position: relative;
+  top: -10px;
+
+  visibility: visible;
+  opacity: 1;
+}
+
+.stack-list--hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.test-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  color: silver;
+  z-index: 2000;
+}
