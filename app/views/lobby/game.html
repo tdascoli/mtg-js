@@ -36,7 +36,7 @@
       <div class="mtg-card-container">
         <div class="mtg-card-stack">
           <div ng-repeat="hand in getOpponentObject().hand track by $index" class="mtg-card mtg-card--hand">
-            <img src="images/card-back.jpeg" />
+            <img src="images/card-back.jpg" />
           </div>
         </div>
       </div>
@@ -49,7 +49,8 @@
 
             <span class="mtg-card__name">{{card.name}}</span>
             <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
-            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]!=='creature'}" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
+            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]!=='creature' && card.types[1]!=='creature'}" ng-bind-html="renderPandT(card.types,card.power,card.toughness)"></span>
+            <span class="mtg-card__p-and-t" ng-if="card.types[0]==='planeswalker'">{{card.loyalty}}</span>
             <span class="mtg-card__uid">{{card.uid}}</span>
           </div>
         </div>
@@ -106,7 +107,8 @@
                 <span class="mtg-card__block" ng-if="combat.block">
                     <i class="icon-block"></i>
                 </span>
-                <span class="mtg-card__p-and-t" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
+                <span class="mtg-card__p-and-t" ng-bind-html="renderPandT(card.types,card.power,card.toughness)" ng-if="card.types[0]!=='planeswalker'"></span>
+                <span class="mtg-card__p-and-t" ng-if="card.types[0]==='planeswalker'">{{card.loyalty}}</span>
                 <span class="mtg-card__uid">{{card.uid}}</span>
               </div>
             </div>
@@ -136,7 +138,8 @@
                 <span class="mtg-card__block" ng-if="combat.block">
                     <i class="icon-block"></i>
                 </span>
-                <span class="mtg-card__p-and-t" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
+                <span class="mtg-card__p-and-t" ng-if="card.types[0]!=='planeswalker'" ng-bind-html="renderPandT(card.types,card.power,card.toughness)"></span>
+                <span class="mtg-card__p-and-t" ng-if="card.types[0]==='planeswalker'">{{card.loyalty}}</span>
                 <span class="mtg-card__uid">{{card.uid}}</span>
               </div>
             </div>
@@ -185,7 +188,8 @@
 
             <span class="mtg-card__name">{{card.name}}</span>
             <span class="mtg-card__cost" ng-bind-html="renderCost(card.cost)"></span>
-            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]!=='creature'}" ng-bind-html="renderPandT(card.types[0],card.power,card.toughness)"></span>
+            <span class="mtg-card__p-and-t" ng-class="{'hide':card.types[0]!=='creature' && card.types[1]!=='creature'}" ng-bind-html="renderPandT(card.types,card.power,card.toughness)"></span>
+            <span class="mtg-card__p-and-t" ng-if="card.types[0]==='planeswalker'">{{card.loyalty}}</span>
             <span class="mtg-card__uid">{{card.uid}}</span>
           </div>
         </div>

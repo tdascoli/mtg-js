@@ -71,10 +71,6 @@
           <a class="navbar-brand" href="#/home">mtg</a>
         </div>
 
-        <div class="mobile-show navbar-mobile navbar-mobile-right">
-          <div ui-view="topnav"></div>
-        </div>
-
         <div class="mobile-hide">
           <ul class="nav navbar-nav" menus="menuItems">
             <li ng-repeat="menu in menuItems" role="presentation" ui-sref-active="active" ng-show-or-hide-on-auth="{{menu.onAuth}}"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
