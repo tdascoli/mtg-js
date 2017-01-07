@@ -13,11 +13,6 @@
         console.log('starting solitaire game');
       }
 
-      $scope.actions={
-        primary: 'OK',
-        secondary: 'End'
-      };
-
       $scope.view={
         player1: '',
         player2: ''
@@ -39,9 +34,13 @@
         -da: ok, alpha strike (select creature to attack {op name} or select player/planeswalker you wish to attack)
           - select creature (or alpha strike): ok, call back
        */
+      $scope.actions={
+        primary: 'OK',
+        secondary: 'End'
+      };
 
       // todo check if online, when offline message!!
-      Users.setOnline($rootScope.profile.$id);
+      // Users.setOnline($rootScope.profile.$id);
 
       // todo maybe loading different vars for different usage and save status!
       /*
@@ -102,45 +101,6 @@
         }
         return email;
       };
-
-      function resetConnection(){
-        initGame();
-        console.log('start game');
-        $scope.init=false;
-        $scope.idle=false;
-      }
-
-      $scope.loadGame=function(){
-        if (!$scope.solitaire) {
-          $scope.connected[$scope.getPlayer()] = true;
-          $scope.connected.$save().then(function () {
-            console.log('connected', $scope.getPlayer());
-            if ($scope.connected[$scope.getOpponent()]) {
-              // both online
-              $scope.connected.player1 = false;
-              $scope.connected.player2 = false;
-              $scope.connected.$save().then(function () {
-                resetConnection();
-              });
-            }
-          });
-        }
-        else {
-          resetConnection();
-        }
-
-        // todo update player name?!
-        // todo connect players
-      };
-
-      // watch connection -- init
-      $scope.$watchCollection('connected', function(){
-        if ($scope.connected[$scope.getOpponent()] && $scope.init){
-          console.log('opponent connected ('+$scope.getOpponent()+')');
-          resetConnection();
-        }
-      });
-
       $scope.getPlayer=function(){
         var player = $scope.players[$rootScope.profile.$id];
         if ($scope.solitaire){
@@ -165,6 +125,12 @@
           return lodash.merge($scope.player1,$scope.player);
         }
         return lodash.merge($scope.player2,$scope.player);
+      };
+      $scope.getObjectByPlayer=function(player){
+        if ($scope.getPlayer()===player){
+          return $scope.getPlayerObject();
+        }
+        return $scope.getOpponentObject();
       };
       $scope.getNextPlayer=function(){
         if ($scope.status.user===$scope.player1.name){
@@ -196,7 +162,9 @@
 
       //--- STACK --//
       $scope.hideStackList=false;
-      $scope.trigger='idle';
+      // todo put in status!! or stack!!
+      //$scope.status.trigger='idle';
+      //$scope.trigger='idle';
       var triggers = {
         nextPhase: triggerNextPhase,
         playCard: triggerPlayCard,
@@ -206,26 +174,44 @@
       };
 
       $scope.toStack=function(trigger, card){
-        // todo stack object definition!!
+        /*
+          stackObject = {
+            trigger: 'triggerString',
+            card: cardObject,
+            player: 'player1 or player2'
+            target: 'target maybe object can be a card or player or players... or color etc...?!'
+          }
+
+         */
+        // todo stack object definition!! --> also player must be indicated...
         // todo to stack + add object to stack > play card, message, etc
-        $scope.trigger=trigger;
+        var stack = {
+          trigger: trigger,
+          card: card,
+          player: $scope.getPlayer()
+        };
+
+        $scope.status.trigger=trigger;
         $scope.hideStackList=false;
 
         if (card!==false) {
-          $scope.status.stack.push(card);
+          if ($scope.status.stack===undefined){
+            $scope.status.stack=[];
+          }
+          $scope.status.stack.push(stack);
         }
         solveStack();
       };
 
       function resolveStack(){
-        triggers[$scope.trigger]();
-        $scope.trigger='idle';
+        triggers[$scope.status.trigger]();
+        $scope.status.trigger='idle';
       }
       function solveStack(){
         $scope.status.priority=$scope.getNextPrioPlayer();
       }
       $scope.showStack=function(){
-        if ($scope.status.stack.length===0){
+        if ($scope.status.stack===undefined || $scope.status.stack.length===0){
           return 'Empty';
         }
         return $scope.status.stack.length+' to Resolve';
@@ -277,7 +263,7 @@
 
       // todo rename to next...
       $scope.nextPhase=function(){
-        if ($scope.trigger==='idle') {
+        if ($scope.status.trigger==='idle') {
           $scope.toStack('nextPhase',false);
         }
         else {
@@ -288,6 +274,7 @@
       // todo upkeep !! not showing
       $scope.nextTurn=function(){
         console.log('next turn');
+        BattlegroundService.resetPlayedLand();
         $scope.status.turn++;
         // todo next turn, new user! --> user.id
         $scope.status.priority=$scope.getNextPlayer();
@@ -319,7 +306,7 @@
         return 'player2';
       };
       $scope.isCurrentPlayer=function(){
-        if ($scope.player1.name===$scope.status.user){
+        if ($scope.getPlayerObject().name===$scope.status.user){
           return true;
         }
         return false;
@@ -390,41 +377,39 @@
 
       function triggerPlayCard(){
         // todo CARD
-        var card = $scope.status.stack[0];
-        playCard(card);
+        playCard($scope.status.stack[0].card,$scope.status.stack[0].player);
         // todo remove from stack...
         $scope.status.stack=[];
       }
 
-      function playCard(card){
+      function playCard(card,player){
         console.log('play card', card.name);
 
         // todo card.types[1] == creature!! modal
-        if (card.types[0] === 'creature' || card.types[1] === 'creature' || card.types[0] === 'planeswalker') {
+        if (BattlegroundService.isType(card.types,'creature') || BattlegroundService.isType(card.types,'planeswalker')) {
           card.summoned = true;
-          $scope.getPlayerObject().playground.creatures.push(card);
+          $scope.getObjectByPlayer(player).playground.creatures.push(card);
         }
-        else if (card.types[0] === 'land') {
-          $scope.getPlayerObject().playground.lands.push(card);
+        else if (BattlegroundService.isType(card.types,'land')) {
+          BattlegroundService.addPlayedLand();
+          $scope.getObjectByPlayer(player).playground.lands.push(card);
         }
-        else if (card.types[0] === 'artifact' || card.types[0] === 'enchantment') {
-          $scope.getPlayerObject().playground.permanents.push(card);
+        else if (BattlegroundService.isType(card.types,'artifact') || BattlegroundService.isType(card.types,'enchantment')) {
+          $scope.getObjectByPlayer(player).playground.permanents.push(card);
         }
         else {
-          $scope.getPlayerObject().graveyard.push(card);
+          $scope.getObjectByPlayer(player).graveyard.push(card);
         }
       }
 
       $scope.playCardByIndex=function(index){
-        if ($scope.hasPriority()) {
-          var card = $scope.getPlayerObject().hand[index];
-
+        var card = $scope.getPlayerObject().hand[index];
+        if ($scope.hasPriority() && BattlegroundService.spellCastChecker(card.types,$scope.getCurrentPhase(),$scope.isCurrentPlayer())) {
           // remove from hand
           $scope.getPlayerObject().hand.splice(index, 1);
-
-          if (card.types[0] === 'land'){
+          if (BattlegroundService.isType(card.types,'land')){
             // play card
-            playCard(card);
+            playCard(card,$scope.getPlayer());
           }
           else {
             console.log('trigger play card', card.name);
@@ -433,7 +418,7 @@
           }
         }
         else {
-          console.log('no prio > showcard?!');
+          console.log('no prio > showcard?! or not allowed');
         }
       };
       //--- END DECK ---//
@@ -456,25 +441,74 @@
       //--- END ACTION ---//
 
       // INIT
+      function resetConnection(){
+        initGame().then(function(){
+          console.log('start game');
+          $scope.init=false;
+          $scope.idle=false;
+        });
+      }
+
+      $scope.loadGame=function(){
+        if (!$scope.solitaire) {
+          $scope.connected[$scope.getPlayer()] = true;
+          $scope.connected.$save().then(function () {
+            console.log('connected', $scope.getPlayer());
+            if ($scope.connected[$scope.getOpponent()]) {
+              // both online
+              $scope.connected.player1 = false;
+              $scope.connected.player2 = false;
+              $scope.connected.$save().then(function () {
+                coinFlip();
+              });
+            }
+          });
+        }
+        else {
+          // coin flip... useless but the flow needs to be tested?!
+          resetConnection();
+        }
+
+        // todo update player name?!
+        // todo connect players
+      };
+
+      // watch connection -- init (todo obsolete)
+      $scope.$watchCollection('connected', function(){
+        if ($scope.connected[$scope.getOpponent()] && $scope.init){
+          console.log('opponent connected ('+$scope.getOpponent()+')');
+        }
+      });
+
+      // watch player first -- init
+      $scope.$watchCollection('status.first', function(newVal){
+        if (newVal!==undefined){
+          console.log($scope.status.first+' has won the coin toss.');
+          resetConnection();
+        }
+      });
+
+      //=== LOAD GAME ===//
       $scope.loadGame();
 
       // todo make service!!!!
       function coinFlip() {
-        return $q(function(resolve) {
-
-          var player = 'player1';
-          if (!$scope.solitaire){
-            player = (Math.floor(Math.random() * 2) === 0) ? 'player1' : 'player2';
-          }
-          console.log(player+' has won the coin toss.');
-
-          resolve(player);
-        });
+        console.log('flip a coin...');
+        var player = 'player1';
+        if (!$scope.solitaire){
+          player = (Math.floor(Math.random() * 2) === 0) ? 'player1' : 'player2';
+        }
+        $scope.status.first=player;
       }
 
-      function askPlay(player){
+      function askPlay(){
         return $q(function(resolve){
-          if (player===$scope.getPlayer()){
+
+          console.log('ask '+$scope.status.first+' if he wants play first.');
+          var user = $scope.getOpponentObject().name;
+
+          if ($scope.status.first===$scope.getPlayer() || $scope.solitaire){
+
             $uibModal.open({
               animation: true,
               templateUrl: 'views/lobby/modal/simple.html',
@@ -487,15 +521,16 @@
               controller: 'SimpleModalCtrl'
             }).result.then(function (play) {
               if (play){
-                resolve($scope.getPlayerObject().name);
+                user = $scope.getPlayerObject().name;
               }
-              else {
-                resolve($scope.getOpponentObject().name);
-              }
+              $scope.status.priority=user;
+              $scope.status.user=user;
+
+              resolve(user);
             });
           }
           else {
-            resolve($scope.getOpponentObject().name);
+            resolve(user);
           }
         });
       }
@@ -503,7 +538,7 @@
       function prepareLibrary(){
           var uid=1;
           if ($scope.getPlayer()==='player2'){
-            uid=$scope.getOpponentObject().library.length+$scope.getOpponentObject().library.hand+1;
+            uid=101;
           }
 
           for(var i=0;i<$scope.getPlayerObject().library.length;i++){
@@ -514,17 +549,14 @@
       }
 
       function initGame(){
-        console.log('init game');
-        $scope.view[$scope.getPlayer()]='hand';
-        // init game todo --> CALLBACKS!
-        if ($scope.getPlayerObject().init===undefined) {
-          // todo coin and ask for play or not
-          coinFlip().then(function(player){
+        return $q(function(resolve){
+          console.log('init game');
 
-            askPlay(player).then(function(user){
-              $scope.status.priority=user;
-              $scope.status.user=user;
-              console.log(user+' plays first.');
+          $scope.view[$scope.getPlayer()]='hand';
+
+          if ($scope.getPlayerObject().init===undefined && ($scope.getPlayerObject().hand===undefined || $scope.getPlayerObject().hand.length===0)) {
+            // todo coin and ask for play or not
+            askPlay().then(function(){
 
               prepareLibrary();
               // draw 7 cards
@@ -550,13 +582,15 @@
 
                 // GAME STARTS --> wait for player2
                 $scope.getPlayerObject().init=true;
-                $scope.idle=false;
+                resolve(true);
               });
 
             });
-
-          });
-        }
+          }
+          else {
+            resolve(true);
+          }
+        });
       }
       //--- END INIT ---//
 

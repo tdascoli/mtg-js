@@ -40,7 +40,8 @@
           turn:0,
           phase:0,
           user:'username',
-          stack:[]
+          stack:[],
+          trigger: 'idle'
         },
         connected: {
           player1:false,

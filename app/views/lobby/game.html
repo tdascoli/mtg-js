@@ -248,12 +248,12 @@
   </a>
 
   <div class="stack__list list-group" ng-class="{'stack--hide':hideStackList}">
-    <a ng-repeat="card in status.stack track by $index" ng-click="showCard(card, $index, 'init')" class="list-group-item card-list--item">
-      <img ng-src="{{card.editions[0].image_url}}"/>
+    <a ng-repeat="stack in status.stack track by $index" ng-click="showCard(stack.card, $index, 'init')" class="list-group-item card-list--item">
+      <img ng-src="{{stack.card.editions[0].image_url}}"/>
 
       <div class="card-list__card-detail">
-        <strong>{{card.name}}</strong>
-        <p><span class="card-detail__types" ng-repeat="supertype in card.supertypes">{{supertype}}</span> <span class="card-detail__types" ng-repeat="type in card.types">{{type}}</span> <span class="card-detail__types" ng-repeat="subtype in card.subtypes">{{subtype}}</span></p>
+        <strong>{{stack.card.name}}</strong>
+        <p><span class="card-detail__types" ng-repeat="supertype in stack.card.supertypes">{{supertype}}</span> <span class="card-detail__types" ng-repeat="type in stack.card.types">{{type}}</span> <span class="card-detail__types" ng-repeat="subtype in stack.card.subtypes">{{subtype}}</span></p>
       </div>
     </a>
   </div>
